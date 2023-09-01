@@ -16,7 +16,8 @@ import { RootState } from '../../setup'
 import { MasterInit } from '../../_metronic/layout/MasterInit'
 
 const Routes: FC = () => {
-  const isAuthorized = useSelector<RootState>(({ auth }) => auth.user, shallowEqual)
+  // const isAuthorized = useSelector<RootState>(({ auth }) => auth.user, shallowEqual)
+  const isAuthorized = true
 
   return (
     <>

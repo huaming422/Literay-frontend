@@ -7,7 +7,6 @@ import clsx from 'clsx'
 import * as auth from '../redux/AuthRedux'
 import {register} from '../redux/AuthCRUD'
 import {Link} from 'react-router-dom'
-import {toAbsoluteUrl} from '../../../../_metronic/helpers'
 import { PasswordMeterComponent } from "../../../../_metronic/assets/ts/components";
 
 const initialValues = {

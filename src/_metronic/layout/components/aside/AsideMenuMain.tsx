@@ -10,7 +10,12 @@ export function AsideMenuMain() {
 
   return (
     <>
-      <AsideMenuItemWithSub to='/devices' title='Devices' hasBullet={true}>
+      <AsideMenuItemWithSub
+        to='/devices'
+        title='Devices'
+        icon='/media/icons/duotune/graphs/gra008.svg'
+        fontIcon='bi-person'
+      >
         <AsideMenuItem to='/devices/1' title='Radiology' hasBullet={true} />
         <AsideMenuItem to='/devices/2' title='Ophthalmology' hasBullet={true} />
         <AsideMenuItem to='/devices/3' title='Description' hasBullet={true} />
@@ -27,7 +32,7 @@ export function AsideMenuMain() {
       <AsideMenuItem
         to='/modality'
         icon='/media/icons/duotune/art/art002.svg'
-        title="MOdality"
+        title="Modality"
         fontIcon='bi-app-indicator'
       />
       <AsideMenuItem
