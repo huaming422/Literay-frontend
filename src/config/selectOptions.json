@@ -1,0 +1,9 @@
+{
+    "companyinfotype": [
+        "NXNOTEVISIBLE"
+    ],
+    "taskstatus": [
+        "NXTASKOPEN",
+        "NXTASKCLOSE"
+    ]
+}

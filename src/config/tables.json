@@ -1,0 +1,48 @@
+[
+    {
+        "name": "deliveryterms",
+        "de": "Lieferbedingungen",
+        "en": "delivery terms"
+    },
+    {
+        "name": "paymentterms",
+        "de": "Zahlungsbedingungen",
+        "en": "payment terms"
+    },
+    {
+        "name": "deliverymethods",
+        "de": "Fracht Methode",
+        "en": "delivery methods"
+    },
+    {
+        "name": "staff",
+        "de": "Mitarbeiter",
+        "en": "staff"
+    },
+    {
+        "name": "companyinfotype",
+        "de": "Notizen Typ",
+        "en": "note type"
+    },
+    {
+        "name": "taskstatus",
+        "de": "Aufgabe Status",
+        "en": "task status"
+    },
+    {
+        "name": "tasktype",
+        "de": "Aufgabe Typ",
+        "en": "task type"
+    },
+    {
+        "name": "location",
+        "de": "Lager",
+        "en": "warehouse"
+    },
+    {
+        "name": "inventorylocation",
+        "de": "Mitarbeiter",
+        "en": "warehouse shelfs"
+    }
+   
+]

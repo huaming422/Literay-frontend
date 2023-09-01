@@ -1,0 +1,258 @@
+{
+    "deliveryterms": [
+        {
+            "field": "term",
+            "de": "Schlüssel",
+            "en": "key",
+            "type": "text",
+            "unique": true,
+            "null": true
+        },
+        {
+            "field": "text",
+            "de": "Bezeichnung",
+            "en": "description",
+            "type": "text",
+            "unique": false,
+            "null": true
+        }
+    ],
+    "paymentterms": [
+        {
+            "field": "term",
+            "de": "Schlüssel",
+            "en": "key",
+            "type": "text",
+            "unique": true,
+            "null": true
+        },
+        {
+            "field": "text",
+            "de": "Bezeichnung",
+            "en": "description",
+            "type": "text",
+            "unique": false,
+            "null": true
+        }
+    ],
+    "deliverymethods": [
+        {
+            "field": "method",
+            "de": "Schlüssel",
+            "en": "key",
+            "type": "text",
+            "unique": true,
+            "null": true
+        },
+        {
+            "field": "text",
+            "de": "Bezeichnung",
+            "en": "description",
+            "type": "text",
+            "unique": false,
+            "null": true
+        }
+    ],
+    "staff": [
+        {
+            "field": "staffid",
+            "de": "Mitarbeiter Nr",
+            "en": "staff id",
+            "type": "text",
+            "unique": true,
+            "null": true
+        },
+        {
+            "field": "initials",
+            "de": "Kürzel",
+            "en": "initials",
+            "type": "text",
+            "unique": false,
+            "null": true
+        },
+        {
+            "field": "name",
+            "de": "Name",
+            "en": "name",
+            "type": "text",
+            "unique": false,
+            "null": true
+        },
+        {
+            "field": "in_leads",
+            "de": "Projekte",
+            "en": "leads",
+            "type": "checkbox",
+            "unique": false,
+            "null": true
+        },
+        {
+            "field": "in_sales",
+            "de": "Vertreib",
+            "en": "sales",
+            "type": "checkbox",
+            "unique": false,
+            "null": true
+        },
+        {
+            "field": "in_crm",
+            "de": "CRM",
+            "en": "crm",
+            "type": "checkbox",
+            "unique": false,
+            "null": true
+        },
+        {
+            "field": "in_task",
+            "de": "Aufgaben",
+            "en": "tasks",
+            "type": "checkbox",
+            "unique": false,
+            "null": true
+        },
+        {
+            "field": "in_service",
+            "de": "Service",
+            "en": "Service",
+            "type": "checkbox",
+            "unique": false,
+            "null": true
+        }
+    ],
+    "companyinfotype": [
+        {
+            "field": "type",
+            "de": "Schlüssel",
+            "en": "key",
+            "type": "text",
+            "unique": true,
+            "null": true
+        },
+        {
+            "field": "description",
+            "de": "Bezeichnung",
+            "en": "description",
+            "type": "text",
+            "unique": false,
+            "null": true
+        },
+        {
+            "field": "visit",
+            "de": "Besuch",
+            "en": "visit",
+            "type": "checkbox",
+            "unique": false,
+            "null": true
+        },
+        {
+            "field": "key",
+            "de": "Typ",
+            "en": "type",
+            "type": "text-picker",
+            "unique": false,
+            "null": true
+        }
+    ],
+    "taskstatus": [
+        {
+            "field": "status",
+            "de": "Schlüssel",
+            "en": "key",
+            "type": "text",
+            "unique": true,
+            "null": true
+        },
+        {
+            "field": "description",
+            "de": "Bezeichnung",
+            "en": "description",
+            "type": "text",
+            "unique": false,
+            "null": true
+        },
+        {
+            "field": "sortorder",
+            "de": "Reihenfolge",
+            "en": "sort order",
+            "type": "int",
+            "unique": false,
+            "null": true
+        },
+        {
+            "field": "key",
+            "de": "Typ",
+            "en": "type",
+            "type": "text-picker",
+            "unique": false,
+            "null": true
+        }
+    ],
+    "tasktype": [
+        {
+            "field": "status",
+            "de": "Schlüssel",
+            "en": "key",
+            "type": "int",
+            "unique": true,
+            "null": false
+        },
+        {
+            "field": "description",
+            "de": "Bezeichnung",
+            "en": "description",
+            "type": "text",
+            "unique": false,
+            "null": true
+        },
+        {
+            "field": "sortorder",
+            "de": "Reihenfolge",
+            "en": "sort order",
+            "type": "int",
+            "unique": false,
+            "null": true
+        },
+        {
+            "field": "visit",
+            "de": "Besuch",
+            "en": "visit",
+            "type": "checkbox",
+            "unique": false,
+            "null": true
+        }
+    ],
+    "location": [
+        {
+            "field": "locationid",
+            "de": "Lager",
+            "en": "warehouse",
+            "type": "text",
+            "unique": true
+        },
+        {
+            "field": "locationdescription",
+            "de": "Bezeichnung",
+            "en": "description",
+            "type": "text",
+            "unique": false
+        }
+    ],
+    "inventorylocation": [
+        {
+            "field": "stock",
+            "de": "Lager",
+            "en": "warehouse",
+            "type": "text",
+            "unique": true,
+            "null": true
+        },
+        {
+            "field": "location",
+            "de": "Lagerfach",
+            "en": "shelf",
+            "type": "text",
+            "unique": true,
+            "null": true
+        }
+    ]
+}

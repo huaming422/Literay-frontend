@@ -1,0 +1,88 @@
+{
+    "company": [
+        {
+            "field": "address",
+            "de": "Address",
+            "en": "Address"
+        },
+        {
+            "field": "person",
+            "de": "Person",
+            "en": "Person"
+        },
+        {
+            "field": "note",
+            "de": "Notiz",
+            "en": "Note"
+        },
+        {
+            "field": "tasks",
+            "de": "Aufgaben",
+            "en": "Task"
+        }
+    ],
+    "items": [
+        {
+            "field": "pricelist",
+            "de": "Price list",
+            "en": "Price list"
+        },
+        {
+            "field": "discountlist",
+            "de": "Discount list",
+            "en": "Discount list"
+        },
+        {
+            "field": "itemstock",
+            "de": "Items stock",
+            "en": "Items stock"
+        },
+        {
+            "field": "itemdescription",
+            "de": "Item description",
+            "en": "Item description"
+        },
+        {
+            "field": "picture",
+            "de": "Bilder",
+            "en": "Picture"
+        },
+        {
+            "field": "document",
+            "de": "Dokumente",
+            "en": "Document"
+        }
+    ],
+    "ordersheader": [
+        {
+            "field": "positions",
+            "de": "Positions",
+            "en": "Positions"
+        },
+        {
+            "field": "document",
+            "de": "Dokumente",
+            "en": "Document"
+        }
+    ],
+    "quotesheader": [
+        {
+            "field": "positions",
+            "de": "Positions",
+            "en": "Positions"
+        }
+    ],
+    "invoicesheader": [
+        {
+            "field": "positions",
+            "de": "Positions",
+            "en": "Positions"
+        }
+    ],
+    "tasks": [
+      
+    ],
+    "note": [
+       
+    ]
+}
