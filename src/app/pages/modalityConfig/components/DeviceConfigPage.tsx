@@ -16,12 +16,6 @@ const DeviceConfigPage = () => {
 
   const columnValues: any = useSelector<RootState>(({ modalityConfig }) => modalityConfig.deviceConfigSettingColumnValues, shallowEqual) as any;
 
-  const [saveState, setSaveState] = useState({
-    Updated: false,
-    Inserted: false,
-    Deleted: false,
-  })
-
   useEffect(() => {
     if (columnValues) {
       setTotalData(columnValues);

@@ -117,7 +117,7 @@ const TabContent = (props: any) => {
 
   /////////////////////////////////////////
 
-  let PageSize = 20;
+  const [PageSize, setPageSize] = useState<number>(10);
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
@@ -476,6 +476,7 @@ const TabContent = (props: any) => {
         currentPage={currentPage}
         totalCount={totalColumnItems.length}
         pageSize={PageSize}
+        setPageSize={setPageSize}
         onPageChange={handlePageChange}
       />
       <Modal
