@@ -11,12 +11,14 @@ import { CreateDeviceConfigModal } from '../CreateDeviceConfigModal';
 import * as item from '../../redux/DeviceConfigredux'
 import { useDispatch } from 'react-redux';
 import TabTableItem from '../TableItem';
+import { alphabetically } from '../../../../../setup/utils/utils';
 
 
 const TabContent = (props: any) => {
   const { totalData, setTotalData, headers } = props;
 
   const [hasIssue, setHasIssue] = useState<boolean>(false);
+  const [deleting, setDeleting] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalColumnItems, setTotalColumnItems] = useState<any[]>(totalData);
   const [columnItems, setColumnItems] = useState<any[]>([]);
@@ -42,7 +44,7 @@ const TabContent = (props: any) => {
     }
   };
   useEffect(() => {
-    if (checkedData.length === totalColumnItems.length) {
+    if (checkedData.length === currentTableData.length) {
       setCheckedAll(true);
     } else {
       setCheckedAll(false);
@@ -177,6 +179,10 @@ const TabContent = (props: any) => {
     setTotalData(() => [...tempData])
   }
 
+  const handleDeleteMany = () => {
+
+  }
+
   const handleChangeWidth = (e: any, id: any) => {
     let currentwidth = columnWidthsObj[id] + e.width;
     if (columnWidthsObj[id] === 0) {
@@ -203,50 +209,6 @@ const TabContent = (props: any) => {
       [id]: width
     }
     minColumnWidthsObj = updateItems;
-  }
-
-  function alphabetically(field: string, ascending: any) {
-    return function (a: any, b: any) {
-      let avalue = a[field];
-      let bvalue = b[field];
-
-      // equal items sort equally
-      if (avalue === bvalue) {
-        return 0;
-      }
-
-      // nulls sort avaluefter anything else
-      if (avalue === null) {
-        return 1;
-      }
-      if (bvalue === null) {
-        return -1;
-      }
-      if (avalue === undefined) {
-        return 1;
-      }
-      if (bvalue === undefined) {
-        return -1;
-      }
-      try {
-        avalue = parseFloat(avalue);
-        bvalue = parseFloat(bvalue);
-      } catch (error) {
-      }
-
-      if (isNaN(avalue) || isNaN(bvalue)) {
-        avalue = a[field].toLowerCase();
-        bvalue = b[field].toLowerCase();
-      }
-
-      // otherwise, if we're ascending, lowest sorts first
-      if (ascending) {
-        return avalue < bvalue ? -1 : 1;
-      }
-
-      // if descending, highest sorts first
-      return avalue < bvalue ? 1 : -1;
-    };
   }
 
   const handleSort = (field: string, flag: boolean) => {
@@ -299,37 +261,44 @@ const TabContent = (props: any) => {
             </h2>
           </div>
 
-          <div>
-            <button
-              className={`btn btn-sm btn-flex btn-light ${activeAdd ? "btn-active-primary" : ""}  fw-bolder me-1`}
-              onMouseLeave={() => setActiveAdd(false)}
-              onMouseOver={() => setActiveAdd(true)}
-              onClick={openModal}
-            >
-              <KTSVG
-                path='/media/icons/duotune/arrows/arr075.svg'
-                className='svg-icon-5 svg-icon-gray-500 me-1'
-              />
-              {
-                intl.formatMessage({ id: 'MENU.ADD' })
-              }
-            </button>
-            {/* <button disabled={!hasChanged} onClick={handleSave} className='btn btn-sm btn-primary mr-3'>
-              {!saving &&
-                <span className='indicator-label'>
+          <div >
+            {
+              checkedData.length > 0 ?
+                <div className='d-flex justify-content-center align-items-center'>
+                  <div className='fs-6 fw-bold text-gray-700 me-2'> {checkedData.length} rows</div>
+                  <button onClick={handleDeleteMany} className='btn btn-sm btn-danger mr-3'>
+                    {!deleting &&
+                      <span className='indicator-label'>
+                        {
+                          intl.formatMessage({ id: 'SEARCH.DELETE' })
+                        }
+                      </span>}
+                    {deleting && (
+                      <span className='indicator-progress' style={{ display: 'block' }}>
+                        {
+                          intl.formatMessage({ id: 'MENU.PLEASE.WAIT' })
+                        }
+                        <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
+                      </span>
+                    )}
+                  </button>
+                </div>
+                :
+                <button
+                  className={`btn btn-sm btn-flex btn-light ${activeAdd ? "btn-active-primary" : ""}  fw-bolder me-1`}
+                  onMouseLeave={() => setActiveAdd(false)}
+                  onMouseOver={() => setActiveAdd(true)}
+                  onClick={openModal}
+                >
+                  <KTSVG
+                    path='/media/icons/duotune/arrows/arr075.svg'
+                    className='svg-icon-5 svg-icon-gray-500 me-1'
+                  />
                   {
-                    intl.formatMessage({ id: 'MENU.SAVE' })
+                    intl.formatMessage({ id: 'MENU.ADD' })
                   }
-                </span>}
-              {saving && (
-                <span className='indicator-progress' style={{ display: 'block' }}>
-                  {
-                    intl.formatMessage({ id: 'MENU.PLEASE.WAIT' })
-                  }
-                  <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
-                </span>
-              )}
-            </button> */}
+                </button>
+            }
           </div>
 
         </div>
