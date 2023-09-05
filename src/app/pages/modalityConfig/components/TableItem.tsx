@@ -11,12 +11,14 @@ import Modal from 'react-modal';
 import { KTSVG } from '../../../../_metronic/helpers';
 import { EditDeviceConfigModal } from './EditDeviceConfigModal ';
 import Checkbox from '../../../components/DeviceSettingCheckbox';
+import { useIntl } from 'react-intl';
 
 
 const TableItem = (props: any) => {
     const { indexing, headers, data, handleEdit, handleDelete, checkedRows, handleSelect } = props;
     const [odd, setOdd] = useState<boolean>(false);
     const [background, setBackground] = useState<string>("");
+    const intl = useIntl()
 
     const isChecked = checkedRows!.includes(data.id);
 
@@ -30,10 +32,6 @@ const TableItem = (props: any) => {
 
     const handleClick = () => {
         setIsOpen(true);
-    }
-
-    const handledelete = () => {
-        handleDelete(data.id)
     }
 
     const [modalIsOpen, setIsOpen] = useState(false);
@@ -54,6 +52,28 @@ const TableItem = (props: any) => {
         }
         // eslint-disable-next-line
     }, [data, odd])
+
+    const handledelete = () => {
+        // @ts-ignore
+        Swal.fire({
+            text:  intl.formatMessage({ id: 'SEARCH.WOULD.DELETE.COMPANY.PREFIX' }) + '"' + data.ae_title + '"' + intl.formatMessage({ id: 'SEARCH.WOULD.DELETE.COMPANY.SUBFIX' }),
+            icon: "warning",
+            showCancelButton: true,
+            buttonsStyling: false,
+            confirmButtonText: intl.formatMessage({ id: 'SEARCH.DELETE' }),
+            cancelButtonText: intl.formatMessage({ id: 'SEARCH.CANCEL' }),
+            customClass: {
+                confirmButton: "btn btn-primary",
+                cancelButton: "btn btn-active-light"
+            }
+        }).then(async function (result: any) {
+            if (result.value) {
+             handleDelete(data.id);
+            } else if (result.dismiss === 'cancel') {
+                
+            }
+        });
+    }
 
     const customStyles = {
         content: {

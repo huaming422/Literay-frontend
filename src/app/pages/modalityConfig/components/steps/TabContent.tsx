@@ -119,16 +119,16 @@ const TabContent = (props: any) => {
 
   /////////////////////////////////////////
 
-  const [PageSize, setPageSize] = useState<number>(10);
+  const [PageSize, setPageSize] = useState<string>('10');
   const currentTableData = useMemo(() => {
-    const firstPageIndex = (currentPage - 1) * PageSize;
-    const lastPageIndex = firstPageIndex + PageSize;
+    const firstPageIndex = (currentPage - 1) * parseInt(PageSize);
+    const lastPageIndex = firstPageIndex + parseInt(PageSize);
     return totalColumnItems?.slice(firstPageIndex, lastPageIndex);
   }, [currentPage, totalColumnItems, PageSize]);
 
   const handlePageChange = (props: any) => {
     let page = parseInt(props);
-    let itemscount = (page - 1) * PageSize;
+    let itemscount = (page - 1) * parseInt(PageSize);
     if (itemscount < totalColumnItems.length) {
       setCurrentPage(page);
     } else {
@@ -255,8 +255,7 @@ const TabContent = (props: any) => {
           <div className='d-flex'>
             <h2 className='fw-bolder align-items-center  text-dark'>
               {
-                // intl.formatMessage({ id: 'MENU.DEVICE.CONFIGURATION' })
-                "Devices"
+                intl.formatMessage({ id: 'MENU.DEVICE.CONFIGURATION' })
               }
             </h2>
           </div>

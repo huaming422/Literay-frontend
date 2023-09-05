@@ -30,8 +30,8 @@ export const DModalityHead = [
     width: 120
   },
   {
-    field: 'descriptions',
-    label: 'Descriptions',
+    field: 'description',
+    label: 'Description',
     type: 'text',
     width: 200
   },
