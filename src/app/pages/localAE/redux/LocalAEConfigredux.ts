@@ -20,7 +20,7 @@ export interface IDeviceConfigSettingState {
 }
 
 export const reducer = persistReducer(
-  { storage, key: 'literary-modality', whitelist:  [ ] },
+  { storage, key: 'literary-local', whitelist:  [ ] },
   (state: IDeviceConfigSettingState = initialDeviceConfigSettingState, action: any) => {
     switch (action.type) {
       case actionTypes.GetDeviceConfigSettingTableData: {
