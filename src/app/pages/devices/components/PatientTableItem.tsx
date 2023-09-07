@@ -17,7 +17,7 @@ import { DStudyColumnValues, DStudyHead } from '../data';
 
 
 const PatientTableItem = (props: any) => {
-    const { indexing, headers, data, checkedRows, handleSelect } = props;
+    const { indexing, headers, data, checkedRows, handleSelect, parentWidth } = props;
     const [odd, setOdd] = useState<boolean>(false);
     const [background, setBackground] = useState<string>("");
 
@@ -176,10 +176,11 @@ const PatientTableItem = (props: any) => {
             <tr>
                 <td colSpan={8} style={{ padding: 0 }}>
                     <div id={`kt_job_4_${indexing}`} className="collapse fs-6 ms-1">
-                        <div className="ps-10 pb-5" style={{ paddingRight: '10px' }}>
+                        <div className="ps-10 pb-5">
                             <StudyContent
                                 id={data.id}
                                 totalData={totalData}
+                                parentWidth={parentWidth}
                                 setTotalData={setTotalData}
                                 headers={DStudyHead}
                             />

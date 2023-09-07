@@ -13,7 +13,7 @@ import StudyTableItem from '../StudyTableItem';
 
 
 const StudyContent = (props: any) => {
-  const { totalData, setTotalData, headers } = props;
+  const { totalData, setTotalData, headers, parentWidth } = props;
   const [currentPage, setCurrentPage] = useState(1);
   const [totalColumnItems, setTotalColumnItems] = useState<any[]>(totalData);
   const [columnItems, setColumnItems] = useState<any[]>([]);
@@ -178,7 +178,7 @@ const StudyContent = (props: any) => {
   }, [sortAsc])
 
   return (
-    <div className='w-100' >
+    <div style={{width: `${parentWidth-23}px`}} >
       <div className='pb-0 pt-3'>
         <div className='d-flex justify-content-between'>
           <div className='d-flex'>

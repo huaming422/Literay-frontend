@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-import React, { useState, useMemo, useEffect } from 'react'
+import React, { useState, useMemo, useEffect, useRef } from 'react'
 import Pagenation from '../../../../components/pagination/Pagenation'
 import NoDatas from '../../../../components/NoDatas'
 import { MenuComponent } from '../../../../../_metronic/assets/ts/components';
@@ -78,16 +78,6 @@ const TabContent = (props: any) => {
 
     setSortASC(sort);
   }, [headers])
-
-  const [modalIsOpen, setIsOpen] = useState(false);
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
 
   /////////////////////////////////////////
 
@@ -196,8 +186,15 @@ const TabContent = (props: any) => {
     // eslint-disable-next-line
   }, [sortAsc])
 
+  const [parentWidth, setParentWidth] = useState<number>(0);
+
+  const ref = useRef<any>(null);
+  useEffect(() => {
+    setParentWidth(ref.current ? ref.current.offsetWidth : 0)
+  }, [ref.current]);
+
   return (
-    <div className='w-100' >
+    <div className='w-100' ref={ref} >
       <div className='pb-6'>
         <div className='d-flex justify-content-between'>
           <div className='d-flex'>
@@ -234,7 +231,7 @@ const TabContent = (props: any) => {
               className={`btn btn-sm btn-flex btn-light ${activeAdd ? "btn-active-primary" : ""}  fw-bolder me-1`}
               onMouseLeave={() => setActiveAdd(false)}
               onMouseOver={() => setActiveAdd(true)}
-              onClick={openModal}
+              onClick={() => { }}
             >
               <KTSVG
                 path='/media/icons/duotune/arrows/arr075.svg'
@@ -374,6 +371,7 @@ const TabContent = (props: any) => {
                       key={item['id']}
                       data={item}
                       indexing={index}
+                      parentWidth={parentWidth}
                       headers={columnNames}
                       checkedRows={checkedData}
                       handleSelect={toggleSetting}
