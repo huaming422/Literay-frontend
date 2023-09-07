@@ -6,9 +6,10 @@ import { RootState } from '../../../../setup';
 import * as devices from '../redux/Devicesredux'
 import { TabContent } from './steps/PatientContent';
 import { UserModel } from '../../auth/models/UserModel';
-import { DPatientColumnValues } from '../data';
+import { DPatientColumnValues, DPatientHead } from '../data';
 
-const DeviceConfigPage = () => {
+const DeviceConfigPage = (props: any) => {
+  const {id} = props;
   const user: UserModel = useSelector<RootState>(({ auth }) => auth.user, shallowEqual) as UserModel
   const dispatch = useDispatch();
   const [totalData, setTotalData] = useState<any[]>([]);
@@ -39,7 +40,7 @@ const DeviceConfigPage = () => {
   useEffect(() => {
     getDatas();
     // eslint-disable-next-line
-  }, [])
+  }, [id])
 
   return (
     <div className='card'>
@@ -50,7 +51,7 @@ const DeviceConfigPage = () => {
               <TabContent
                 totalData={totalData}
                 setTotalData={setTotalData}
-                headers={DPatientColumnValues}
+                headers={DPatientHead}
                 setHasChanged={setHasChanged}
                 hasChanged={hasChanged}
                 getDatas={getDatas}

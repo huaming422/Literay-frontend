@@ -1,11 +1,5 @@
 export const DPatientHead = [
   {
-    field: 'id',
-    label: 'No',
-    type: 'text',
-    width: 40
-  },
-  {
     field: 'name',
     label: 'Name',
     type: "text",
@@ -15,13 +9,13 @@ export const DPatientHead = [
     field: 'patient_id',
     label: 'Patient ID',
     type: "text",
-    width: 120
+    width: 150
   },
   {
     field: 'patient_birthdate',
     label: 'Patient Birth Date',
     type: 'text',
-    width: 100
+    width: 141
   },
   {
     field: 'patient_sex',
@@ -33,17 +27,11 @@ export const DPatientHead = [
     field: 'other_patient_ids',
     label: 'Other Patient IDs',
     type: 'text',
-    width: 200
+    width: 189
   },
 ];
 
 export const DStudyHead = [
-  {
-    field: 'id',
-    label: 'No',
-    type: 'text',
-    width: 40
-  },
   {
     field: 'name',
     label: 'Name',
@@ -60,25 +48,25 @@ export const DStudyHead = [
     field: 'accession_number',
     label: 'Accession Number',
     type: 'text',
-    width: 100
+    width: 130
   },
   {
     field: 'institution_name',
     label: 'Institution Nam',
     type: 'text',
-    width: 100
+    width: 140
   },
   {
     field: 'referring_physician_name',
     label: 'Referring Physician Name',
     type: 'text',
-    width: 100
+    width: 160
   },
   {
     field: 'study_instance_uid',
     label: 'Study Instance UID',
     type: 'text',
-    width: 100
+    width: 250
   },
   {
     field: 'study_id',

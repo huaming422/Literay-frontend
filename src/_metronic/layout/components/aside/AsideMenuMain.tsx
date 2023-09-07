@@ -1,12 +1,48 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/jsx-no-target-blank */
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { AsideMenuItem } from './AsideMenuItem'
 // import { useIntl } from 'react-intl'
 import { AsideMenuItemWithSub } from './AsideMenuItemWithSub';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../../setup';
+import { UserModel } from '../../../../app/pages/auth/models/UserModel';
+import * as devices from '../../../../app/pages/modalityConfig/redux/DeviceConfigredux'
+import { DModalityColumnValues } from '../../../../app/pages/modalityConfig/data';
 
 export function AsideMenuMain() {
   // const intl = useIntl();
+  const user: UserModel = useSelector<RootState>(({ auth }) => auth.user, shallowEqual) as UserModel
+  const dispatch = useDispatch();
+  const [totalData, setTotalData] = useState<any[]>([]);
+
+  const columnValues: any = useSelector<RootState>(({ modalityConfig }) => modalityConfig.deviceConfigSettingColumnValues, shallowEqual) as any;
+
+  useEffect(() => {
+    if (columnValues) {
+      setTotalData(columnValues);
+    }
+  }, [columnValues])
+
+
+  const getDatas = () => {
+    dispatch(devices.actions.getDeviceConfigSettingTableData(DModalityColumnValues))
+    // getDeviceConfigSettingsData(body)
+    //   .then((res: any) => {
+    //     let { data } = res;
+    //     dispatch(item.actions.getDeviceConfigSettingTableData(data))
+    //   })
+    //   .catch((error: any) => {
+    //     debugger
+    //     setHasIssue(true);
+    //   })
+  }
+
+
+  useEffect(() => {
+    getDatas();
+    // eslint-disable-next-line
+  }, [])
 
   return (
     <>
@@ -16,9 +52,13 @@ export function AsideMenuMain() {
         icon='/media/icons/duotune/graphs/gra008.svg'
         fontIcon='bi-person'
       >
-        <AsideMenuItem to='/devices/1' title='Radiology' hasBullet={true} />
-        <AsideMenuItem to='/devices/2' title='Ophthalmology' hasBullet={true} />
-        <AsideMenuItem to='/devices/3' title='Description' hasBullet={true} />
+        {
+          totalData?.map((item: any) => {
+            return (
+              <AsideMenuItem to={`/devices/${item.id}`} title={item.ae_title} hasBullet={true} />
+            )
+          })
+        }
       </AsideMenuItemWithSub>
 
       <div className='menu-item'>

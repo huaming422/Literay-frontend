@@ -10,6 +10,7 @@ import * as item from '../../redux/Devicesredux'
 import { useDispatch } from 'react-redux';
 import TabTableItem from '../ImageTableItem';
 import { alphabetically } from '../../../../../setup/utils/utils';
+import PatientTableItem from '../PatientTableItem';
 
 
 const TabContent = (props: any) => {
@@ -202,7 +203,8 @@ const TabContent = (props: any) => {
           <div className='d-flex'>
             <h2 className='fw-bolder align-items-center  text-dark'>
               {
-                intl.formatMessage({ id: 'MENU.DEVICE.CONFIGURATION' })
+                // intl.formatMessage({ id: 'MENU.DEVICE.CONFIGURATION' })
+                "Patients"
               }
             </h2>
           </div>
@@ -257,17 +259,20 @@ const TabContent = (props: any) => {
         </div>
       }
 
-      <div className='w-100' style={{ overflow: 'auto', border: '1px solid #dfdbdb' }}>
-        <table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4' >
+      <div className='w-100' style={{ overflow: 'auto', border: '1px solid #dfdbdb', position: 'relative' }}>
+        <table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-0' style={{ margin: 0 }}>
           <thead>
             <tr className='fw-bolder text-muted'>
-              <th className='w-30px'
+              <th className='w-40px overflow-hidden text-left'
                 style={{
                   borderRight: "solid 1px #cbc8c8",
-                  paddingLeft: 5
+                }} />
+              <th className='w-20px align-items-center'
+                style={{
+                  borderRight: "solid 1px #cbc8c8",
                 }}
               >
-                <div className='form-check form-check-sm form-check-custom form-check-solid w-30px justify-content-center'>
+                <div className='form-check form-check-sm form-check-custom form-check-solid w-20px justify-content-center mb-3 '>
                   <input
                     className='form-check-input'
                     type='checkbox'
@@ -357,7 +362,7 @@ const TabContent = (props: any) => {
                   )
                 })
               }
-              <th className='w-40px overflow-hidden text-left'></th>
+              <th className='overflow-hidden text-left'></th>
             </tr>
           </thead>
           <tbody>
@@ -365,7 +370,7 @@ const TabContent = (props: any) => {
               columnItems?.length > 0 ?
                 columnItems?.map((item: any, index: any) => {
                   return (
-                    <TabTableItem
+                    <PatientTableItem
                       key={item['id']}
                       data={item}
                       indexing={index}

@@ -13,10 +13,10 @@ import { StudyContent } from './steps/StudyContent';
 import { UserModel } from '../../auth/models/UserModel';
 import { RootState } from '../../../../setup';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { DStudyColumnValues } from '../data';
+import { DStudyColumnValues, DStudyHead } from '../data';
 
 
-const TableItem = (props: any) => {
+const PatientTableItem = (props: any) => {
     const { indexing, headers, data, checkedRows, handleSelect } = props;
     const [odd, setOdd] = useState<boolean>(false);
     const [background, setBackground] = useState<string>("");
@@ -24,27 +24,27 @@ const TableItem = (props: any) => {
     const user: UserModel = useSelector<RootState>(({ auth }) => auth.user, shallowEqual) as UserModel
     const dispatch = useDispatch();
     const [totalData, setTotalData] = useState<any[]>([]);
-  
+
     const columnValues: any = useSelector<RootState>(({ devices }) => devices.studyColumnValues, shallowEqual) as any;
-  
+
     useEffect(() => {
-      if (columnValues) {
-        setTotalData(columnValues);
-      }
+        if (columnValues) {
+            setTotalData(columnValues);
+        }
     }, [columnValues])
-  
-  
+
+
     const getDatas = () => {
-      dispatch(devices.actions.getStudyData(DStudyColumnValues))
-      // getDeviceConfigSettingsData(body)
-      //   .then((res: any) => {
-      //     let { data } = res;
-      //     dispatch(item.actions.getDeviceConfigSettingTableData(data))
-      //   })
-      //   .catch((error: any) => {
-      //     debugger
-      //     setHasIssue(true);
-      //   })
+        dispatch(devices.actions.getStudyData(DStudyColumnValues))
+        // getDeviceConfigSettingsData(body)
+        //   .then((res: any) => {
+        //     let { data } = res;
+        //     dispatch(item.actions.getDeviceConfigSettingTableData(data))
+        //   })
+        //   .catch((error: any) => {
+        //     debugger
+        //     setHasIssue(true);
+        //   })
     }
 
     const isChecked = checkedRows!.includes(data.id);
@@ -77,7 +77,7 @@ const TableItem = (props: any) => {
         <>
 
             <tr className={background} onClick={getDatas}>
-                <td style={{ width: '20px', height: 40, padding: '0px 5px 0px 5px ' }}>
+                <td style={{ width: '40px', height: 40, padding: '0px 5px 0px 5px ' }}>
                     <div className="d-flex align-items-center collapsible toggle collapsed mb-0" data-toggle="collapse" data-target={`#kt_job_4_${indexing}`} aria-expanded="true" aria-controls="faq1" role="button">
                         <div className="btn btn-sm btn-icon mw-20px btn-active-color-primary">
                             <KTSVG
@@ -91,7 +91,7 @@ const TableItem = (props: any) => {
                         </div>
                     </div>
                 </td>
-                <td style={{ paddingLeft: 5 }}>
+                <td style={{ height: 40, borderRight: "solid 1px #cbc8c8", borderLeft: "solid 1px #cbc8c8" }}>
                     <div className='form-check form-check-sm form-check-custom form-check-solid justify-content-center'>
                         <input
                             className='form-check-input widget-9-check'
@@ -170,16 +170,18 @@ const TableItem = (props: any) => {
                         }
                     })
                 }
+                <td style={{ width: '100%', height: 40}}>
+                </td>
             </tr >
             <tr>
-                <td colSpan={12} style={{ padding: 0 }}>
+                <td colSpan={8} style={{ padding: 0 }}>
                     <div id={`kt_job_4_${indexing}`} className="collapse fs-6 ms-1">
                         <div className="ps-10 pb-5" style={{ paddingRight: '10px' }}>
                             <StudyContent
                                 id={data.id}
                                 totalData={totalData}
                                 setTotalData={setTotalData}
-                                headers={DStudyColumnValues}
+                                headers={DStudyHead}
                             />
                         </div>
                     </div>
@@ -189,4 +191,4 @@ const TableItem = (props: any) => {
     )
 }
 
-export default TableItem;
+export default PatientTableItem;

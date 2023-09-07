@@ -314,7 +314,7 @@ const TabContent = (props: any) => {
       }
 
       <div className='w-100' style={{ overflow: 'auto', border: '1px solid #dfdbdb' }}>
-        <table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4' >
+        <table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4' style={{margin: 0}}>
           <thead>
             <tr className='fw-bolder text-muted'>
               <th className='w-30px'

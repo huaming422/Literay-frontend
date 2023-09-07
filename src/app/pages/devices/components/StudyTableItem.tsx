@@ -59,8 +59,8 @@ const StudyTableItem = (props: any) => {
 
     return (
         <tr className={background} onClick={getDatas}>
-            <td style={{ paddingLeft: 5 }}>
-                <div className='form-check form-check-sm form-check-custom form-check-solid justify-content-center'>
+            <td style={{padding: 0}}>
+                <div className='form-check form-check-sm w-40x form-check-custom form-check-solid justify-content-center'>
                     <input
                         className='form-check-input widget-9-check'
                         type='checkbox'

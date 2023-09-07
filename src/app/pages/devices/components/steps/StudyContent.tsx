@@ -179,25 +179,27 @@ const StudyContent = (props: any) => {
 
   return (
     <div className='w-100' >
-      <div className='pb-6'>
+      <div className='pb-0 pt-3'>
         <div className='d-flex justify-content-between'>
           <div className='d-flex'>
             <h2 className='fw-bolder align-items-center  text-dark'>
               {
-                intl.formatMessage({ id: 'MENU.DEVICE.CONFIGURATION' })
+                // intl.formatMessage({ id: 'MENU.DEVICE.CONFIGURATION' })
+                "Study"
               }
             </h2>
           </div>
         </div>
       </div>
       <div className='w-100' style={{ overflow: 'auto', border: '1px solid #dfdbdb' }}>
-        <table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4' >
+        <table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-0' style={{margin: 0}}>
           <thead>
             <tr className='fw-bolder text-muted'>
-              <th className='w-30px'
+              <th className='w-40px'
                 style={{
                   borderRight: "solid 1px #cbc8c8",
-                  paddingLeft: 5
+                  padding: 5,
+                  paddingBottom: 10
                 }}
               >
                 <div className='form-check form-check-sm form-check-custom form-check-solid w-30px justify-content-center'>
