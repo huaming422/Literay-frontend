@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { updateDeviceConfigData, deleteDeviceConfigData, getDeviceConfigSettingsData } from '../redux/DevicesCRUD';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../setup';
-import * as item from '../redux/Devicesredux'
-import { TabContent } from './steps/TabContent';
+import * as devices from '../redux/Devicesredux'
+import { TabContent } from './steps/PatientContent';
 import { UserModel } from '../../auth/models/UserModel';
 import { DPatientColumnValues } from '../data';
 
@@ -24,7 +24,7 @@ const DeviceConfigPage = () => {
 
 
   const getDatas = () => {
-    dispatch(item.actions.getPatientData(DPatientColumnValues))
+    dispatch(devices.actions.getPatientData(DPatientColumnValues))
     // getDeviceConfigSettingsData(body)
     //   .then((res: any) => {
     //     let { data } = res;
@@ -35,7 +35,6 @@ const DeviceConfigPage = () => {
     //     setHasIssue(true);
     //   })
   }
-
 
   useEffect(() => {
     getDatas();

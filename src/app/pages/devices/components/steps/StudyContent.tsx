@@ -5,26 +5,20 @@ import NoDatas from '../../../../components/NoDatas'
 import { MenuComponent } from '../../../../../_metronic/assets/ts/components';
 import { useIntl } from 'react-intl';
 import { KTSVG } from '../../../../../_metronic/helpers'
-import Modal from 'react-modal';
 import { Resizable } from 're-resizable';
-import { CreateDeviceConfigModal } from '../CreateDeviceConfigModal';
 import * as item from '../../redux/Devicesredux'
 import { useDispatch } from 'react-redux';
-import TabTableItem from '../TableItem';
 import { alphabetically } from '../../../../../setup/utils/utils';
+import StudyTableItem from '../StudyTableItem';
 
 
-const TabContent = (props: any) => {
+const StudyContent = (props: any) => {
   const { totalData, setTotalData, headers } = props;
-
-  const [hasIssue, setHasIssue] = useState<boolean>(false);
-  const [deleting, setDeleting] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalColumnItems, setTotalColumnItems] = useState<any[]>(totalData);
   const [columnItems, setColumnItems] = useState<any[]>([]);
   const [columnNames, setColumnNames] = useState<any[]>([]);
   const [checkedData, setCheckedData] = useState<number[]>([]);
-  const [activeAdd, setActiveAdd] = useState<boolean>(false);
   const [sortAsc, setSortASC] = useState<any>();
   const [currentsort, setCurrentSort] = useState<string>("id");
   const [sortFlag, setSortFlag] = useState<boolean>(true);
@@ -79,16 +73,6 @@ const TabContent = (props: any) => {
 
     setSortASC(sort);
   }, [headers])
-
-  const [modalIsOpen, setIsOpen] = useState(false);
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
 
   /////////////////////////////////////////
 
@@ -147,42 +131,6 @@ const TabContent = (props: any) => {
     }, 500)
   }, [currentPage])
 
-  const handleAdd = (newData: any) => {
-    const json = JSON.stringify(totalData);
-    const tempTotalData = JSON.parse(json);
-    tempTotalData.push(newData);
-    const items = [...tempTotalData].sort((a: any, b: any) => {
-      return b['id'] < a['id'] ? -1 : 1;
-    }
-    );
-
-    let sort = sortAsc;
-    sort['id'] = false;
-    setSortFlag(false);
-    setSortASC(sort);
-    setCurrentSort('id');
-    setTotalData([...items]);
-    dispatch(item.actions.setDeviceConfigSettingData(items));
-  }
-
-  const handleEdit = (editData: any) => {
-    const json = JSON.stringify(totalData);
-    const tempTotalData = JSON.parse(json);
-    const objIndex = tempTotalData.findIndex(((obj: any) => obj.id === editData.id));
-    tempTotalData[objIndex] = editData;
-    setTotalData(() => [...tempTotalData])
-    dispatch(item.actions.setDeviceConfigSettingData(tempTotalData));
-  }
-
-  const handleDelete = (id: string) => {
-    let tempData = totalData.filter((item: any) => item.id !== id);
-    setTotalData(() => [...tempData])
-  }
-
-  const handleDeleteMany = () => {
-
-  }
-
   const handleChangeWidth = (e: any, id: any) => {
     let currentwidth = columnWidthsObj[id] + e.width;
     if (columnWidthsObj[id] === 0) {
@@ -229,25 +177,6 @@ const TabContent = (props: any) => {
     // eslint-disable-next-line
   }, [sortAsc])
 
-  const customStyles = {
-    content: {
-      backgroundColor: 'transparent',
-      display: 'flex',
-      border: 'none',
-      left: 0,
-      right: 0,
-      top: 0,
-      bottom: 0,
-      width: '100%',
-      minHeight: '100%',
-      padding: 0
-    },
-    overlay: {
-      backgroundColor: 'rgba(0,0,0,0.4)',
-      zIndex: 920
-    }
-  };
-
   return (
     <div className='w-100' >
       <div className='pb-6'>
@@ -259,60 +188,8 @@ const TabContent = (props: any) => {
               }
             </h2>
           </div>
-
-          <div >
-            {
-              checkedData.length > 0 ?
-                <div className='d-flex justify-content-center align-items-center'>
-                  <div className='fs-6 fw-bold text-gray-700 me-2'> {checkedData.length} rows</div>
-                  <button onClick={handleDeleteMany} className='btn btn-sm btn-danger mr-3'>
-                    {!deleting &&
-                      <span className='indicator-label'>
-                        {
-                          intl.formatMessage({ id: 'SEARCH.DELETE' })
-                        }
-                      </span>}
-                    {deleting && (
-                      <span className='indicator-progress' style={{ display: 'block' }}>
-                        {
-                          intl.formatMessage({ id: 'MENU.PLEASE.WAIT' })
-                        }
-                        <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
-                      </span>
-                    )}
-                  </button>
-                </div>
-                :
-                <button
-                  className={`btn btn-sm btn-flex btn-light ${activeAdd ? "btn-active-primary" : ""}  fw-bolder me-1`}
-                  onMouseLeave={() => setActiveAdd(false)}
-                  onMouseOver={() => setActiveAdd(true)}
-                  onClick={openModal}
-                >
-                  <KTSVG
-                    path='/media/icons/duotune/arrows/arr075.svg'
-                    className='svg-icon-5 svg-icon-gray-500 me-1'
-                  />
-                  {
-                    intl.formatMessage({ id: 'MENU.ADD' })
-                  }
-                </button>
-            }
-          </div>
-
         </div>
       </div>
-      {
-        hasIssue &&
-        <div className='alert alert-danger'>
-          <div className='alert-text font-weight-bold'>
-            {
-              intl.formatMessage({ id: 'CUSTOMER.FAIL' })
-            }
-          </div>
-        </div>
-      }
-
       <div className='w-100' style={{ overflow: 'auto', border: '1px solid #dfdbdb' }}>
         <table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4' >
           <thead>
@@ -327,7 +204,6 @@ const TabContent = (props: any) => {
                   <input
                     className='form-check-input'
                     type='checkbox'
-                    // value={checkAll ? 'true' : 'false'}
                     checked={checkAll}
                     onChange={toggleAllCheckedData}
                     data-kt-check='true'
@@ -422,14 +298,12 @@ const TabContent = (props: any) => {
               columnItems?.length > 0 ?
                 columnItems?.map((item: any, index: any) => {
                   return (
-                    <TabTableItem
+                    <StudyTableItem
                       key={item['id']}
                       data={item}
                       indexing={index}
                       headers={columnNames}
-                      handleEdit={handleEdit}
                       checkedRows={checkedData}
-                      handleDelete={handleDelete}
                       handleSelect={toggleSetting}
                     />
                   );
@@ -447,21 +321,8 @@ const TabContent = (props: any) => {
         setPageSize={setPageSize}
         onPageChange={handlePageChange}
       />
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-        ariaHideApp={false}
-        contentLabel="Edit"
-      >
-        <CreateDeviceConfigModal
-          closeModal={closeModal}
-          handleAdd={handleAdd}
-          id={totalData.length + 1}
-        />
-      </Modal>
     </div>
   )
 }
 
-export { TabContent }
+export { StudyContent }

@@ -9,9 +9,6 @@ const TextArea = (props: any) => {
         handleChange(name, value);
     }
 
-    const classes = {
-        margin: 0
-    }
     return (
         <>
             <div className=' mb-2'>

@@ -1,7 +1,7 @@
 /* eslint-disable array-callback-return */
 import React, { useContext, createContext } from "react"
 import { RootState } from '..'
-import { shallowEqual, useSelector, useDispatch } from 'react-redux'
+import { shallowEqual, useSelector } from 'react-redux'
 import { UserModel } from "../../app/pages/auth/models/UserModel"
 
 const Context = createContext<any>({})

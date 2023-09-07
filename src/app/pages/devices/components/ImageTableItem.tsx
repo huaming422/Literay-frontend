@@ -7,18 +7,14 @@ import DateTimeValue from '../../../components/DateTimeValue';
 import TabCheckboxValue from '../../../components/TabCheckboxValue';
 import TabHtmlview from '../../../components/TabHtmlview';
 import 'react-toastify/dist/ReactToastify.css';
-import Modal from 'react-modal';
-import { KTSVG } from '../../../../_metronic/helpers';
-import { EditDeviceConfigModal } from './EditDeviceConfigModal ';
-import Checkbox from '../../../components/DeviceSettingCheckbox';
-import { useIntl } from 'react-intl';
+// import { useIntl } from 'react-intl';
 
 
 const TableItem = (props: any) => {
-    const { indexing, headers, data, handleEdit, handleDelete, checkedRows, handleSelect } = props;
+    const { indexing, headers, data, checkedRows, handleSelect } = props;
     const [odd, setOdd] = useState<boolean>(false);
     const [background, setBackground] = useState<string>("");
-    const intl = useIntl()
+    // const intl = useIntl()
 
     const isChecked = checkedRows!.includes(data.id);
 
@@ -31,13 +27,6 @@ const TableItem = (props: any) => {
     }, [indexing])
 
     const handleClick = () => {
-        setIsOpen(true);
-    }
-
-    const [modalIsOpen, setIsOpen] = useState(false);
-
-    function closeModal() {
-        setIsOpen(false);
     }
 
     const handleCheckChange = (event: any) => {
@@ -52,47 +41,6 @@ const TableItem = (props: any) => {
         }
         // eslint-disable-next-line
     }, [data, odd])
-
-    const handledelete = () => {
-        // @ts-ignore
-        Swal.fire({
-            text:  intl.formatMessage({ id: 'SEARCH.WOULD.DELETE.COMPANY.PREFIX' }) + '"' + data.ae_title + '"' + intl.formatMessage({ id: 'SEARCH.WOULD.DELETE.COMPANY.SUBFIX' }),
-            icon: "warning",
-            showCancelButton: true,
-            buttonsStyling: false,
-            confirmButtonText: intl.formatMessage({ id: 'SEARCH.DELETE' }),
-            cancelButtonText: intl.formatMessage({ id: 'SEARCH.CANCEL' }),
-            customClass: {
-                confirmButton: "btn btn-primary",
-                cancelButton: "btn btn-active-light"
-            }
-        }).then(async function (result: any) {
-            if (result.value) {
-             handleDelete(data.id);
-            } else if (result.dismiss === 'cancel') {
-                
-            }
-        });
-    }
-
-    const customStyles = {
-        content: {
-            backgroundColor: 'transparent',
-            display: 'flex',
-            border: 'none',
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: 0,
-            width: '100%',
-            minHeight: '100%',
-            padding: 0
-        },
-        overlay: {
-            backgroundColor: 'rgba(0,0,0,0.4)',
-            zIndex: 920
-        }
-    };
 
     return (
         <tr className={background}>
@@ -175,36 +123,6 @@ const TableItem = (props: any) => {
                     }
                 })
             }
-            <td style={{ width: '100%', minWidth: '0px', height: 40, padding: '0px 5px 0px 5px ' }}>
-                <div className='d-flex justify-content-center'>
-                    <button
-                        className={`btn btn-icon ${!odd ? "btn-bg-light" : "btn-bg-white"} btn-active-color-danger btn-sm`}
-                        style={{ width: "30px", height: "30px" }}
-                        data-bs-toggle="modal" data-bs-target="#delete-one-confirm-modal"
-                        onClick={handledelete}
-                    >
-                        <KTSVG
-                            path='/media/icons/duotune/general/gen027.svg'
-                            className='svg-icon-3'
-                        />
-                    </button>
-                </div>
-            </td>
-
-            <Modal
-                isOpen={modalIsOpen}
-                onRequestClose={closeModal}
-                style={customStyles}
-                ariaHideApp={false}
-                contentLabel="Edit"
-            >
-                <EditDeviceConfigModal
-                    closeModal={closeModal}
-                    index={indexing}
-                    datas={data}
-                    handleEdit={handleEdit}
-                />
-            </Modal>
         </tr >
     )
 }
