@@ -10,7 +10,6 @@ const Pagenation2 = (props: any) => {
         siblingCount = 1,
         currentPage,
         pageSize,
-        setPageSize
     } = props;
 
     const paginationRange = usePagination({
@@ -54,30 +53,12 @@ const Pagenation2 = (props: any) => {
         onPageChange(pageNumber)
     }
 
-    const handleChangePageSize = (event: any) => {
-        setPageSize(event.target.value)
-    }
-
     const lastPage = paginationRange[paginationRange.length - 1];
 
     return (
-        <div className='d-flex flex-stack flex-wrap pt-10'>
+        <div className='d-flex flex-stack flex-wrap pt-5'>
             <div className='d-flex  justify-content-center align-items-center'>
                 <div className='fs-6 fw-bold text-gray-700 me-2'>Showing {fristIndex + 1} to {lastIndex} of {totalCount} rows</div>
-                <div className='fs-6 fw-bold text-gray-700'>
-                    <select
-                        className='form-select  form-select-sm selecter'
-                        value={pageSize}
-                        name='pageSize'
-                        style={{ padding: '3px', fontSize: '13px', fontWeight: 100, minWidth: '50px' }}
-                        onChange={handleChangePageSize}
-                    >
-                        <option value={10}>10</option>
-                        <option value={20}>20</option>
-                        <option value={50}>50</option>
-                        <option value={100}>100</option>
-                    </select>
-                </div>
             </div>
 
             <ul className='pagination'>

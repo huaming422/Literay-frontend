@@ -17,7 +17,7 @@ import { DStudyColumnValues, DStudyHead } from '../data';
 
 
 const PatientTableItem = (props: any) => {
-    const { indexing, headers, data, checkedRows, handleSelect, parentWidth } = props;
+    const { indexing, headers, data, checkedRows, handleSelect, parentWidth, selectedRow, setSelectedRow } = props;
     const [odd, setOdd] = useState<boolean>(false);
     const [background, setBackground] = useState<string>("");
 
@@ -35,6 +35,7 @@ const PatientTableItem = (props: any) => {
 
 
     const getDatas = () => {
+        setSelectedRow(indexing)
         dispatch(devices.actions.getStudyData(DStudyColumnValues))
         // getDeviceConfigSettingsData(body)
         //   .then((res: any) => {
@@ -49,16 +50,19 @@ const PatientTableItem = (props: any) => {
 
     const isChecked = checkedRows!.includes(data.id);
 
-    useEffect(() => {
-        if (indexing % 2 === 0) {
-            setOdd(true)
+    React.useEffect(() => {
+        if (indexing === selectedRow) {
+            setBackground("bg-gray-300")
         } else {
-            setOdd(false)
+            if (indexing % 2 === 0) {
+                setBackground("bg-gray-100")
+                setOdd(true)
+            } else {
+                setBackground("")
+                setOdd(false)
+            }
         }
-    }, [indexing])
-
-    const handleClick = () => {
-    }
+    }, [indexing, selectedRow])
 
     const handleCheckChange = (event: any) => {
         handleSelect(data.id, event.target.checked)
@@ -66,17 +70,16 @@ const PatientTableItem = (props: any) => {
 
     useEffect(() => {
         if (odd) {
-            setBackground("bg-gray-100");
+            setBackground("bg-gray-100 collapsible toggle collapsed");
         } else {
-            setBackground("");
+            setBackground(" collapsible toggle collapsed");
         }
         // eslint-disable-next-line
     }, [data, odd])
 
     return (
         <>
-
-            <tr className={background} onClick={getDatas}>
+            <tr className={background} onClick={getDatas} data-toggle="collapse" data-target={`#kt_job_4_${indexing}`} aria-expanded="true" aria-controls="faq1" role="button">
                 <td style={{ width: '40px', height: 40, padding: '0px 5px 0px 5px ' }}>
                     <div className="d-flex align-items-center collapsible toggle collapsed mb-0" data-toggle="collapse" data-target={`#kt_job_4_${indexing}`} aria-expanded="true" aria-controls="faq1" role="button">
                         <div className="btn btn-sm btn-icon mw-20px btn-active-color-primary">
@@ -115,7 +118,7 @@ const PatientTableItem = (props: any) => {
                                 <DateValue
                                     key={index}
                                     datas={data[item.field]}
-                                    handleClick={handleClick}
+                                    handleClick={() => { }}
                                 />
                             )
                         }
@@ -133,7 +136,7 @@ const PatientTableItem = (props: any) => {
                                 <TabHtmlview
                                     key={index}
                                     data={data[item.field]}
-                                    handleClick={handleClick}
+                                    handleClick={() => { }}
                                 />
                             )
                         }
@@ -142,7 +145,7 @@ const PatientTableItem = (props: any) => {
                                 <DateTimeValue
                                     key={index}
                                     datas={data[item.field]}
-                                    handleClick={handleClick}
+                                    handleClick={() => { }}
                                 />
                             )
                         }
@@ -151,14 +154,14 @@ const PatientTableItem = (props: any) => {
                                 <DivideValue
                                     key={index}
                                     data={data}
-                                    handleClick={handleClick}
+                                    handleClick={() => { }}
                                 />
                             )
                         }
                         else {
                             return (
                                 <td key={index} style={{ padding: '0px 10px', overflow: 'hidden', height: 40, borderRight: "solid 1px #cbc8c8", borderLeft: "solid 1px #cbc8c8" }}
-                                    onClick={handleClick}
+                                    onClick={() => { }}
                                 >
                                     <a className='text-dark  text-hover-primary d-block ' style={{ cursor: 'pointer', wordBreak: 'break-all', fontWeight: 100, fontSize: '13px', }}>
                                         {
@@ -170,7 +173,7 @@ const PatientTableItem = (props: any) => {
                         }
                     })
                 }
-                <td style={{ width: '100%', height: 40}}>
+                <td style={{ width: '100%', height: 40 }}>
                 </td>
             </tr >
             <tr>

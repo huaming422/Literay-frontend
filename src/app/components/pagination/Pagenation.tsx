@@ -61,7 +61,7 @@ const Pagenation = (props: any) => {
     const lastPage = paginationRange[paginationRange.length - 1];
 
     return (
-        <div className='d-flex flex-stack flex-wrap pt-10'>
+        <div className='d-flex flex-stack flex-wrap pt-5'>
             <div className='d-flex  justify-content-center align-items-center'>
                 <div className='fs-6 fw-bold text-gray-700 me-2'>Showing {fristIndex + 1} to {lastIndex} of {totalCount} rows</div>
                 <div className='fs-6 fw-bold text-gray-700'>

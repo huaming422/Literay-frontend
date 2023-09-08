@@ -9,16 +9,15 @@ import TabCheckboxValue from '../../../components/TabCheckboxValue';
 import TabHtmlview from '../../../components/TabHtmlview';
 import 'react-toastify/dist/ReactToastify.css';
 import { KTSVG } from '../../../../_metronic/helpers';
-import { StudyContent } from './steps/StudyContent';
 import { UserModel } from '../../auth/models/UserModel';
 import { RootState } from '../../../../setup';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { DImagesColumnValues, DImagesHead, DStudyColumnValues, DStudyHead } from '../data';
+import { DImagesColumnValues, DImagesHead } from '../data';
 import { ImagesContent } from './steps/ImagesContent';
 
 
 const SeriesTableItem = (props: any) => {
-    const { indexing, headers, data, checkedRows, handleSelect, parentWidth } = props;
+    const { indexing, headers, data, checkedRows, handleSelect, parentWidth, selectedRow, setSelectedRow } = props;
     const [odd, setOdd] = useState<boolean>(false);
     const [background, setBackground] = useState<string>("");
 
@@ -36,6 +35,7 @@ const SeriesTableItem = (props: any) => {
 
 
     const getDatas = () => {
+        setSelectedRow(indexing)
         dispatch(devices.actions.getImagesData(DImagesColumnValues))
         // getDeviceConfigSettingsData(body)
         //   .then((res: any) => {
@@ -50,13 +50,19 @@ const SeriesTableItem = (props: any) => {
 
     const isChecked = checkedRows!.includes(data.id);
 
-    useEffect(() => {
-        if (indexing % 2 === 0) {
-            setOdd(true)
+    React.useEffect(() => {
+        if (indexing === selectedRow) {
+            setBackground("bg-gray-300")
         } else {
-            setOdd(false)
+            if (indexing % 2 === 0) {
+                setBackground("bg-gray-100")
+                setOdd(true)
+            } else {
+                setBackground("")
+                setOdd(false)
+            }
         }
-    }, [indexing])
+    }, [indexing, selectedRow])
 
     const handleClick = () => {
     }
@@ -67,9 +73,9 @@ const SeriesTableItem = (props: any) => {
 
     useEffect(() => {
         if (odd) {
-            setBackground("bg-gray-100");
+            setBackground("bg-gray-100 collapsible toggle collapsed");
         } else {
-            setBackground("");
+            setBackground(" collapsible toggle collapsed");
         }
         // eslint-disable-next-line
     }, [data, odd])
@@ -77,7 +83,7 @@ const SeriesTableItem = (props: any) => {
     return (
         <>
 
-            <tr className={background} onClick={getDatas}>
+            <tr className={background} onClick={getDatas} data-toggle="collapse" data-target={`#kt_series_4_${indexing}`} aria-expanded="true" aria-controls="faq1" role="button">
                 <td style={{ width: '40px', height: 40, padding: '0px 5px 0px 5px ' }}>
                     <div className="d-flex align-items-center collapsible toggle collapsed mb-0" data-toggle="collapse" data-target={`#kt_series_4_${indexing}`} aria-expanded="true" aria-controls="faq1" role="button">
                         <div className="btn btn-sm btn-icon mw-20px btn-active-color-primary">
@@ -171,7 +177,20 @@ const SeriesTableItem = (props: any) => {
                         }
                     })
                 }
-                <td style={{ width: '100%', height: 40}}>
+                <td style={{ width: '100%', minWidth: '0px', height: 40, padding: '0px 5px 0px 5px ' }}>
+                    <div className='d-flex justify-content-center'>
+                        <button
+                            className={`btn btn-icon ${!odd ? "btn-bg-light" : "btn-bg-white"} btn-active-color-danger btn-sm`}
+                            style={{ width: "30px", height: "30px" }}
+                            data-bs-toggle="modal" data-bs-target="#delete-one-confirm-modal"
+                            onClick={() => { }}
+                        >
+                            <KTSVG
+                                path='/media/icons/duotune/general/gen060.svg'
+                                className='svg-icon-3'
+                            />
+                        </button>
+                    </div>
                 </td>
             </tr >
             <tr>

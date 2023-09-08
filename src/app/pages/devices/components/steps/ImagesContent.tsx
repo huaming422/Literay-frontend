@@ -11,6 +11,7 @@ import { alphabetically } from '../../../../../setup/utils/utils';
 import StudyTableItem from '../StudyTableItem';
 import Pagenation2 from '../../../../components/pagination2/Pagenation';
 import ImageTableItem from '../ImageTableItem';
+import Pagenation from '../../../../components/pagination/Pagenation';
 
 
 const ImagesContent = (props: any) => {
@@ -316,7 +317,7 @@ const ImagesContent = (props: any) => {
           </tbody>
         </table>
       </div>
-      <Pagenation2
+      <Pagenation
         currentPage={currentPage}
         totalCount={totalColumnItems.length}
         pageSize={PageSize}

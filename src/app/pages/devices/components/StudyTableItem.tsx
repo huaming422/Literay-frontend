@@ -15,7 +15,7 @@ import { DSeriesColumnValues } from '../data';
 
 
 const StudyTableItem = (props: any) => {
-    const { indexing, headers, data, checkedRows, handleSelect } = props;
+    const { indexing, headers, data, checkedRows, handleSelect, selectedRow, setSelectedRow } = props;
     const [odd, setOdd] = useState<boolean>(false);
     const [background, setBackground] = useState<string>("");
     const isChecked = checkedRows!.includes(data.id);
@@ -32,6 +32,7 @@ const StudyTableItem = (props: any) => {
     const dispatch = useDispatch();
 
     const getDatas = () => {
+        setSelectedRow(indexing)
         dispatch(devices.actions.getSeriesData(DSeriesColumnValues))
         // getDeviceConfigSettingsData(body)
         //   .then((res: any) => {
@@ -48,14 +49,19 @@ const StudyTableItem = (props: any) => {
         handleSelect(data.id, event.target.checked)
     }
 
-    useEffect(() => {
-        if (odd) {
-            setBackground("bg-gray-100");
+    React.useEffect(() => {
+        if (indexing === selectedRow) {
+            setBackground("bg-gray-300")
         } else {
-            setBackground("");
+            if (indexing % 2 === 0) {
+                setBackground("bg-gray-100")
+                setOdd(true)
+            } else {
+                setBackground("")
+                setOdd(false)
+            }
         }
-        // eslint-disable-next-line
-    }, [data, odd])
+    }, [indexing, selectedRow])
 
     return (
         <tr className={background} onClick={getDatas}>

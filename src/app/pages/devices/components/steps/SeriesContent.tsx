@@ -21,7 +21,7 @@ const SeriesContent = (props: any) => {
   const [currentsort, setCurrentSort] = useState<string>("id");
   const [sortFlag, setSortFlag] = useState<boolean>(true);
   const [checkAll, setCheckedAll] = useState<boolean>(false);
-
+  const [selectedRow, setSelectedRow] = useState<any>(null);
   const [columnWidthsObj, setColumnWidthsObj] = useState<any>({});
   let minColumnWidthsObj: any = {};
 
@@ -306,6 +306,8 @@ const SeriesContent = (props: any) => {
                       key={item['id']}
                       data={item}
                       indexing={index}
+                      selectedRow={selectedRow}
+                      setSelectedRow={setSelectedRow}
                       parentWidth={parentWidth}
                       headers={columnNames}
                       checkedRows={checkedData}

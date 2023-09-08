@@ -7,6 +7,7 @@ import DateTimeValue from '../../../components/DateTimeValue';
 import TabCheckboxValue from '../../../components/TabCheckboxValue';
 import TabHtmlview from '../../../components/TabHtmlview';
 import 'react-toastify/dist/ReactToastify.css';
+import { KTSVG } from '../../../../_metronic/helpers';
 // import { useIntl } from 'react-intl';
 
 
@@ -123,7 +124,20 @@ const ImageTableItem = (props: any) => {
                     }
                 })
             }
-            <td style={{ width: '100%', height: 40 }}>
+            <td style={{ width: '100%', minWidth: '0px', height: 40, padding: '0px 5px 0px 5px ' }}>
+                <div className='d-flex justify-content-center'>
+                    <button
+                        className={`btn btn-icon ${!odd ? "btn-bg-light" : "btn-bg-white"} btn-active-color-danger btn-sm`}
+                        style={{ width: "30px", height: "30px" }}
+                        data-bs-toggle="modal" data-bs-target="#delete-one-confirm-modal"
+                        onClick={() => { }}
+                    >
+                        <KTSVG
+                            path='/media/icons/duotune/general/gen060.svg'
+                            className='svg-icon-3'
+                        />
+                    </button>
+                </div>
             </td>
         </tr >
     )

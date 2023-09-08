@@ -23,7 +23,7 @@ const TabContent = (props: any) => {
   const [columnItems, setColumnItems] = useState<any[]>([]);
   const [columnNames, setColumnNames] = useState<any[]>([]);
   const [checkedData, setCheckedData] = useState<number[]>([]);
-  const [activeAdd, setActiveAdd] = useState<boolean>(false);
+  const [selectedRow, setSelectedRow] = useState<any>(null);
   const [sortAsc, setSortASC] = useState<any>();
   const [currentsort, setCurrentSort] = useState<string>("id");
   const [sortFlag, setSortFlag] = useState<boolean>(true);
@@ -453,6 +453,8 @@ const TabContent = (props: any) => {
                       indexing={index}
                       parentWidth={parentWidth}
                       headers={columnNames}
+                      selectedRow={selectedRow}
+                      setSelectedRow={setSelectedRow}
                       checkedRows={checkedData}
                       handleSelect={toggleSetting}
                     />

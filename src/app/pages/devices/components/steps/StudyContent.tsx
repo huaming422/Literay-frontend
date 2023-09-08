@@ -23,6 +23,7 @@ const StudyContent = (props: any) => {
   const [currentsort, setCurrentSort] = useState<string>("id");
   const [sortFlag, setSortFlag] = useState<boolean>(true);
   const [checkAll, setCheckedAll] = useState<boolean>(false);
+  const [selectedRow, setSelectedRow] = useState<any>(null);
 
   const [columnWidthsObj, setColumnWidthsObj] = useState<any>({});
   let minColumnWidthsObj: any = {};
@@ -303,6 +304,8 @@ const StudyContent = (props: any) => {
                       key={item['id']}
                       data={item}
                       indexing={index}
+                      setSelectedRow={setSelectedRow}
+                      selectedRow={selectedRow}
                       headers={columnNames}
                       checkedRows={checkedData}
                       handleSelect={toggleSetting}
