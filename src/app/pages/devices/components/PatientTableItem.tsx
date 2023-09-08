@@ -36,7 +36,7 @@ const PatientTableItem = (props: any) => {
 
     const getDatas = () => {
         setSelectedRow(indexing)
-        dispatch(devices.actions.getStudyData(DStudyColumnValues))
+        dispatch(devices.actions.getStudyData([...DStudyColumnValues]))
         // getDeviceConfigSettingsData(body)
         //   .then((res: any) => {
         //     let { data } = res;

@@ -33,7 +33,7 @@ const StudyTableItem = (props: any) => {
 
     const getDatas = () => {
         setSelectedRow(indexing)
-        dispatch(devices.actions.getSeriesData(DSeriesColumnValues))
+        dispatch(devices.actions.getSeriesData([...DSeriesColumnValues]))
         // getDeviceConfigSettingsData(body)
         //   .then((res: any) => {
         //     let { data } = res;

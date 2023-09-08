@@ -36,7 +36,7 @@ const SeriesTableItem = (props: any) => {
 
     const getDatas = () => {
         setSelectedRow(indexing)
-        dispatch(devices.actions.getImagesData(DImagesColumnValues))
+        dispatch(devices.actions.getImagesData([...DImagesColumnValues]))
         // getDeviceConfigSettingsData(body)
         //   .then((res: any) => {
         //     let { data } = res;

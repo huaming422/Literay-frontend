@@ -27,13 +27,13 @@ const DeviceConfigPage = (props: any) => {
   }, [columnValues])
   useEffect(() => {
     if (seriesColumnValues) {
-      setSeriesTotalData(seriesColumnValues);
+      setSeriesTotalData([...seriesColumnValues]);
     }
   }, [seriesColumnValues])
 
 
   const getDatas = () => {
-    dispatch(devices.actions.getPatientData(DPatientColumnValues))
+    dispatch(devices.actions.getPatientData([...DPatientColumnValues]))
     // getDeviceConfigSettingsData(body)
     //   .then((res: any) => {
     //     let { data } = res;
