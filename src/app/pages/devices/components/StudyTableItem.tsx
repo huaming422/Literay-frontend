@@ -30,18 +30,18 @@ const StudyTableItem = (props: any) => {
 
     const user: UserModel = useSelector<RootState>(({ auth }) => auth.user, shallowEqual) as UserModel
     const dispatch = useDispatch();
-  
+
     const getDatas = () => {
-      dispatch(devices.actions.getSeriesData(DSeriesColumnValues))
-      // getDeviceConfigSettingsData(body)
-      //   .then((res: any) => {
-      //     let { data } = res;
-      //     dispatch(item.actions.getDeviceConfigSettingTableData(data))
-      //   })
-      //   .catch((error: any) => {
-      //     debugger
-      //     setHasIssue(true);
-      //   })
+        dispatch(devices.actions.getSeriesData(DSeriesColumnValues))
+        // getDeviceConfigSettingsData(body)
+        //   .then((res: any) => {
+        //     let { data } = res;
+        //     dispatch(item.actions.getDeviceConfigSettingTableData(data))
+        //   })
+        //   .catch((error: any) => {
+        //     debugger
+        //     setHasIssue(true);
+        //   })
     }
 
     const handleCheckChange = (event: any) => {
@@ -59,7 +59,7 @@ const StudyTableItem = (props: any) => {
 
     return (
         <tr className={background} onClick={getDatas}>
-            <td style={{padding: 0}}>
+            <td style={{ padding: 0 }}>
                 <div className='form-check form-check-sm w-40x form-check-custom form-check-solid justify-content-center'>
                     <input
                         className='form-check-input widget-9-check'
@@ -83,7 +83,7 @@ const StudyTableItem = (props: any) => {
                             <DateValue
                                 key={index}
                                 datas={data[item.field]}
-                                handleClick={() => {}}
+                                handleClick={() => { }}
                             />
                         )
                     }
@@ -101,7 +101,7 @@ const StudyTableItem = (props: any) => {
                             <TabHtmlview
                                 key={index}
                                 data={data[item.field]}
-                                handleClick={() => {}}
+                                handleClick={() => { }}
                             />
                         )
                     }
@@ -110,7 +110,7 @@ const StudyTableItem = (props: any) => {
                             <DateTimeValue
                                 key={index}
                                 datas={data[item.field]}
-                                handleClick={() => {}}
+                                handleClick={() => { }}
                             />
                         )
                     }
@@ -119,7 +119,7 @@ const StudyTableItem = (props: any) => {
                             <DivideValue
                                 key={index}
                                 data={data}
-                                handleClick={() => {}}
+                                handleClick={() => { }}
                             />
                         )
                     }
@@ -137,6 +137,8 @@ const StudyTableItem = (props: any) => {
                     }
                 })
             }
+            <td style={{ width: '100%', height: 40 }}>
+            </td>
         </tr >
     )
 }

@@ -10,9 +10,10 @@ import { useDispatch } from 'react-redux';
 import { alphabetically } from '../../../../../setup/utils/utils';
 import StudyTableItem from '../StudyTableItem';
 import Pagenation2 from '../../../../components/pagination2/Pagenation';
+import ImageTableItem from '../ImageTableItem';
 
 
-const StudyContent = (props: any) => {
+const ImagesContent = (props: any) => {
   const { totalData, setTotalData, headers, parentWidth } = props;
   const [currentPage, setCurrentPage] = useState(1);
   const [totalColumnItems, setTotalColumnItems] = useState<any[]>(totalData);
@@ -178,13 +179,13 @@ const StudyContent = (props: any) => {
   }, [sortAsc])
 
   return (
-    <div style={{width: `${parentWidth-23}px`, paddingRight: 20}} >
+    <div style={{ paddingRight: 20}} >
       <div className='pb-0 pt-3'>
         <div className='d-flex justify-content-between'>
           <div className='d-flex'>
             <h2 className='fw-bolder align-items-center  text-dark'>
               {
-                "Patient / Study"
+                "Patient / Study / Series / Image"
               }
             </h2>
           </div>
@@ -299,7 +300,7 @@ const StudyContent = (props: any) => {
               columnItems?.length > 0 ?
                 columnItems?.map((item: any, index: any) => {
                   return (
-                    <StudyTableItem
+                    <ImageTableItem
                       key={item['id']}
                       data={item}
                       indexing={index}
@@ -326,4 +327,4 @@ const StudyContent = (props: any) => {
   )
 }
 
-export { StudyContent }
+export { ImagesContent }

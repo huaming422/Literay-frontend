@@ -1,19 +1,17 @@
 /* eslint-disable array-callback-return */
-import React, { useState, useMemo, useEffect } from 'react'
+import React, { useState, useMemo, useEffect, useRef } from 'react'
 import NoDatas from '../../../../components/NoDatas'
 import { MenuComponent } from '../../../../../_metronic/assets/ts/components';
-import { useIntl } from 'react-intl';
 import { KTSVG } from '../../../../../_metronic/helpers'
 import { Resizable } from 're-resizable';
 import * as item from '../../redux/Devicesredux'
-import { useDispatch } from 'react-redux';
 import { alphabetically } from '../../../../../setup/utils/utils';
-import StudyTableItem from '../StudyTableItem';
 import Pagenation2 from '../../../../components/pagination2/Pagenation';
+import SeriesTableItem from '../SeriesTableItem';
 
 
-const StudyContent = (props: any) => {
-  const { totalData, setTotalData, headers, parentWidth } = props;
+const SeriesContent = (props: any) => {
+  const { totalData, setTotalData, headers } = props;
   const [currentPage, setCurrentPage] = useState(1);
   const [totalColumnItems, setTotalColumnItems] = useState<any[]>(totalData);
   const [columnItems, setColumnItems] = useState<any[]>([]);
@@ -26,9 +24,6 @@ const StudyContent = (props: any) => {
 
   const [columnWidthsObj, setColumnWidthsObj] = useState<any>({});
   let minColumnWidthsObj: any = {};
-
-  const intl = useIntl()
-  const dispatch = useDispatch();
 
   const toggleSetting = (rowId: number, checked: boolean) => {
     if (checked) {
@@ -177,31 +172,39 @@ const StudyContent = (props: any) => {
     // eslint-disable-next-line
   }, [sortAsc])
 
+  const [parentWidth, setParentWidth] = useState<number>(0);
+
+  const ref = useRef<any>(null);
+  useEffect(() => {
+    setParentWidth(ref.current ? ref.current.offsetWidth : 0)
+  }, [ref.current]);
+
   return (
-    <div style={{width: `${parentWidth-23}px`, paddingRight: 20}} >
-      <div className='pb-0 pt-3'>
-        <div className='d-flex justify-content-between'>
-          <div className='d-flex'>
+    <div className='w-100' >
+      <div className='pb-2 pt-10'>
+        <div className='d-flex justify-content-between pb-1'>
             <h2 className='fw-bolder align-items-center  text-dark'>
               {
-                "Patient / Study"
+                "Patients / Study / Series"
               }
             </h2>
-          </div>
         </div>
       </div>
-      <div className='w-100' style={{ overflow: 'auto', border: '1px solid #dfdbdb' }}>
-        <table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-0' style={{margin: 0}}>
+
+      <div className='w-100' style={{ overflow: 'auto', border: '1px solid #dfdbdb', position: 'relative' }}>
+        <table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-0' style={{ margin: 0 }}  ref={ref}>
           <thead>
             <tr className='fw-bolder text-muted'>
-              <th className='w-40px'
+              <th className='w-40px overflow-hidden text-left'
                 style={{
                   borderRight: "solid 1px #cbc8c8",
-                  padding: 5,
-                  paddingBottom: 10
+                }} />
+              <th className='w-20px align-items-center'
+                style={{
+                  borderRight: "solid 1px #cbc8c8",
                 }}
               >
-                <div className='form-check form-check-sm form-check-custom form-check-solid w-30px justify-content-center'>
+                <div className='form-check form-check-sm form-check-custom form-check-solid w-20px justify-content-center mb-3 '>
                   <input
                     className='form-check-input'
                     type='checkbox'
@@ -299,10 +302,11 @@ const StudyContent = (props: any) => {
               columnItems?.length > 0 ?
                 columnItems?.map((item: any, index: any) => {
                   return (
-                    <StudyTableItem
+                    <SeriesTableItem
                       key={item['id']}
                       data={item}
                       indexing={index}
+                      parentWidth={parentWidth}
                       headers={columnNames}
                       checkedRows={checkedData}
                       handleSelect={toggleSetting}
@@ -326,4 +330,4 @@ const StudyContent = (props: any) => {
   )
 }
 
-export { StudyContent }
+export { SeriesContent }

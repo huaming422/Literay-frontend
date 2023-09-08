@@ -82,13 +82,7 @@ export const DStudyHead = [
   },
 ];
 
-export const DSeries = [
-  {
-    field: 'id',
-    label: 'No',
-    type: 'text',
-    width: 40
-  },
+export const DSeriesHead = [
   {
     field: 'name',
     label: 'Name',
@@ -129,7 +123,7 @@ export const DSeries = [
     field: 'protocal_name',
     label: 'Protocal Name',
     type: 'text',
-    width: 100
+    width: 200
   },
   {
     field: 'series_instance_uid',
@@ -141,49 +135,42 @@ export const DSeries = [
     field: 'series_number',
     label: 'Series Number',
     type: 'text',
-    width: 200
+    width: 100
   },
 ];
 
-export const DImages = [
-  {
-    field: 'id',
-    label: 'No',
-    type: 'text',
-    width: 40
-  },
+export const DImagesHead = [
   {
     field: 'name',
     label: 'Name',
     type: "text",
-    width: 150
+    width: 120
   },
   {
     field: 'sop_instance_uid',
     label: 'SOP Instance UID',
     type: "text",
-    width: 120
+    width: 230
   },
   {
     field: 'image_position_patient',
     label: 'Image Position Patient',
     type: 'text',
-    width: 100
+    width: 160
   },
   {
     field: 'image_orientation_patient',
     label: 'Image Orientation Patient',
     type: 'text',
-    width: 120
+    width: 200
   },
   {
     field: 'image_comments',
     label: 'Image Comments',
     type: 'text',
-    width: 200
+    width: 388
   },
 ];
-
 
 export const DPatientColumnValues = [
   {

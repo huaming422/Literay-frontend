@@ -8,9 +8,9 @@ import { KTSVG } from '../../../../../_metronic/helpers'
 import { Resizable } from 're-resizable';
 import * as item from '../../redux/Devicesredux'
 import { useDispatch } from 'react-redux';
-import TabTableItem from '../ImageTableItem';
 import { alphabetically } from '../../../../../setup/utils/utils';
 import PatientTableItem from '../PatientTableItem';
+import Pagenation2 from '../../../../components/pagination2/Pagenation';
 
 
 const TabContent = (props: any) => {
@@ -28,6 +28,12 @@ const TabContent = (props: any) => {
   const [currentsort, setCurrentSort] = useState<string>("id");
   const [sortFlag, setSortFlag] = useState<boolean>(true);
   const [checkAll, setCheckedAll] = useState<boolean>(false);
+
+  const [filters, setFilters] = useState<any>({
+    search: "",
+    patientId: "",
+    status: ""
+  })
 
   const [columnWidthsObj, setColumnWidthsObj] = useState<any>({});
   let minColumnWidthsObj: any = {};
@@ -196,7 +202,7 @@ const TabContent = (props: any) => {
   return (
     <div className='w-100' ref={ref} >
       <div className='pb-6'>
-        <div className='d-flex justify-content-between'>
+        <div className='d-flex justify-content-between pb-1'>
           <div className='d-flex'>
             <h2 className='fw-bolder align-items-center  text-dark'>
               {
@@ -206,10 +212,13 @@ const TabContent = (props: any) => {
             </h2>
           </div>
 
-          <div >
-            <div className='d-flex justify-content-center align-items-center'>
-              <div className='fs-6 fw-bold text-gray-700 me-2'> {checkedData.length} rows</div>
-              <button onClick={handleUpload} className='btn btn-sm btn-danger mr-3'>
+          {
+            checkedData?.length > 0 ?
+              <button onClick={handleUpload} className='btn btn-sm btn-primary ' style={{ paddingLeft: 8 }}>
+                <KTSVG
+                  path='/media/icons/duotune/arrows/arr078.svg'
+                  className='svg-icon-5 svg-icon-gray-500  me-1'
+                />
                 {!uploading &&
                   <span className='indicator-label'>
                     {
@@ -226,23 +235,94 @@ const TabContent = (props: any) => {
                   </span>
                 )}
               </button>
-            </div>
-            <button
-              className={`btn btn-sm btn-flex btn-light ${activeAdd ? "btn-active-primary" : ""}  fw-bolder me-1`}
-              onMouseLeave={() => setActiveAdd(false)}
-              onMouseOver={() => setActiveAdd(true)}
-              onClick={() => { }}
-            >
-              <KTSVG
-                path='/media/icons/duotune/arrows/arr075.svg'
-                className='svg-icon-5 svg-icon-gray-500 me-1'
-              />
-              {
-                intl.formatMessage({ id: 'MENU.ADD' })
-              }
-            </button>
-          </div>
+              :
+              <button className='btn btn-sm btn-secondary ' disabled style={{ paddingLeft: 8 }}>
+                <KTSVG
+                  path='/media/icons/duotune/arrows/arr078.svg'
+                  className='svg-icon-5 svg-icon-gray-500  me-1'
+                />
+                {!uploading &&
+                  <span className='indicator-label'>
+                    {
+                      // intl.formatMessage({ id: 'SEARCH.DELETE' })
+                      "Upload"
+                    }
+                  </span>}
+                {uploading && (
+                  <span className='indicator-progress' style={{ display: 'block' }}>
+                    {
+                      intl.formatMessage({ id: 'MENU.PLEASE.WAIT' })
+                    }
+                    <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
+                  </span>
+                )}
+              </button>
+          }
 
+        </div>
+        <div >
+          <div className='d-flex justify-content-between align-items-center w-100'>
+            <div className='d-flex'>
+              <div className='d-flex align-items-center position-relative me-1'>
+                <input
+                  type='text'
+                  className='form-control form-control-white form-control-sm'
+                  placeholder='Date Range'
+                  value={filters.patientId}
+                  onChange={(e) => setFilters((filters: any) => ({ ...filters, patientId: e.target.value }))}
+                />
+              </div>
+              <div className='d-flex align-items-center position-relative me-1'>
+                <input
+                  type='text'
+                  className='form-control form-control-white form-control-sm ps-9'
+                  placeholder='Modality'
+                  value={filters.search}
+                  onChange={(e) => setFilters((filters: any) => ({ ...filters, search: e.target.value }))}
+                />
+              </div>
+              <div className='d-flex align-items-center position-relative me-1'>
+                <input
+                  type='text'
+                  className='form-control form-control-white form-control-sm ps-9'
+                  placeholder='Patient Name'
+                  value={filters.search}
+                  onChange={(e) => setFilters((filters: any) => ({ ...filters, search: e.target.value }))}
+                />
+              </div>
+              <div className='d-flex align-items-center position-relative me-1'>
+                <input
+                  type='text'
+                  className='form-control form-control-white form-control-sm'
+                  placeholder='Patient ID'
+                  value={filters.patientId}
+                  onChange={(e) => setFilters((filters: any) => ({ ...filters, patientId: e.target.value }))}
+                />
+              </div>
+            </div>
+            <div className='d-flex'>
+              <button
+                className={`btn btn-sm btn-flex btn-info fw-bolder me-1`}
+                onClick={() => { }}
+              >
+                <KTSVG
+                  path='/media/icons/duotune/general/gen021.svg'
+                  className='svg-icon-3'
+                />
+                {
+                  "Search"
+                }
+              </button>
+              <button
+                className={`btn btn-outline btn-outline-info btn-sm btn-flex fw-bolder`}
+                onClick={() => { }}
+              >
+                {
+                  "Clear Filter"
+                }
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       {
@@ -384,7 +464,7 @@ const TabContent = (props: any) => {
           </tbody>
         </table>
       </div>
-      <Pagenation
+      <Pagenation2
         currentPage={currentPage}
         totalCount={totalColumnItems.length}
         pageSize={PageSize}

@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 // import { useIntl } from 'react-intl';
 
 
-const TableItem = (props: any) => {
+const ImageTableItem = (props: any) => {
     const { indexing, headers, data, checkedRows, handleSelect } = props;
     const [odd, setOdd] = useState<boolean>(false);
     const [background, setBackground] = useState<string>("");
@@ -123,8 +123,10 @@ const TableItem = (props: any) => {
                     }
                 })
             }
+            <td style={{ width: '100%', height: 40 }}>
+            </td>
         </tr >
     )
 }
 
-export default TableItem;
+export default ImageTableItem;

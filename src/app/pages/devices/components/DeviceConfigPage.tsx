@@ -6,22 +6,30 @@ import { RootState } from '../../../../setup';
 import * as devices from '../redux/Devicesredux'
 import { TabContent } from './steps/PatientContent';
 import { UserModel } from '../../auth/models/UserModel';
-import { DPatientColumnValues, DPatientHead } from '../data';
+import { DPatientColumnValues, DPatientHead, DSeriesHead } from '../data';
+import { SeriesContent } from './steps/SeriesContent';
 
 const DeviceConfigPage = (props: any) => {
-  const {id} = props;
+  const { id } = props;
   const user: UserModel = useSelector<RootState>(({ auth }) => auth.user, shallowEqual) as UserModel
   const dispatch = useDispatch();
   const [totalData, setTotalData] = useState<any[]>([]);
+  const [seriesTotalData, setSeriesTotalData] = useState<any[]>([]);
   const [hasChanged, setHasChanged] = useState<boolean>(false);
 
   const columnValues: any = useSelector<RootState>(({ devices }) => devices.patientColumnValues, shallowEqual) as any;
+  const seriesColumnValues: any = useSelector<RootState>(({ devices }) => devices.seriesColumnValues, shallowEqual) as any;
 
   useEffect(() => {
     if (columnValues) {
       setTotalData(columnValues);
     }
   }, [columnValues])
+  useEffect(() => {
+    if (seriesColumnValues) {
+      setSeriesTotalData(seriesColumnValues);
+    }
+  }, [seriesColumnValues])
 
 
   const getDatas = () => {
@@ -56,6 +64,17 @@ const DeviceConfigPage = (props: any) => {
                 hasChanged={hasChanged}
                 getDatas={getDatas}
               />
+              {
+                seriesColumnValues?.length > 0 &&
+                <SeriesContent
+                  totalData={seriesTotalData}
+                  setTotalData={setSeriesTotalData}
+                  headers={DSeriesHead}
+                  setHasChanged={setHasChanged}
+                  hasChanged={hasChanged}
+                />
+              }
+
             </div>
           </div>
         </div>
