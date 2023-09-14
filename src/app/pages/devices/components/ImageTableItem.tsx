@@ -42,7 +42,7 @@ const ImageTableItem = (props: any) => {
                             />
                         )
                     }
-                    if (item.field === 'sop_instance_uid') {
+                   else if (item.field === 'sop_instance_uid') {
                         return (
                             <TextValue
                                 key={index}
@@ -51,7 +51,7 @@ const ImageTableItem = (props: any) => {
                             />
                         )
                     }
-                    if (item.field === 'image_position_patient') {
+                    else if (item.field === 'image_position_patient') {
                         return (
                             <TextValue
                                 key={index}
@@ -60,7 +60,7 @@ const ImageTableItem = (props: any) => {
                             />
                         )
                     }
-                    if (item.field === 'image_orientation_patient') {
+                    else if (item.field === 'image_orientation_patient') {
                         return (
                             <TextValue
                                 key={index}
@@ -69,7 +69,7 @@ const ImageTableItem = (props: any) => {
                             />
                         )
                     }
-                    if (item.field === 'image_comments') {
+                    else if (item.field === 'image_comments') {
                         return (
                             <TextValue
                                 key={index}
@@ -78,7 +78,15 @@ const ImageTableItem = (props: any) => {
                             />
                         )
                     }
-                    if (item.field === 'create_date') {
+                    else if (item.field === 'create_date') {
+                        return (
+                            <DateValue
+                                key={index}
+                                date={data.MainDicomTags[item.tag]?.Value}
+                                onClick={() => { }}
+                            />
+                        )
+                    } else {
                         return (
                             <DateValue
                                 key={index}

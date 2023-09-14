@@ -16,8 +16,10 @@ import { alphabetically } from '../../../../../setup/utils/utils';
 
 const TabContent = (props: any) => {
   const { totalData, setTotalData, headers } = props;
-
+  
+  // eslint-disable-next-line
   const [hasIssue, setHasIssue] = useState<boolean>(false);
+  // eslint-disable-next-line
   const [deleting, setDeleting] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalColumnItems, setTotalColumnItems] = useState<any[]>(totalData);
@@ -49,6 +51,7 @@ const TabContent = (props: any) => {
     } else {
       setCheckedAll(false);
     }
+    // eslint-disable-next-line
   }, [checkedData, totalColumnItems])
 
   const toggleAllCheckedData = (event: any) => {

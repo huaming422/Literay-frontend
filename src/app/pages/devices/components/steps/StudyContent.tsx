@@ -4,7 +4,7 @@ import NoDatas from '../../../../components/NoDatas'
 import { MenuComponent } from '../../../../../_metronic/assets/ts/components';
 import { KTSVG } from '../../../../../_metronic/helpers'
 import { Resizable } from 're-resizable';
-import * as item from '../../redux/Devicesredux'
+// import * as item from '../../redux/Devicesredux'
 import { alphabetically } from '../../../../../setup/utils/utils';
 import StudyTableItem from '../StudyTableItem';
 import Pagenation2 from '../../../../components/pagination2/Pagenation';

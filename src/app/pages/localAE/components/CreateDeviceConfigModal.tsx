@@ -1,15 +1,16 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useIntl } from 'react-intl';
 import TextField from '../../../components/CreateUserTextField';
-import { createDeviceSetting } from '../redux/LocalAEConfigCRUD';
 import TextArea from '../../../components/TextArea';
 import { setTimeout } from 'timers';
 
 const CreateDeviceConfigModal = (props: any) => {
     const {id, closeModal, handleAdd } = props;
+    // eslint-disable-next-line
     const [saving, setSaving] = useState<boolean>(false);
+    // eslint-disable-next-line
     const [hasIssue, setHasIssue] = useState<boolean>(false);
     const [data, setData] = useState<any>({
         id: id,

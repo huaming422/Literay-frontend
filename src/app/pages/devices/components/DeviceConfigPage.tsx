@@ -13,7 +13,6 @@ const DeviceConfigPage = (props: any) => {
   const dispatch = useDispatch();
   const [totalData, setTotalData] = useState<any[]>([]);
   const [seriesTotalData, setSeriesTotalData] = useState<any[]>([]);
-  const [hasChanged, setHasChanged] = useState<boolean>(false);
 
   const columnValues: any = useSelector<RootState>(({ devices }) => devices.patientColumnValues, shallowEqual) as any;
   const seriesColumnValues: any = useSelector<RootState>(({ devices }) => devices.seriesColumnValues, shallowEqual) as any;

@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-import React, { useState, useMemo, useEffect } from 'react'
+import React from 'react'
 import TextInput from './TextInput';
 
 const TabContent = (props: any) => {

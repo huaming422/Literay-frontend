@@ -6,8 +6,11 @@ import TextField from '../../../components/CreateUserTextField';
 import TextArea from '../../../components/TextArea';
 
 const EditDeviceConfigModal = (props: any) => {
+    // eslint-disable-next-line
     const { id, closeModal, handleEdit, datas } = props;
+    // eslint-disable-next-line
     const [saving, setSaving] = useState<boolean>(false);
+    // eslint-disable-next-line
     const [hasIssue, setHasIssue] = useState<boolean>(false);
     const [data, setData] = useState<any>(datas)
     const intl = useIntl();

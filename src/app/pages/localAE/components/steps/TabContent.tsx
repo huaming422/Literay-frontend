@@ -17,7 +17,9 @@ import { alphabetically } from '../../../../../setup/utils/utils';
 const TabContent = (props: any) => {
   const { totalData, setTotalData, headers } = props;
 
+  // eslint-disable-next-line
   const [hasIssue, setHasIssue] = useState<boolean>(false);
+  // eslint-disable-next-line
   const [deleting, setDeleting] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalColumnItems, setTotalColumnItems] = useState<any[]>(totalData);
@@ -49,6 +51,7 @@ const TabContent = (props: any) => {
     } else {
       setCheckedAll(false);
     }
+    // eslint-disable-next-line
   }, [checkedData, totalColumnItems])
 
   const toggleAllCheckedData = (event: any) => {
@@ -314,7 +317,7 @@ const TabContent = (props: any) => {
       }
 
       <div className='w-100' style={{ overflow: 'auto', border: '1px solid #dfdbdb' }}>
-        <table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4' style={{margin: 0}}>
+        <table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4' style={{ margin: 0 }}>
           <thead>
             <tr className='fw-bolder text-muted'>
               <th className='w-30px'

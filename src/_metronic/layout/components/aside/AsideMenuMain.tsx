@@ -6,13 +6,10 @@ import { AsideMenuItem } from './AsideMenuItem'
 import { AsideMenuItemWithSub } from './AsideMenuItemWithSub';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../setup';
-import { UserModel } from '../../../../app/pages/auth/models/UserModel';
 import * as devices from '../../../../app/pages/modalityConfig/redux/DeviceConfigredux'
 import { DModalityColumnValues } from '../../../../app/pages/modalityConfig/data';
 
 export function AsideMenuMain() {
-  // const intl = useIntl();
-  const user: UserModel = useSelector<RootState>(({ auth }) => auth.user, shallowEqual) as UserModel
   const dispatch = useDispatch();
   const [totalData, setTotalData] = useState<any[]>([]);
 

@@ -18,6 +18,7 @@ const DeviceWrapper: FC = () => {
                 setDeviceName(device[0].ae_title);
             }
         }
+        // eslint-disable-next-line
     }, [columnValues])
 
     return (

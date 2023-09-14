@@ -6,8 +6,11 @@ import TextField from '../../../components/CreateUserTextField';
 import TextArea from '../../../components/TextArea';
 
 const EditDeviceConfigModal = (props: any) => {
+    // eslint-disable-next-line
     const { id, closeModal, handleEdit, datas } = props;
+    // eslint-disable-next-line
     const [saving, setSaving] = useState<boolean>(false);
+    // eslint-disable-next-line
     const [hasIssue, setHasIssue] = useState<boolean>(false);
     const [data, setData] = useState<any>(datas)
     const intl = useIntl();
@@ -30,17 +33,17 @@ const EditDeviceConfigModal = (props: any) => {
         } else {
             errors.ae_title = false;
         }
-        if (data.ip_address ==+ "") {
+        if (data.ip_address === "") {
             errors.ip_address = true;
         } else {
             errors.ip_address = false;
         }
-        if (data.port == "") {
+        if (data.port === "") {
             errors.port = true;
         } else {
             errors.port = false;
         }
-        if (data.device_name ==+ "") {
+        if (data.device_name === "") {
             errors.device_name = true;
         } else {
             errors.device_name = false;

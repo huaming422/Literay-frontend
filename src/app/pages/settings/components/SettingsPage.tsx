@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../setup';
 import * as item from '../redux/Settingsredux'

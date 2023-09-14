@@ -1,27 +1,21 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react'
-import { updateDeviceConfigData, deleteDeviceConfigData, getDeviceConfigSettingsData } from '../redux/LocalAEConfigCRUD';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../setup';
 import * as item from '../redux/LocalAEConfigredux'
 import { TabContent } from './steps/TabContent';
-import { UserModel } from '../../auth/models/UserModel';
 import { DModalityColumnValues, DModalityHead } from '../data';
 
 const DeviceConfigPage = () => {
-  const user: UserModel = useSelector<RootState>(({ auth }) => auth.user, shallowEqual) as UserModel
   const dispatch = useDispatch();
   const [totalData, setTotalData] = useState<any[]>([]);
   const [hasChanged, setHasChanged] = useState<boolean>(false);
-
   const columnValues: any = useSelector<RootState>(({ modalityConfig }) => modalityConfig.deviceConfigSettingColumnValues, shallowEqual) as any;
-
   useEffect(() => {
     if (columnValues) {
       setTotalData(columnValues);
     }
   }, [columnValues])
-
 
   const getDatas = () => {
     dispatch(item.actions.getDeviceConfigSettingTableData(DModalityColumnValues))

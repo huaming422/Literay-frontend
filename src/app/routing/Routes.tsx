@@ -5,14 +5,14 @@
  * components (e.g: `src/app/modules/Auth/pages/AuthPage`, `src/app/BasePage`).
  */
 
-import { shallowEqual, useSelector } from 'react-redux'
+// import { shallowEqual, useSelector } from 'react-redux'
 import React, { FC } from 'react'
 import { Redirect, Switch, Route } from 'react-router-dom'
 import { MasterLayout } from '../../_metronic/layout/MasterLayout'
 import { PrivateRoutes } from './PrivateRoutes'
 import { AuthPage, Logout } from '../pages/auth'
 import { ErrorsPage } from '../pages/errors/ErrorsPage'
-import { RootState } from '../../setup'
+// import { RootState } from '../../setup'
 import { MasterInit } from '../../_metronic/layout/MasterInit'
 
 const Routes: FC = () => {

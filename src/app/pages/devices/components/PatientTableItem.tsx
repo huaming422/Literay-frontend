@@ -57,7 +57,7 @@ const PatientTableItem = (props: any) => {
 
     return (
         <>
-            <tr className={background} onClick={getDatas} style={{cursor: 'pointer'}}>
+            <tr className={background} onClick={getDatas} style={{ cursor: 'pointer' }}>
                 <td style={{ width: '40px', height: 40, padding: '0px 5px 0px 5px ' }}>
                     <div className="d-flex align-items-center collapsible toggle collapsed mb-0" data-toggle="collapse" data-target={`#kt_job_4_${indexing}`} aria-expanded="true" aria-controls="faq1" role="button">
                         <div className="btn btn-sm btn-icon mw-20px btn-active-color-primary">
@@ -122,6 +122,14 @@ const PatientTableItem = (props: any) => {
                             )
                         }
                         else if (item.field === 'other_patient_ids') {
+                            return (
+                                <TextValue
+                                    key={index}
+                                    value={data.MainDicomTags?.OtherPatientIDs || ""}
+                                    onClick={() => { }}
+                                />
+                            )
+                        } else {
                             return (
                                 <TextValue
                                     key={index}

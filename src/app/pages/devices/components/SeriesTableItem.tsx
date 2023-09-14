@@ -77,7 +77,7 @@ const SeriesTableItem = (props: any) => {
                                 />
                             )
                         }
-                        if (item.field === 'status') {
+                        else if (item.field === 'status') {
                             return (
                                 <TextValue
                                     key={index}
@@ -86,7 +86,7 @@ const SeriesTableItem = (props: any) => {
                                 />
                             )
                         }
-                        if (item.field === 'modality') {
+                        else if (item.field === 'modality') {
                             return (
                                 <TextValue
                                     key={index}
@@ -95,7 +95,7 @@ const SeriesTableItem = (props: any) => {
                                 />
                             )
                         }
-                        if (item.field === 'station_name') {
+                        else if (item.field === 'station_name') {
                             return (
                                 <TextValue
                                     key={index}
@@ -104,7 +104,7 @@ const SeriesTableItem = (props: any) => {
                                 />
                             )
                         }
-                        if (item.field === 'operators_name') {
+                        else if (item.field === 'operators_name') {
                             return (
                                 <TextValue
                                     key={index}
@@ -113,7 +113,7 @@ const SeriesTableItem = (props: any) => {
                                 />
                             )
                         }
-                        if (item.field === 'contrast_bolus_agent') {
+                        else if (item.field === 'contrast_bolus_agent') {
                             return (
                                 <TextValue
                                     key={index}
@@ -122,7 +122,7 @@ const SeriesTableItem = (props: any) => {
                                 />
                             )
                         }
-                        if (item.field === 'protocal_name') {
+                        else if (item.field === 'protocal_name') {
                             return (
                                 <TextValue
                                     key={index}
@@ -131,7 +131,7 @@ const SeriesTableItem = (props: any) => {
                                 />
                             )
                         }
-                        if (item.field === 'series_instance_uid') {
+                        else if (item.field === 'series_instance_uid') {
                             return (
                                 <TextValue
                                     key={index}
@@ -140,7 +140,16 @@ const SeriesTableItem = (props: any) => {
                                 />
                             )
                         }
-                        if (item.field === 'series_number') {
+                        else if (item.field === 'series_number') {
+                            return (
+                                <TextValue
+                                    key={index}
+                                    value={data.MainDicomTags[item.tag]?.Value}
+                                    onClick={() => { }}
+                                />
+                            )
+                        }
+                        else {
                             return (
                                 <TextValue
                                     key={index}

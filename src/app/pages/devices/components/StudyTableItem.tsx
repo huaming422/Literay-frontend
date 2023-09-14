@@ -111,6 +111,14 @@ const StudyTableItem = (props: any) => {
                                 onClick={() => { }}
                             />
                         )
+                    } else {
+                        return (
+                            <TextValue
+                                key={index}
+                                value={data.MainDicomTags[item.tag]?.Value}
+                                onClick={() => { }}
+                            />
+                        )
                     }
                 })
             }

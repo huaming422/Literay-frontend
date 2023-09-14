@@ -14,7 +14,9 @@ import Pagenation2 from '../../../../components/pagination2/Pagenation';
 const TabContent = (props: any) => {
   const { totalData, setTotalData, headers } = props;
 
+  // eslint-disable-next-line
   const [hasIssue, setHasIssue] = useState<boolean>(false);
+  // eslint-disable-next-line
   const [uploading, setDeleting] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalColumnItems, setTotalColumnItems] = useState<any[]>(totalData);
@@ -23,7 +25,7 @@ const TabContent = (props: any) => {
   const [checkedData, setCheckedData] = useState<string[]>([]);
   const [selectedRow, setSelectedRow] = useState<any>(null);
   const [selectedStudyRow, setSelectedStudyRow] = useState<any>(null);
-  
+
   const [sortAsc, setSortASC] = useState<any>();
   const [currentsort, setCurrentSort] = useState<string>("id");
   const [sortFlag, setSortFlag] = useState<boolean>(true);
@@ -55,6 +57,7 @@ const TabContent = (props: any) => {
     } else {
       setCheckedAll(false);
     }
+    // eslint-disable-next-line
   }, [checkedData, totalColumnItems])
 
   const toggleAllCheckedData = (event: any) => {
@@ -211,6 +214,7 @@ const TabContent = (props: any) => {
   const ref = useRef<any>(null);
   useEffect(() => {
     setParentWidth(ref.current ? ref.current.offsetWidth : 0)
+    // eslint-disable-next-line
   }, [ref.current]);
 
   return (

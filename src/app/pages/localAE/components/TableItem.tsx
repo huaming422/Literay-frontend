@@ -10,7 +10,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import Modal from 'react-modal';
 import { KTSVG } from '../../../../_metronic/helpers';
 import { EditDeviceConfigModal } from './EditDeviceConfigModal ';
-import Checkbox from '../../../components/DeviceSettingCheckbox';
 import { useIntl } from 'react-intl';
 
 
