@@ -24,6 +24,28 @@ export function getValueFromPattern(pattern: string, lastnum: number) {
     return pattern.slice(0, pattern.indexOf('#')) + tmp
 }
 
+export function parseDicomDate(s:string)
+{
+  let y = parseInt(s.substr(0, 4), 10);
+  let m = parseInt(s.substr(4, 2), 10) - 1;
+  let d = parseInt(s.substr(6, 2), 10);
+
+  if (y == null || m == null || d == null ||
+      !isFinite(y) || !isFinite(m) || !isFinite(d))
+  {
+    return null;
+  }
+
+  if (y < 1900 || y > 2100 ||
+      m < 0 || m >= 12 ||
+      d <= 0 || d >= 32)
+  {
+    return null;
+  }
+
+  return new Date(y, m, d);
+}
+
 export function alphabetically(field: string, ascending: any) {
     return function (a: any, b: any) {
       let avalue = a[field];

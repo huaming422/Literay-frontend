@@ -1,6 +1,5 @@
 /* eslint-disable array-callback-return */
 import React, { useState, useMemo, useEffect, useRef } from 'react'
-import Pagenation from '../../../../components/pagination/Pagenation'
 import NoDatas from '../../../../components/NoDatas'
 import { MenuComponent } from '../../../../../_metronic/assets/ts/components';
 import { useIntl } from 'react-intl';

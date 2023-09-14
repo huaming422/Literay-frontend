@@ -1,17 +1,15 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react'
-import { updateDeviceConfigData, deleteDeviceConfigData, getDeviceConfigSettingsData } from '../redux/DevicesCRUD';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../setup';
 import * as devices from '../redux/Devicesredux'
 import { TabContent } from './steps/PatientContent';
-import { UserModel } from '../../auth/models/UserModel';
-import { DPatientColumnValues, DPatientHead, DSeriesHead } from '../data';
+import { DPatientHead, DSeriesHead } from '../data';
 import { SeriesContent } from './steps/SeriesContent';
+import { getPatientData } from '../redux/DevicesCRUD';
 
 const DeviceConfigPage = (props: any) => {
   const { id } = props;
-  const user: UserModel = useSelector<RootState>(({ auth }) => auth.user, shallowEqual) as UserModel
   const dispatch = useDispatch();
   const [totalData, setTotalData] = useState<any[]>([]);
   const [seriesTotalData, setSeriesTotalData] = useState<any[]>([]);
@@ -33,16 +31,13 @@ const DeviceConfigPage = (props: any) => {
 
 
   const getDatas = () => {
-    dispatch(devices.actions.getPatientData([...DPatientColumnValues]))
-    // getDeviceConfigSettingsData(body)
-    //   .then((res: any) => {
-    //     let { data } = res;
-    //     dispatch(item.actions.getDeviceConfigSettingTableData(data))
-    //   })
-    //   .catch((error: any) => {
-    //     debugger
-    //     setHasIssue(true);
-    //   })
+    getPatientData()
+      .then((res: any) => {
+        let { data } = res;
+        dispatch(devices.actions.getPatientData(data))
+      })
+      .catch((error: any) => {
+      })
   }
 
   useEffect(() => {

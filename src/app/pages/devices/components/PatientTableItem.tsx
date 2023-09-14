@@ -1,19 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import * as devices from '../redux/Devicesredux'
 import DateValue from '../../../components/DateValue';
-import DivideValue from '../../../components/DivideValue';
-import DateTimeValue from '../../../components/DateTimeValue';
-import TabCheckboxValue from '../../../components/TabCheckboxValue';
-import TabHtmlview from '../../../components/TabHtmlview';
 import 'react-toastify/dist/ReactToastify.css';
 import { KTSVG } from '../../../../_metronic/helpers';
 import { StudyContent } from './steps/StudyContent';
-import { UserModel } from '../../auth/models/UserModel';
-import { RootState } from '../../../../setup';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { DStudyColumnValues, DStudyHead } from '../data';
+import { DStudyHead } from '../data';
+import { getStudytData } from '../redux/DevicesCRUD';
+import TextValue from '../../../components/TextValue';
 
 
 const PatientTableItem = (props: any) => {
@@ -21,31 +15,18 @@ const PatientTableItem = (props: any) => {
     const [odd, setOdd] = useState<boolean>(false);
     const [background, setBackground] = useState<string>("");
 
-    const user: UserModel = useSelector<RootState>(({ auth }) => auth.user, shallowEqual) as UserModel
-    const dispatch = useDispatch();
     const [totalData, setTotalData] = useState<any[]>([]);
-
-    const columnValues: any = useSelector<RootState>(({ devices }) => devices.studyColumnValues, shallowEqual) as any;
-
-    useEffect(() => {
-        if (columnValues) {
-            setTotalData(columnValues);
-        }
-    }, [columnValues])
-
 
     const getDatas = () => {
         setSelectedRow(indexing)
-        dispatch(devices.actions.getStudyData([...DStudyColumnValues]))
-        // getDeviceConfigSettingsData(body)
-        //   .then((res: any) => {
-        //     let { data } = res;
-        //     dispatch(item.actions.getDeviceConfigSettingTableData(data))
-        //   })
-        //   .catch((error: any) => {
-        //     debugger
-        //     setHasIssue(true);
-        //   })
+        getStudytData(data.ID)
+            .then((res: any) => {
+                let { data } = res;
+                setTotalData(data)
+            })
+            .catch((error: any) => {
+                console.log(error)
+            })
     }
 
     const isChecked = checkedRows!.includes(data.id);
@@ -106,69 +87,50 @@ const PatientTableItem = (props: any) => {
                 </td>
                 {
                     headers.map((item: any, index: number) => {
-                        let objectType = "";
-                        const definition = item.type;
-                        if (definition) {
-                            objectType = definition;
-                        } else {
-                            // console.log("Not fount objectType => ", xml);
+
+                        if (item.field === 'name') {
+                            return (
+                                <TextValue
+                                    key={index}
+                                    value={data.MainDicomTags.PatientName}
+                                    onClick={() => { }}
+                                />
+                            )
                         }
-                        if (objectType === 'date') {
+                        else if (item.field === 'patient_id') {
+                            return (
+                                <TextValue
+                                    key={index}
+                                    value={data.MainDicomTags.PatientID}
+                                    onClick={() => { }}
+                                />
+                            )
+                        }
+                        else if (item.field === 'patient_birthdate') {
                             return (
                                 <DateValue
                                     key={index}
-                                    datas={data[item.field]}
-                                    handleClick={() => { }}
-                                />
-                            )
-                        }
-                        else if (objectType === 'checkbox') {
-                            return (
-                                <TabCheckboxValue
-                                    key={index}
-                                    odd={true}
-                                    value={data[item.field]}
-                                />
-                            )
-                        }
-                        else if (objectType === 'html') {
-                            return (
-                                <TabHtmlview
-                                    key={index}
-                                    data={data[item.field]}
-                                    handleClick={() => { }}
-                                />
-                            )
-                        }
-                        else if (objectType === 'datetime') {
-                            return (
-                                <DateTimeValue
-                                    key={index}
-                                    datas={data[item.field]}
-                                    handleClick={() => { }}
-                                />
-                            )
-                        }
-                        else if (objectType === 'divide') {
-                            return (
-                                <DivideValue
-                                    key={index}
-                                    data={data}
-                                    handleClick={() => { }}
-                                />
-                            )
-                        }
-                        else {
-                            return (
-                                <td key={index} style={{ padding: '0px 10px', overflow: 'hidden', height: 40, borderRight: "solid 1px #cbc8c8", borderLeft: "solid 1px #cbc8c8" }}
+                                    date={data.MainDicomTags.PatientBirthDate}
                                     onClick={() => { }}
-                                >
-                                    <a className='text-dark  text-hover-primary d-block ' style={{ cursor: 'pointer', wordBreak: 'break-all', fontWeight: 100, fontSize: '13px', }}>
-                                        {
-                                            data[item.field]
-                                        }
-                                    </a>
-                                </td>
+                                />
+                            )
+                        }
+                        else if (item.field === 'patient_sex') {
+                            return (
+                                <TextValue
+                                    key={index}
+                                    value={data.MainDicomTags.PatientSex}
+                                    onClick={() => { }}
+                                />
+                            )
+                        }
+                        else if (item.field === 'other_patient_ids') {
+                            return (
+                                <TextValue
+                                    key={index}
+                                    value={data.MainDicomTags?.OtherPatientIDs || ""}
+                                    onClick={() => { }}
+                                />
                             )
                         }
                     })

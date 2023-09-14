@@ -34,48 +34,56 @@ export const DPatientHead = [
 export const DStudyHead = [
   {
     field: 'name',
+    tag: '0008,1030',
     label: 'Name',
     type: "text",
-    width: 100
+    width: 200
   },
   {
     field: 'study_date',
+    tag: '0008,0020',
     label: 'Study Date',
     type: "text",
     width: 100
   },
   {
     field: 'accession_number',
+    tag: '0008,0050',
     label: 'Accession Number',
     type: 'text',
     width: 130
   },
   {
     field: 'institution_name',
+    tag: '0008,0080',
     label: 'Institution Nam',
     type: 'text',
     width: 140
   },
   {
     field: 'referring_physician_name',
+    tag: '0008,0090',
     label: 'Referring Physician Name',
     type: 'text',
     width: 160
   },
   {
     field: 'study_instance_uid',
+    tag: '0020,000d',
     label: 'Study Instance UID',
     type: 'text',
     width: 250
   },
   {
     field: 'study_id',
+    tag: '0020,0010',
     label: 'Study ID',
     type: 'text',
     width: 100
   },
   {
     field: 'req_proce_desc',
+    tag: '0032,1060',
     label: 'Requested Procedure Description',
     type: 'text',
     width: 200

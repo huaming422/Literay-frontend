@@ -3,28 +3,30 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import dateFormat from 'dateformat';
 import { useLang } from '../../_metronic/i18n/Metronici18n';
+import { parseDicomDate } from '../../setup/utils/utils';
 
 const DateValue = (props: any) => {
-    const { datas, handleClick } = props;
+    const { date, handleClick } = props;
     const [value, setValue] = useState<string>("");
     const lang = useLang()
 
     useEffect(() => {
-        if (datas) {
+        const dates = parseDicomDate(date);
+        if (dates) {
             try {
                 if (lang === "en") {
-                    const newvlaue = dateFormat(new Date(datas), "mm/dd/yyyy") 
+                    const newvlaue = dateFormat(dates, "mm/dd/yyyy")
                     setValue(newvlaue)
                 } else {
-                    const newvlaue = dateFormat(new Date(datas), "dd.mm.yyyy") 
+                    const newvlaue = dateFormat(dates, "dd.mm.yyyy")
                     setValue(newvlaue)
                 }
             } catch (error) {
-                
+
             }
         }
         // eslint-disable-next-line
-    }, [datas])
+    }, [date])
 
     return (
         <td style={{ padding: '0px 10px', borderRight: "solid 1px #cbc8c8", borderLeft: "solid 1px #cbc8c8" }}

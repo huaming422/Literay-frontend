@@ -12,13 +12,13 @@ import { UserModel } from '../../auth/models/UserModel';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../setup';
 import { DSeriesColumnValues } from '../data';
+import TextValue from '../../../components/TextValue';
 
 
 const StudyTableItem = (props: any) => {
-    const { indexing, headers, data, checkedRows, handleSelect, selectedRow, setSelectedRow } = props;
+    const { indexing, headers, data, selectedRow, setSelectedRow } = props;
     const [odd, setOdd] = useState<boolean>(false);
     const [background, setBackground] = useState<string>("");
-    const isChecked = checkedRows!.includes(data.id);
 
     useEffect(() => {
         if (indexing % 2 === 0) {
@@ -45,10 +45,6 @@ const StudyTableItem = (props: any) => {
         //   })
     }
 
-    const handleCheckChange = (event: any) => {
-        handleSelect(data.id, event.target.checked)
-    }
-
     React.useEffect(() => {
         if (indexing === selectedRow) {
             setBackground("bg-gray-300")
@@ -65,80 +61,78 @@ const StudyTableItem = (props: any) => {
 
     return (
         <tr className={background} onClick={getDatas}>
-            <td style={{ padding: 0 }}>
-                <div className='form-check form-check-sm w-40x form-check-custom form-check-solid justify-content-center'>
-                    <input
-                        className='form-check-input widget-9-check'
-                        type='checkbox'
-                        checked={isChecked}
-                        onChange={handleCheckChange}
-                    />
-                </div>
-            </td>
             {
                 headers.map((item: any, index: number) => {
-                    let objectType = "";
-                    const definition = item.type;
-                    if (definition) {
-                        objectType = definition;
-                    } else {
-                        // console.log("Not fount objectType => ", xml);
+                    if (item.field === 'name') {
+                        return (
+                            <TextValue
+                                key={index}
+                                value={data.MainDicomTags[item.tag].Value}
+                                onClick={() => { }}
+                            />
+                        )
                     }
-                    if (objectType === 'date') {
+                    else if (item.field === 'study_date') {
                         return (
                             <DateValue
                                 key={index}
-                                datas={data[item.field]}
-                                handleClick={() => { }}
+                                date={data.MainDicomTags[item.tag].Value}
+                                onClick={() => { }}
                             />
                         )
                     }
-                    else if (objectType === 'checkbox') {
+                    else if (item.field === 'accession_number') {
                         return (
-                            <TabCheckboxValue
+                            <TextValue
                                 key={index}
-                                odd={true}
-                                value={data[item.field]}
+                                value={data.MainDicomTags[item.tag].Value}
+                                onClick={() => { }}
                             />
                         )
                     }
-                    else if (objectType === 'html') {
+                    else if (item.field === 'institution_name') {
                         return (
-                            <TabHtmlview
+                            <TextValue
                                 key={index}
-                                data={data[item.field]}
-                                handleClick={() => { }}
+                                value={data.MainDicomTags[item.tag].Value}
+                                onClick={() => { }}
                             />
                         )
                     }
-                    else if (objectType === 'datetime') {
+                    else if (item.field === 'referring_physician_name') {
                         return (
-                            <DateTimeValue
+                            <TextValue
                                 key={index}
-                                datas={data[item.field]}
-                                handleClick={() => { }}
+                                value={data.MainDicomTags[item.tag].Value}
+                                onClick={() => { }}
                             />
                         )
                     }
-                    else if (objectType === 'divide') {
+                    else if (item.field === 'study_instance_uid') {
                         return (
-                            <DivideValue
+                            <TextValue
                                 key={index}
-                                data={data}
-                                handleClick={() => { }}
+                                value={data.MainDicomTags[item.tag].Value}
+                                onClick={() => { }}
                             />
                         )
                     }
-                    else {
+                    else if (item.field === 'study_id') {
                         return (
-                            <td key={index} style={{ padding: '0px 10px', overflow: 'hidden', height: 40, borderRight: "solid 1px #cbc8c8", borderLeft: "solid 1px #cbc8c8" }}
-                            >
-                                <a className='text-dark  text-hover-primary d-block ' style={{ cursor: 'pointer', wordBreak: 'break-all', fontWeight: 100, fontSize: '13px', }}>
-                                    {
-                                        data[item.field]
-                                    }
-                                </a>
-                            </td>
+                            <TextValue
+                                key={index}
+                                value={data.MainDicomTags[item.tag].Value}
+                                onClick={() => { }}
+                            />
+                        )
+                    }
+                    else if (item.field === 'req_proce_desc') {
+                        return (
+                            <TextValue
+                                key={index}
+                                value={data.MainDicomTags[item.tag].Value}
+                                onClick={() => { }}
+                            />
                         )
                     }
                 })
