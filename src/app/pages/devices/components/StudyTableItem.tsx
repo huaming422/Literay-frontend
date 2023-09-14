@@ -15,13 +15,13 @@ const StudyTableItem = (props: any) => {
     const getDatas = () => {
         setSelectedRow(`${parentId}_${indexing}`)
         getSeriestData(data.ID)
-          .then((res: any) => {
-            let { data } = res;
-            dispatch(devices.actions.getSeriesData(data))
-          })
-          .catch((error: any) => {
-            console.log(error)
-          })
+            .then((res: any) => {
+                let { data } = res;
+                dispatch(devices.actions.getSeriesData(data))
+            })
+            .catch((error: any) => {
+                console.log(error)
+            })
     }
 
     React.useEffect(() => {
@@ -37,19 +37,10 @@ const StudyTableItem = (props: any) => {
     }, [indexing, selectedRow, parentId])
 
     return (
-        <tr className={background} onClick={getDatas} style={{cursor: 'pointer'}}>
+        <tr className={background} onClick={getDatas} style={{ cursor: 'pointer' }}>
             {
                 headers.map((item: any, index: number) => {
-                    if (item.field === 'name') {
-                        return (
-                            <TextValue
-                                key={index}
-                                value={data.MainDicomTags[item.tag]?.Value}
-                                onClick={() => { }}
-                            />
-                        )
-                    }
-                    else if (item.field === 'study_date') {
+                    if (item.type === 'date') {
                         return (
                             <DateValue
                                 key={index}
@@ -58,60 +49,7 @@ const StudyTableItem = (props: any) => {
                             />
                         )
                     }
-                    else if (item.field === 'accession_number') {
-                        return (
-                            <TextValue
-                                key={index}
-                                value={data.MainDicomTags[item.tag]?.Value}
-                                onClick={() => { }}
-                            />
-                        )
-                    }
-                    else if (item.field === 'institution_name') {
-                        return (
-                            <TextValue
-                                key={index}
-                                value={data.MainDicomTags[item.tag]?.Value}
-                                onClick={() => { }}
-                            />
-                        )
-                    }
-                    else if (item.field === 'referring_physician_name') {
-                        return (
-                            <TextValue
-                                key={index}
-                                value={data.MainDicomTags[item.tag]?.Value}
-                                onClick={() => { }}
-                            />
-                        )
-                    }
-                    else if (item.field === 'study_instance_uid') {
-                        return (
-                            <TextValue
-                                key={index}
-                                value={data.MainDicomTags[item.tag]?.Value}
-                                onClick={() => { }}
-                            />
-                        )
-                    }
-                    else if (item.field === 'study_id') {
-                        return (
-                            <TextValue
-                                key={index}
-                                value={data.MainDicomTags[item.tag]?.Value}
-                                onClick={() => { }}
-                            />
-                        )
-                    }
-                    else if (item.field === 'req_proce_desc') {
-                        return (
-                            <TextValue
-                                key={index}
-                                value={data.MainDicomTags[item.tag]?.Value}
-                                onClick={() => { }}
-                            />
-                        )
-                    } else {
+                    else {
                         return (
                             <TextValue
                                 key={index}

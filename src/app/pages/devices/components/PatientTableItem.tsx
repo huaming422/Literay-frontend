@@ -73,60 +73,22 @@ const PatientTableItem = (props: any) => {
                 {
                     headers.map((item: any, index: number) => {
 
-                        if (item.field === 'name') {
-                            return (
-                                <TextValueAction
-                                    key={index}
-                                    indexing={indexing}
-                                    value={data.MainDicomTags.PatientName}
-                                    onClick={() => { }}
-                                />
-                            )
-                        }
-                        else if (item.field === 'patient_id') {
-                            return (
-                                <TextValueAction
-                                    key={index}
-                                    indexing={indexing}
-                                    value={data.MainDicomTags.PatientID}
-                                    onClick={() => { }}
-                                />
-                            )
-                        }
-                        else if (item.field === 'patient_birthdate') {
+                        if (item.type === 'date') {
                             return (
                                 <DateValueAction
                                     key={index}
-                                    date={data.MainDicomTags.PatientBirthDate}
+                                    indexing={indexing}
+                                    date={data.MainDicomTags[item.tag]}
                                     onClick={() => { }}
                                 />
                             )
                         }
-                        else if (item.field === 'patient_sex') {
+                        else {
                             return (
                                 <TextValueAction
                                     key={index}
                                     indexing={indexing}
-                                    value={data.MainDicomTags.PatientSex}
-                                    onClick={() => { }}
-                                />
-                            )
-                        }
-                        else if (item.field === 'other_patient_ids') {
-                            return (
-                                <TextValueAction
-                                    key={index}
-                                    indexing={indexing}
-                                    value={data.MainDicomTags?.OtherPatientIDs || ""}
-                                    onClick={() => { }}
-                                />
-                            )
-                        } else {
-                            return (
-                                <TextValueAction
-                                    key={index}
-                                    indexing={indexing}
-                                    value={data.MainDicomTags?.OtherPatientIDs || ""}
+                                    value={data.MainDicomTags[item.tag]}
                                     onClick={() => { }}
                                 />
                             )

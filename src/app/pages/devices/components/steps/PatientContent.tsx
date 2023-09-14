@@ -7,7 +7,7 @@ import { KTSVG } from '../../../../../_metronic/helpers'
 import { Resizable } from 're-resizable';
 import * as item from '../../redux/Devicesredux'
 import { useDispatch } from 'react-redux';
-import { alphabetically } from '../../../../../setup/utils/utils';
+import { alphabetically, alphabeticallyPatient } from '../../../../../setup/utils/utils';
 import PatientTableItem from '../PatientTableItem';
 import Pagenation2 from '../../../../components/pagination2/Pagenation';
 
@@ -27,7 +27,7 @@ const TabContent = (props: any) => {
   const [selectedStudyRow, setSelectedStudyRow] = useState<any>(null);
 
   const [sortAsc, setSortASC] = useState<any>();
-  const [currentsort, setCurrentSort] = useState<string>("id");
+  const [currentsort, setCurrentSort] = useState<string>("name");
   const [sortFlag, setSortFlag] = useState<boolean>(true);
   const [checkAll, setCheckedAll] = useState<boolean>(false);
 
@@ -191,13 +191,13 @@ const TabContent = (props: any) => {
     minColumnWidthsObj = updateItems;
   }
 
-  const handleSort = (field: string, flag: boolean) => {
-    setCurrentSort(field);
+  const handleSort = (item: any, flag: boolean) => {
+    setCurrentSort(item.field);
     setSortFlag(flag);
-    const items = [...totalData].sort(alphabetically(field, flag));
+    const items = [...totalData].sort(alphabeticallyPatient(item.tag, flag));
 
     let sort = sortAsc;
-    sort[field] = !flag;
+    sort[item.field] = !flag;
     setSortASC(sort);
     setTotalData([...items]);
   }
@@ -355,10 +355,6 @@ const TabContent = (props: any) => {
         <table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-0' style={{ margin: 0 }}>
           <thead>
             <tr className='fw-bolder text-muted'>
-              {/* <th className='w-40px overflow-hidden text-left'
-                style={{
-                  borderRight: "solid 1px #cbc8c8",
-                }} /> */}
               <th className='w-40px align-items-center justify-content-center p-lg-2'
                 style={{
                   borderRight: "solid 1px #cbc8c8",
@@ -396,7 +392,7 @@ const TabContent = (props: any) => {
                         position: 'relative',
                         whiteSpace: 'nowrap',
                       }}
-                      onClick={() => handleSort(item['field'], sortAsc[item.field])}
+                      onClick={() => handleSort(item, sortAsc[item.field])}
                     >
                       <Resizable
                         className="resize-content"

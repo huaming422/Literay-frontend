@@ -1,6 +1,7 @@
 export const DPatientHead = [
   {
     field: 'name',
+    tag: 'PatientName',
     label: 'Name',
     type: "text",
     width: 150
@@ -8,26 +9,30 @@ export const DPatientHead = [
   {
     field: 'patient_id',
     label: 'Patient ID',
+    tag: 'PatientID',
     type: "text",
     width: 250
   },
   {
     field: 'patient_birthdate',
     label: 'Patient Birth Date',
-    type: 'text',
+    tag: 'PatientBirthDate',
+    type: 'date',
     width: 200
   },
   {
     field: 'patient_sex',
     label: 'Patient Sex',
+    tag: 'PatientSex',
     type: 'text',
     width: 120
   },
   {
     field: 'other_patient_ids',
     label: 'Other Patient IDs',
+    tag: 'OtherPatientIDs',
     type: 'text',
-    width: 300
+    width: 315
   },
 ];
 
@@ -43,7 +48,7 @@ export const DStudyHead = [
     field: 'study_date',
     tag: '0008,0020',
     label: 'Study Date',
-    type: "text",
+    type: "date",
     width: 100
   },
   {
@@ -101,7 +106,7 @@ export const DSeriesHead = [
   {
     field: 'status',
     label: 'Status',
-    type: "text",
+    type: "status",
     width: 100
   },
   {

@@ -58,7 +58,7 @@ const SeriesTableItem = (props: any) => {
             <tr className={background} onClick={getDatas} data-toggle="collapse" data-target={`#kt_series_${data.ParentStudy}_${indexing}`} aria-expanded="true" aria-controls="faq1" role="button">
                 {
                     headers.map((item: any, index: number) => {
-                        if (item.field === 'name') {
+                        if (item.type === 'date') {
                             return (
                                 <TextValue
                                     key={index}
@@ -67,74 +67,11 @@ const SeriesTableItem = (props: any) => {
                                 />
                             )
                         }
-                        else if (item.field === 'status') {
+                        else if (item.type === 'status') {
                             return (
                                 <TextValue
                                     key={index}
                                     value={data.Status}
-                                    onClick={() => { }}
-                                />
-                            )
-                        }
-                        else if (item.field === 'modality') {
-                            return (
-                                <TextValue
-                                    key={index}
-                                    value={data.MainDicomTags[item.tag]?.Value}
-                                    onClick={() => { }}
-                                />
-                            )
-                        }
-                        else if (item.field === 'station_name') {
-                            return (
-                                <TextValue
-                                    key={index}
-                                    value={data.MainDicomTags[item.tag]?.Value}
-                                    onClick={() => { }}
-                                />
-                            )
-                        }
-                        else if (item.field === 'operators_name') {
-                            return (
-                                <TextValue
-                                    key={index}
-                                    value={data.MainDicomTags[item.tag]?.Value}
-                                    onClick={() => { }}
-                                />
-                            )
-                        }
-                        else if (item.field === 'contrast_bolus_agent') {
-                            return (
-                                <TextValue
-                                    key={index}
-                                    value={data.MainDicomTags[item.tag]?.Value}
-                                    onClick={() => { }}
-                                />
-                            )
-                        }
-                        else if (item.field === 'protocal_name') {
-                            return (
-                                <TextValue
-                                    key={index}
-                                    value={data.MainDicomTags[item.tag]?.Value}
-                                    onClick={() => { }}
-                                />
-                            )
-                        }
-                        else if (item.field === 'series_instance_uid') {
-                            return (
-                                <TextValue
-                                    key={index}
-                                    value={data.MainDicomTags[item.tag]?.Value}
-                                    onClick={() => { }}
-                                />
-                            )
-                        }
-                        else if (item.field === 'series_number') {
-                            return (
-                                <TextValue
-                                    key={index}
-                                    value={data.MainDicomTags[item.tag]?.Value}
                                     onClick={() => { }}
                                 />
                             )

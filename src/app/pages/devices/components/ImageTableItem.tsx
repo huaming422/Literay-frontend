@@ -33,64 +33,20 @@ const ImageTableItem = (props: any) => {
             {
                 headers.map((item: any, index: number) => {
 
-                    if (item.field === 'name') {
-                        return (
-                            <TextValue
-                                key={index}
-                                value={data.MainDicomTags[item.tag]?.Value}
-                                onClick={() => { }}
-                            />
-                        )
-                    }
-                   else if (item.field === 'sop_instance_uid') {
-                        return (
-                            <TextValue
-                                key={index}
-                                value={data.MainDicomTags[item.tag]?.Value}
-                                onClick={() => { }}
-                            />
-                        )
-                    }
-                    else if (item.field === 'image_position_patient') {
-                        return (
-                            <TextValue
-                                key={index}
-                                value={data.MainDicomTags[item.tag]?.Value}
-                                onClick={() => { }}
-                            />
-                        )
-                    }
-                    else if (item.field === 'image_orientation_patient') {
-                        return (
-                            <TextValue
-                                key={index}
-                                value={data.MainDicomTags[item.tag]?.Value}
-                                onClick={() => { }}
-                            />
-                        )
-                    }
-                    else if (item.field === 'image_comments') {
-                        return (
-                            <TextValue
-                                key={index}
-                                value={data.MainDicomTags[item.tag]?.Value}
-                                onClick={() => { }}
-                            />
-                        )
-                    }
-                    else if (item.field === 'create_date') {
+                    if (item.type === 'date') {
                         return (
                             <DateValue
-                                key={index}
-                                date={data.MainDicomTags[item.tag]?.Value}
-                                onClick={() => { }}
-                            />
+                            key={index}
+                            date={data.MainDicomTags[item.tag]?.Value}
+                            onClick={() => { }}
+                        />
                         )
-                    } else {
+                    }
+                   else {
                         return (
-                            <DateValue
+                            <TextValue
                                 key={index}
-                                date={data.MainDicomTags[item.tag]?.Value}
+                                value={data.MainDicomTags[item.tag]?.Value}
                                 onClick={() => { }}
                             />
                         )

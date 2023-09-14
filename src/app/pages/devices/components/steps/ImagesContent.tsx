@@ -5,7 +5,7 @@ import { MenuComponent } from '../../../../../_metronic/assets/ts/components';
 import { KTSVG } from '../../../../../_metronic/helpers'
 import { Resizable } from 're-resizable';
 // import * as item from '../../redux/Devicesredux'
-import { alphabetically } from '../../../../../setup/utils/utils';
+import { alphabetically, alphabeticallyOther } from '../../../../../setup/utils/utils';
 import ImageTableItem from '../ImageTableItem';
 import Pagenation from '../../../../components/pagination/Pagenation';
 
@@ -117,13 +117,13 @@ const ImagesContent = (props: any) => {
     minColumnWidthsObj = updateItems;
   }
 
-  const handleSort = (field: string, flag: boolean) => {
-    setCurrentSort(field);
+  const handleSort = (item: any, flag: boolean) => {
+    setCurrentSort(item.field);
     setSortFlag(flag);
-    const items = [...totalData].sort(alphabetically(field, flag));
+    const items = [...totalData].sort(alphabeticallyOther(item.tag, flag));
 
     let sort = sortAsc;
-    sort[field] = !flag;
+    sort[item.field] = !flag;
     setSortASC(sort);
     setTotalData([...items]);
   }
@@ -173,7 +173,7 @@ const ImagesContent = (props: any) => {
                         position: 'relative',
                         whiteSpace: 'nowrap',
                       }}
-                      onClick={() => handleSort(item['field'], sortAsc[item.field])}
+                      onClick={() => handleSort(item, sortAsc[item.field])}
                     >
                       <Resizable
                         className="resize-content"
