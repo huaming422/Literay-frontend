@@ -1,58 +1,34 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import * as devices from '../redux/Devicesredux'
-import DateValue from '../../../components/DateValue';
-import DivideValue from '../../../components/DivideValue';
-import DateTimeValue from '../../../components/DateTimeValue';
-import TabCheckboxValue from '../../../components/TabCheckboxValue';
-import TabHtmlview from '../../../components/TabHtmlview';
 import 'react-toastify/dist/ReactToastify.css';
 import { KTSVG } from '../../../../_metronic/helpers';
-import { UserModel } from '../../auth/models/UserModel';
-import { RootState } from '../../../../setup';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { DImagesColumnValues, DImagesHead } from '../data';
+import { DImagesHead } from '../data';
 import { ImagesContent } from './steps/ImagesContent';
-
+import { getImagesData } from '../redux/DevicesCRUD';
+import TextValue from '../../../components/TextValue';
 
 const SeriesTableItem = (props: any) => {
-    const { indexing, headers, data, checkedRows, handleSelect, parentWidth, selectedRow, setSelectedRow } = props;
+    const { indexing, headers, data, parentWidth, selectedRow, setSelectedRow } = props;
     const [odd, setOdd] = useState<boolean>(false);
     const [background, setBackground] = useState<string>("");
-
-    const user: UserModel = useSelector<RootState>(({ auth }) => auth.user, shallowEqual) as UserModel
-    const dispatch = useDispatch();
     const [totalData, setTotalData] = useState<any[]>([]);
-
-    const columnValues: any = useSelector<RootState>(({ devices }) => devices.imagesColumnValues, shallowEqual) as any;
-
-    useEffect(() => {
-        if (columnValues) {
-            setTotalData(columnValues);
-        }
-    }, [columnValues])
-
 
     const getDatas = () => {
         setSelectedRow(indexing)
-        dispatch(devices.actions.getImagesData([...DImagesColumnValues]))
-        // getDeviceConfigSettingsData(body)
-        //   .then((res: any) => {
-        //     let { data } = res;
-        //     dispatch(item.actions.getDeviceConfigSettingTableData(data))
-        //   })
-        //   .catch((error: any) => {
-        //     debugger
-        //     setHasIssue(true);
-        //   })
+        getImagesData(data.ID)
+            .then((res: any) => {
+                let { data } = res;
+                setTotalData(data)
+            })
+            .catch((error: any) => {
+                console.log(error);
+            })
     }
-
-    const isChecked = checkedRows!.includes(data.id);
 
     React.useEffect(() => {
         if (indexing === selectedRow) {
-            setBackground("bg-gray-300")
+            setBackground("bg-light-primary")
         } else {
             if (indexing % 2 === 0) {
                 setBackground("bg-gray-100")
@@ -63,13 +39,6 @@ const SeriesTableItem = (props: any) => {
             }
         }
     }, [indexing, selectedRow])
-
-    const handleClick = () => {
-    }
-
-    const handleCheckChange = (event: any) => {
-        handleSelect(data.id, event.target.checked)
-    }
 
     useEffect(() => {
         if (odd) {
@@ -82,8 +51,7 @@ const SeriesTableItem = (props: any) => {
 
     return (
         <>
-
-            <tr className={background} onClick={getDatas} data-toggle="collapse" data-target={`#kt_series_4_${indexing}`} aria-expanded="true" aria-controls="faq1" role="button">
+            <tr className={background} onClick={getDatas}>
                 <td style={{ width: '40px', height: 40, padding: '0px 5px 0px 5px ' }}>
                     <div className="d-flex align-items-center collapsible toggle collapsed mb-0" data-toggle="collapse" data-target={`#kt_series_4_${indexing}`} aria-expanded="true" aria-controls="faq1" role="button">
                         <div className="btn btn-sm btn-icon mw-20px btn-active-color-primary">
@@ -98,81 +66,87 @@ const SeriesTableItem = (props: any) => {
                         </div>
                     </div>
                 </td>
-                <td style={{ height: 40, borderRight: "solid 1px #cbc8c8", borderLeft: "solid 1px #cbc8c8" }}>
-                    <div className='form-check form-check-sm form-check-custom form-check-solid justify-content-center'>
-                        <input
-                            className='form-check-input widget-9-check'
-                            type='checkbox'
-                            checked={isChecked}
-                            onChange={handleCheckChange}
-                        />
-                    </div>
-                </td>
                 {
                     headers.map((item: any, index: number) => {
-                        let objectType = "";
-                        const definition = item.type;
-                        if (definition) {
-                            objectType = definition;
-                        } else {
-                            // console.log("Not fount objectType => ", xml);
-                        }
-                        if (objectType === 'date') {
+                        if (item.field === 'name') {
                             return (
-                                <DateValue
+                                <TextValue
                                     key={index}
-                                    datas={data[item.field]}
-                                    handleClick={handleClick}
+                                    value={data.MainDicomTags[item.tag].Value}
+                                    onClick={() => { }}
                                 />
                             )
                         }
-                        else if (objectType === 'checkbox') {
+                        if (item.field === 'status') {
                             return (
-                                <TabCheckboxValue
+                                <TextValue
                                     key={index}
-                                    odd={true}
-                                    value={data[item.field]}
+                                    value={data.Status}
+                                    onClick={() => { }}
                                 />
                             )
                         }
-                        else if (objectType === 'html') {
+                        if (item.field === 'modality') {
                             return (
-                                <TabHtmlview
+                                <TextValue
                                     key={index}
-                                    data={data[item.field]}
-                                    handleClick={handleClick}
+                                    value={data.MainDicomTags[item.tag]?.Value}
+                                    onClick={() => { }}
                                 />
                             )
                         }
-                        else if (objectType === 'datetime') {
+                        if (item.field === 'station_name') {
                             return (
-                                <DateTimeValue
+                                <TextValue
                                     key={index}
-                                    datas={data[item.field]}
-                                    handleClick={handleClick}
+                                    value={data.MainDicomTags[item.tag]?.Value}
+                                    onClick={() => { }}
                                 />
                             )
                         }
-                        else if (objectType === 'divide') {
+                        if (item.field === 'operators_name') {
                             return (
-                                <DivideValue
+                                <TextValue
                                     key={index}
-                                    data={data}
-                                    handleClick={handleClick}
+                                    value={data.MainDicomTags[item.tag]?.Value}
+                                    onClick={() => { }}
                                 />
                             )
                         }
-                        else {
+                        if (item.field === 'contrast_bolus_agent') {
                             return (
-                                <td key={index} style={{ padding: '0px 10px', overflow: 'hidden', height: 40, borderRight: "solid 1px #cbc8c8", borderLeft: "solid 1px #cbc8c8" }}
-                                    onClick={handleClick}
-                                >
-                                    <a className='text-dark  text-hover-primary d-block ' style={{ cursor: 'pointer', wordBreak: 'break-all', fontWeight: 100, fontSize: '13px', }}>
-                                        {
-                                            data[item.field]
-                                        }
-                                    </a>
-                                </td>
+                                <TextValue
+                                    key={index}
+                                    value={data.MainDicomTags[item.tag]?.Value}
+                                    onClick={() => { }}
+                                />
+                            )
+                        }
+                        if (item.field === 'protocal_name') {
+                            return (
+                                <TextValue
+                                    key={index}
+                                    value={data.MainDicomTags[item.tag]?.Value}
+                                    onClick={() => { }}
+                                />
+                            )
+                        }
+                        if (item.field === 'series_instance_uid') {
+                            return (
+                                <TextValue
+                                    key={index}
+                                    value={data.MainDicomTags[item.tag]?.Value}
+                                    onClick={() => { }}
+                                />
+                            )
+                        }
+                        if (item.field === 'series_number') {
+                            return (
+                                <TextValue
+                                    key={index}
+                                    value={data.MainDicomTags[item.tag]?.Value}
+                                    onClick={() => { }}
+                                />
                             )
                         }
                     })

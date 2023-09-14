@@ -56,9 +56,6 @@ const DeviceConfigPage = (props: any) => {
                 totalData={totalData}
                 setTotalData={setTotalData}
                 headers={DPatientHead}
-                setHasChanged={setHasChanged}
-                hasChanged={hasChanged}
-                getDatas={getDatas}
               />
               {
                 seriesColumnValues?.length > 0 &&
@@ -66,8 +63,6 @@ const DeviceConfigPage = (props: any) => {
                   totalData={seriesTotalData}
                   setTotalData={setSeriesTotalData}
                   headers={DSeriesHead}
-                  setHasChanged={setHasChanged}
-                  hasChanged={hasChanged}
                 />
               }
             </div>

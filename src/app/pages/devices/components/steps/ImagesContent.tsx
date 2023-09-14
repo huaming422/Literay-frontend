@@ -2,70 +2,26 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import NoDatas from '../../../../components/NoDatas'
 import { MenuComponent } from '../../../../../_metronic/assets/ts/components';
-import { useIntl } from 'react-intl';
 import { KTSVG } from '../../../../../_metronic/helpers'
 import { Resizable } from 're-resizable';
 import * as item from '../../redux/Devicesredux'
-import { useDispatch } from 'react-redux';
 import { alphabetically } from '../../../../../setup/utils/utils';
-import StudyTableItem from '../StudyTableItem';
-import Pagenation2 from '../../../../components/pagination2/Pagenation';
 import ImageTableItem from '../ImageTableItem';
 import Pagenation from '../../../../components/pagination/Pagenation';
 
 
 const ImagesContent = (props: any) => {
-  const { totalData, setTotalData, headers, parentWidth } = props;
+  const { totalData, setTotalData, headers } = props;
   const [currentPage, setCurrentPage] = useState(1);
   const [totalColumnItems, setTotalColumnItems] = useState<any[]>(totalData);
   const [columnItems, setColumnItems] = useState<any[]>([]);
   const [columnNames, setColumnNames] = useState<any[]>([]);
-  const [checkedData, setCheckedData] = useState<number[]>([]);
   const [sortAsc, setSortASC] = useState<any>();
   const [currentsort, setCurrentSort] = useState<string>("id");
   const [sortFlag, setSortFlag] = useState<boolean>(true);
-  const [checkAll, setCheckedAll] = useState<boolean>(false);
 
   const [columnWidthsObj, setColumnWidthsObj] = useState<any>({});
   let minColumnWidthsObj: any = {};
-
-  const intl = useIntl()
-  const dispatch = useDispatch();
-
-  const toggleSetting = (rowId: number, checked: boolean) => {
-    if (checked) {
-      setCheckedData([...checkedData, rowId]);
-    } else {
-      setCheckedData(checkedData.filter((id) => id !== rowId));
-    }
-  };
-  useEffect(() => {
-    if (checkedData.length === currentTableData.length) {
-      setCheckedAll(true);
-    } else {
-      setCheckedAll(false);
-    }
-  }, [checkedData, totalColumnItems])
-
-  const toggleAllCheckedData = (event: any) => {
-    const checked = event.target.checked;
-    if (checked) {
-      setCheckedAll(true);
-      const currentPageIds = currentTableData.map((row) => row.id);
-      const newSelectedRows = Array.from(
-        new Set([...checkedData, ...currentPageIds])
-      );
-      setCheckedData(newSelectedRows);
-    } else {
-      setCheckedAll(false)
-      // Deselect all rows on the current page
-      const currentPageIds = currentTableData.map((row) => row.id);
-      const newSelectedRows = checkedData.filter(
-        (rowId) => !currentPageIds.includes(rowId)
-      );
-      setCheckedData(newSelectedRows);
-    }
-  };
 
   useEffect(() => {
     let sort: any = [];
@@ -196,24 +152,6 @@ const ImagesContent = (props: any) => {
         <table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-0' style={{margin: 0}}>
           <thead>
             <tr className='fw-bolder text-muted'>
-              <th className='w-40px'
-                style={{
-                  borderRight: "solid 1px #cbc8c8",
-                  padding: 5,
-                  paddingBottom: 10
-                }}
-              >
-                <div className='form-check form-check-sm form-check-custom form-check-solid w-30px justify-content-center'>
-                  <input
-                    className='form-check-input'
-                    type='checkbox'
-                    checked={checkAll}
-                    onChange={toggleAllCheckedData}
-                    data-kt-check='true'
-                    data-kt-check-target='.widget-9-check'
-                  />
-                </div>
-              </th>
               {
                 columnNames.map((item: any, index: number) => {
                   let width = 150;
@@ -306,8 +244,6 @@ const ImagesContent = (props: any) => {
                       data={item}
                       indexing={index}
                       headers={columnNames}
-                      checkedRows={checkedData}
-                      handleSelect={toggleSetting}
                     />
                   );
                 }) : (

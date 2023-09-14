@@ -16,49 +16,12 @@ const SeriesContent = (props: any) => {
   const [totalColumnItems, setTotalColumnItems] = useState<any[]>(totalData);
   const [columnItems, setColumnItems] = useState<any[]>([]);
   const [columnNames, setColumnNames] = useState<any[]>([]);
-  const [checkedData, setCheckedData] = useState<number[]>([]);
   const [sortAsc, setSortASC] = useState<any>();
   const [currentsort, setCurrentSort] = useState<string>("id");
   const [sortFlag, setSortFlag] = useState<boolean>(true);
-  const [checkAll, setCheckedAll] = useState<boolean>(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
   const [columnWidthsObj, setColumnWidthsObj] = useState<any>({});
   let minColumnWidthsObj: any = {};
-
-  const toggleSetting = (rowId: number, checked: boolean) => {
-    if (checked) {
-      setCheckedData([...checkedData, rowId]);
-    } else {
-      setCheckedData(checkedData.filter((id) => id !== rowId));
-    }
-  };
-  useEffect(() => {
-    if (checkedData.length === currentTableData.length) {
-      setCheckedAll(true);
-    } else {
-      setCheckedAll(false);
-    }
-  }, [checkedData, totalColumnItems])
-
-  const toggleAllCheckedData = (event: any) => {
-    const checked = event.target.checked;
-    if (checked) {
-      setCheckedAll(true);
-      const currentPageIds = currentTableData.map((row) => row.id);
-      const newSelectedRows = Array.from(
-        new Set([...checkedData, ...currentPageIds])
-      );
-      setCheckedData(newSelectedRows);
-    } else {
-      setCheckedAll(false)
-      // Deselect all rows on the current page
-      const currentPageIds = currentTableData.map((row) => row.id);
-      const newSelectedRows = checkedData.filter(
-        (rowId) => !currentPageIds.includes(rowId)
-      );
-      setCheckedData(newSelectedRows);
-    }
-  };
 
   useEffect(() => {
     let sort: any = [];
@@ -199,22 +162,6 @@ const SeriesContent = (props: any) => {
                 style={{
                   borderRight: "solid 1px #cbc8c8",
                 }} />
-              <th className='w-20px align-items-center'
-                style={{
-                  borderRight: "solid 1px #cbc8c8",
-                }}
-              >
-                <div className='form-check form-check-sm form-check-custom form-check-solid w-20px justify-content-center mb-3 '>
-                  <input
-                    className='form-check-input'
-                    type='checkbox'
-                    checked={checkAll}
-                    onChange={toggleAllCheckedData}
-                    data-kt-check='true'
-                    data-kt-check-target='.widget-9-check'
-                  />
-                </div>
-              </th>
               {
                 columnNames.map((item: any, index: number) => {
                   let width = 150;
@@ -310,8 +257,6 @@ const SeriesContent = (props: any) => {
                       setSelectedRow={setSelectedRow}
                       parentWidth={parentWidth}
                       headers={columnNames}
-                      checkedRows={checkedData}
-                      handleSelect={toggleSetting}
                     />
                   );
                 }) : (

@@ -9,6 +9,10 @@ export function getStudytData(patientId: string) {
 }
 
 export function getSeriestData(studyid: string) {
-  return axios.get(`/studies${studyid}/series?full`)
+  return axios.get(`/studies/${studyid}/series?full`)
+}
+
+export function getImagesData(seriesid: string) {
+  return axios.get(`/series/${seriesid}/instances?full`)
 }
 

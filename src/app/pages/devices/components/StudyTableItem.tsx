@@ -8,7 +8,6 @@ import { useDispatch } from 'react-redux';
 import TextValue from '../../../components/TextValue';
 import { getSeriestData } from '../redux/DevicesCRUD';
 
-
 const StudyTableItem = (props: any) => {
     const { parentId, indexing, headers, data, selectedRow, setSelectedRow } = props;
     const [background, setBackground] = useState<string>("");
@@ -27,7 +26,7 @@ const StudyTableItem = (props: any) => {
 
     React.useEffect(() => {
         if (`${parentId}_${indexing}` === selectedRow) {
-            setBackground("bg-gray-300")
+            setBackground("bg-light-info")
         } else {
             if (indexing % 2 === 0) {
                 setBackground("bg-gray-100")
@@ -45,7 +44,7 @@ const StudyTableItem = (props: any) => {
                         return (
                             <TextValue
                                 key={index}
-                                value={data.MainDicomTags[item.tag].Value}
+                                value={data.MainDicomTags[item.tag]?.Value}
                                 onClick={() => { }}
                             />
                         )
@@ -54,7 +53,7 @@ const StudyTableItem = (props: any) => {
                         return (
                             <DateValue
                                 key={index}
-                                date={data.MainDicomTags[item.tag].Value}
+                                date={data.MainDicomTags[item.tag]?.Value}
                                 onClick={() => { }}
                             />
                         )
@@ -63,7 +62,7 @@ const StudyTableItem = (props: any) => {
                         return (
                             <TextValue
                                 key={index}
-                                value={data.MainDicomTags[item.tag].Value}
+                                value={data.MainDicomTags[item.tag]?.Value}
                                 onClick={() => { }}
                             />
                         )
@@ -72,7 +71,7 @@ const StudyTableItem = (props: any) => {
                         return (
                             <TextValue
                                 key={index}
-                                value={data.MainDicomTags[item.tag].Value}
+                                value={data.MainDicomTags[item.tag]?.Value}
                                 onClick={() => { }}
                             />
                         )
@@ -81,7 +80,7 @@ const StudyTableItem = (props: any) => {
                         return (
                             <TextValue
                                 key={index}
-                                value={data.MainDicomTags[item.tag].Value}
+                                value={data.MainDicomTags[item.tag]?.Value}
                                 onClick={() => { }}
                             />
                         )
@@ -90,7 +89,7 @@ const StudyTableItem = (props: any) => {
                         return (
                             <TextValue
                                 key={index}
-                                value={data.MainDicomTags[item.tag].Value}
+                                value={data.MainDicomTags[item.tag]?.Value}
                                 onClick={() => { }}
                             />
                         )
@@ -99,7 +98,7 @@ const StudyTableItem = (props: any) => {
                         return (
                             <TextValue
                                 key={index}
-                                value={data.MainDicomTags[item.tag].Value}
+                                value={data.MainDicomTags[item.tag]?.Value}
                                 onClick={() => { }}
                             />
                         )
@@ -108,7 +107,7 @@ const StudyTableItem = (props: any) => {
                         return (
                             <TextValue
                                 key={index}
-                                value={data.MainDicomTags[item.tag].Value}
+                                value={data.MainDicomTags[item.tag]?.Value}
                                 onClick={() => { }}
                             />
                         )

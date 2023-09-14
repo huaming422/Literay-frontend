@@ -26,6 +26,7 @@ export function getValueFromPattern(pattern: string, lastnum: number) {
 
 export function parseDicomDate(s:string)
 {
+  if(!s) {return null}
   let y = parseInt(s.substr(0, 4), 10);
   let m = parseInt(s.substr(4, 2), 10) - 1;
   let d = parseInt(s.substr(6, 2), 10);
