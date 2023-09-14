@@ -5,8 +5,8 @@ import dateFormat from 'dateformat';
 import { useLang } from '../../_metronic/i18n/Metronici18n';
 import { parseDicomDate } from '../../setup/utils/utils';
 
-const DateValue = (props: any) => {
-    const { date, handleClick } = props;
+const DateValueAction= (props: any) => {
+    const {indexing, date, handleClick } = props;
     const [value, setValue] = useState<string>("");
     const lang = useLang()
 
@@ -31,6 +31,7 @@ const DateValue = (props: any) => {
     return (
         <td style={{ padding: '0px 10px', borderRight: "solid 1px #cbc8c8", borderLeft: "solid 1px #cbc8c8" }}
             onClick={handleClick}
+            data-toggle="collapse" data-target={`#kt_job_4_${indexing}`} aria-expanded="true" aria-controls="faq1" role="button"
         >
             <a className='text-dark d-block ' style={{ cursor: 'pointer', fontSize: '13px', fontWeight: 100 }}>
                 {value}
@@ -39,4 +40,4 @@ const DateValue = (props: any) => {
     )
 }
 
-export default DateValue;
+export default DateValueAction;

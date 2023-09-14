@@ -240,7 +240,7 @@ const ImagesContent = (props: any) => {
                 columnItems?.map((item: any, index: any) => {
                   return (
                     <ImageTableItem
-                      key={item['id']}
+                      key={index}
                       data={item}
                       indexing={index}
                       headers={columnNames}

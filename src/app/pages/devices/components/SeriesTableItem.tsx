@@ -49,23 +49,13 @@ const SeriesTableItem = (props: any) => {
         // eslint-disable-next-line
     }, [data, odd])
 
+    useEffect(() => {
+        getDatas();
+    }, [data.ParentStudy])
+
     return (
         <>
-            <tr className={background} onClick={getDatas}>
-                <td style={{ width: '40px', height: 40, padding: '0px 5px 0px 5px ' }}>
-                    <div className="d-flex align-items-center collapsible toggle collapsed mb-0" data-toggle="collapse" data-target={`#kt_series_4_${indexing}`} aria-expanded="true" aria-controls="faq1" role="button">
-                        <div className="btn btn-sm btn-icon mw-20px btn-active-color-primary">
-                            <KTSVG
-                                className="svg-icon toggle-on svg-icon-primary svg-icon-1"
-                                path="/media/icons/duotune/general/gen036.svg"
-                            />
-                            <KTSVG
-                                className="svg-icon toggle-off svg-icon-1"
-                                path="/media/icons/duotune/general/gen035.svg"
-                            />
-                        </div>
-                    </div>
-                </td>
+            <tr className={background} onClick={getDatas} data-toggle="collapse" data-target={`#kt_series_${data.ParentStudy}_${indexing}`} aria-expanded="true" aria-controls="faq1" role="button">
                 {
                     headers.map((item: any, index: number) => {
                         if (item.field === 'name') {
@@ -178,8 +168,8 @@ const SeriesTableItem = (props: any) => {
             </tr >
             <tr>
                 <td colSpan={18} style={{ padding: 0 }}>
-                    <div id={`kt_series_4_${indexing}`} className="collapse fs-6 ms-1">
-                        <div className="ps-10 pb-5">
+                    <div id={`kt_series_${data.ParentStudy}_${indexing}`} className="collapse fs-6 ms-1">
+                        <div className="ps-10 pb-5 "  style={{background: '#f1f1f1'}}>
                             <ImagesContent
                                 id={data.id}
                                 totalData={totalData}

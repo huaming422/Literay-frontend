@@ -159,10 +159,6 @@ const SeriesContent = (props: any) => {
         <table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-0' style={{ margin: 0 }}  ref={ref}>
           <thead>
             <tr className='fw-bolder text-muted'>
-              <th className='w-40px overflow-hidden text-left'
-                style={{
-                  borderRight: "solid 1px #cbc8c8",
-                }} />
               {
                 columnNames.map((item: any, index: number) => {
                   let width = 150;
@@ -251,7 +247,7 @@ const SeriesContent = (props: any) => {
                 columnItems?.map((item: any, index: any) => {
                   return (
                     <SeriesTableItem
-                      key={item['id']}
+                      key={index}
                       data={item}
                       indexing={index}
                       selectedRow={selectedRow}

@@ -26,7 +26,7 @@ const StudyTableItem = (props: any) => {
 
     React.useEffect(() => {
         if (`${parentId}_${indexing}` === selectedRow) {
-            setBackground("bg-light-info")
+            setBackground("bg-success")
         } else {
             if (indexing % 2 === 0) {
                 setBackground("bg-gray-100")

@@ -355,16 +355,16 @@ const TabContent = (props: any) => {
         <table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-0' style={{ margin: 0 }}>
           <thead>
             <tr className='fw-bolder text-muted'>
-              <th className='w-40px overflow-hidden text-left'
+              {/* <th className='w-40px overflow-hidden text-left'
                 style={{
                   borderRight: "solid 1px #cbc8c8",
-                }} />
-              <th className='w-20px align-items-center'
+                }} /> */}
+              <th className='w-40px align-items-center justify-content-center p-lg-2'
                 style={{
                   borderRight: "solid 1px #cbc8c8",
                 }}
               >
-                <div className='form-check form-check-sm form-check-custom form-check-solid w-20px justify-content-center mb-3 '>
+                <div className='form-check form-check-sm form-check-custom form-check-solid justify-content-center mb-1 '>
                   <input
                     className='form-check-input'
                     type='checkbox'
