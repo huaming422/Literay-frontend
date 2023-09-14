@@ -9,13 +9,13 @@ export const DPatientHead = [
     field: 'patient_id',
     label: 'Patient ID',
     type: "text",
-    width: 150
+    width: 250
   },
   {
     field: 'patient_birthdate',
     label: 'Patient Birth Date',
     type: 'text',
-    width: 141
+    width: 200
   },
   {
     field: 'patient_sex',
@@ -27,7 +27,7 @@ export const DPatientHead = [
     field: 'other_patient_ids',
     label: 'Other Patient IDs',
     type: 'text',
-    width: 189
+    width: 300
   },
 ];
 
@@ -93,6 +93,7 @@ export const DStudyHead = [
 export const DSeriesHead = [
   {
     field: 'name',
+    tag: '0008,103e',
     label: 'Name',
     type: "text",
     width: 100
@@ -105,42 +106,49 @@ export const DSeriesHead = [
   },
   {
     field: 'modality',
+    tag: '0008,0060',
     label: 'Modality',
     type: 'text',
     width: 100
   },
   {
     field: 'station_name',
+    tag: '0008,1010',
     label: 'Station Name',
     type: 'text',
     width: 100
   },
   {
     field: 'operators_name',
+    tag: '0008,1070',
     label: 'Operators Name',
     type: 'text',
     width: 100
   },
   {
     field: 'contrast_bolus_agent',
+    tag: '0018,0010',
     label: 'Contrast Bolus Agent',
     type: 'text',
     width: 100
   },
   {
     field: 'protocal_name',
+    tag: '0018,1030',
     label: 'Protocal Name',
     type: 'text',
     width: 200
   },
   {
     field: 'series_instance_uid',
+    tag: '0020,000e',
     label: 'Series Instance UID',
     type: 'text',
     width: 200
   },
   {
     field: 'series_number',
+    tag: '0020,0011',
     label: 'Series Number',
     type: 'text',
     width: 100

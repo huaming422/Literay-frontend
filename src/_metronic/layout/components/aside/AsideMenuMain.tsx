@@ -53,9 +53,9 @@ export function AsideMenuMain() {
         fontIcon='bi-person'
       >
         {
-          totalData?.map((item: any) => {
+          totalData?.map((item: any, index: any) => {
             return (
-              <AsideMenuItem to={`/devices/${item.id}`} title={item.ae_title} hasBullet={true} />
+              <AsideMenuItem key={index} to={`/devices/${item.id}`} title={item.ae_title} hasBullet={true} />
             )
           })
         }

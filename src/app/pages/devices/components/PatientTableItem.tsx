@@ -9,14 +9,11 @@ import { DStudyHead } from '../data';
 import { getStudytData } from '../redux/DevicesCRUD';
 import TextValue from '../../../components/TextValue';
 
-
 const PatientTableItem = (props: any) => {
-    const { indexing, headers, data, checkedRows, handleSelect, parentWidth, selectedRow, setSelectedRow } = props;
+    const { indexing, headers, data, checkedRows, handleSelect, parentWidth, selectedRow, setSelectedRow, selectedStudyRow, setSelectedStudyRow } = props;
     const [odd, setOdd] = useState<boolean>(false);
     const [background, setBackground] = useState<string>("");
-
     const [totalData, setTotalData] = useState<any[]>([]);
-
     const getDatas = () => {
         setSelectedRow(indexing)
         getStudytData(data.ID)
@@ -29,7 +26,7 @@ const PatientTableItem = (props: any) => {
             })
     }
 
-    const isChecked = checkedRows!.includes(data.id);
+    const isChecked = checkedRows!.includes(data.ID);
 
     React.useEffect(() => {
         if (indexing === selectedRow) {
@@ -46,7 +43,7 @@ const PatientTableItem = (props: any) => {
     }, [indexing, selectedRow])
 
     const handleCheckChange = (event: any) => {
-        handleSelect(data.id, event.target.checked)
+        handleSelect(data.ID, event.target.checked)
     }
 
     useEffect(() => {
@@ -60,7 +57,7 @@ const PatientTableItem = (props: any) => {
 
     return (
         <>
-            <tr className={background} onClick={getDatas} data-toggle="collapse" data-target={`#kt_job_4_${indexing}`} aria-expanded="true" aria-controls="faq1" role="button">
+            <tr className={background} onClick={getDatas} style={{cursor: 'pointer'}}>
                 <td style={{ width: '40px', height: 40, padding: '0px 5px 0px 5px ' }}>
                     <div className="d-flex align-items-center collapsible toggle collapsed mb-0" data-toggle="collapse" data-target={`#kt_job_4_${indexing}`} aria-expanded="true" aria-controls="faq1" role="button">
                         <div className="btn btn-sm btn-icon mw-20px btn-active-color-primary">
@@ -75,7 +72,7 @@ const PatientTableItem = (props: any) => {
                         </div>
                     </div>
                 </td>
-                <td style={{ height: 40, borderRight: "solid 1px #cbc8c8", borderLeft: "solid 1px #cbc8c8" }}>
+                <td style={{ height: 40, borderRight: "solid 1px #cbc8c8", borderLeft: "solid 1px #cbc8c8", zIndex: 100000 }}>
                     <div className='form-check form-check-sm form-check-custom form-check-solid justify-content-center'>
                         <input
                             className='form-check-input widget-9-check'
@@ -135,19 +132,19 @@ const PatientTableItem = (props: any) => {
                         }
                     })
                 }
-                <td style={{ width: '100%', height: 40 }}>
-                </td>
             </tr >
             <tr>
                 <td colSpan={8} style={{ padding: 0 }}>
                     <div id={`kt_job_4_${indexing}`} className="collapse fs-6 ms-1">
                         <div className="ps-10 pb-5">
                             <StudyContent
-                                id={data.id}
+                                id={data.ID}
                                 totalData={totalData}
                                 parentWidth={parentWidth}
                                 setTotalData={setTotalData}
                                 headers={DStudyHead}
+                                selectedRow={selectedStudyRow}
+                                setSelectedRow={setSelectedStudyRow}
                             />
                         </div>
                     </div>

@@ -11,7 +11,6 @@ import { alphabetically } from '../../../../../setup/utils/utils';
 import PatientTableItem from '../PatientTableItem';
 import Pagenation2 from '../../../../components/pagination2/Pagenation';
 
-
 const TabContent = (props: any) => {
   const { totalData, setTotalData, headers } = props;
 
@@ -23,6 +22,8 @@ const TabContent = (props: any) => {
   const [columnNames, setColumnNames] = useState<any[]>([]);
   const [checkedData, setCheckedData] = useState<string[]>([]);
   const [selectedRow, setSelectedRow] = useState<any>(null);
+  const [selectedStudyRow, setSelectedStudyRow] = useState<any>(null);
+  
   const [sortAsc, setSortASC] = useState<any>();
   const [currentsort, setCurrentSort] = useState<string>("id");
   const [sortFlag, setSortFlag] = useState<boolean>(true);
@@ -47,6 +48,7 @@ const TabContent = (props: any) => {
       setCheckedData(checkedData.filter((id) => id !== rowId));
     }
   };
+
   useEffect(() => {
     if (checkedData.length === currentTableData.length) {
       setCheckedAll(true);
@@ -59,7 +61,7 @@ const TabContent = (props: any) => {
     const checked = event.target.checked;
     if (checked) {
       setCheckedAll(true);
-      const currentPageIds = currentTableData.map((row) => row.id);
+      const currentPageIds = currentTableData.map((row) => row.ID);
       const newSelectedRows = Array.from(
         new Set([...checkedData, ...currentPageIds])
       );
@@ -67,7 +69,7 @@ const TabContent = (props: any) => {
     } else {
       setCheckedAll(false)
       // Deselect all rows on the current page
-      const currentPageIds = currentTableData.map((row) => row.id);
+      const currentPageIds = currentTableData.map((row) => row.ID);
       const newSelectedRows = checkedData.filter(
         (rowId) => !currentPageIds.includes(rowId)
       );
@@ -77,7 +79,6 @@ const TabContent = (props: any) => {
 
   const removeChecks = () => {
     setCheckedAll(false)
-    // Deselect all rows on the current page
     const currentPageIds = currentTableData.map((row) => row.id);
     const newSelectedRows = checkedData.filter(
       (rowId) => !currentPageIds.includes(rowId)
@@ -94,7 +95,6 @@ const TabContent = (props: any) => {
     headers.forEach((element: any) => {
       sort[element.field] = false;
     });
-
     setSortASC(sort);
   }, [headers])
 
@@ -113,7 +113,6 @@ const TabContent = (props: any) => {
   useEffect(() => {
     if (headers)
       setColumnNames(headers);
-
     const gridColumns = headers.map(() => {
       return 0;
     });
@@ -154,6 +153,7 @@ const TabContent = (props: any) => {
   }, [currentTableData])
 
   //////////////////////////////////////////// Table Item //////////////////////////////////////////////////////////
+
   useEffect(() => {
     setTimeout(() => {
       MenuComponent.reinitialization()
@@ -220,7 +220,6 @@ const TabContent = (props: any) => {
           <div className='d-flex'>
             <h2 className='fw-bolder align-items-center  text-dark'>
               {
-                // intl.formatMessage({ id: 'MENU.DEVICE.CONFIGURATION' })
                 "Patients"
               }
             </h2>
@@ -236,7 +235,6 @@ const TabContent = (props: any) => {
                 {!uploading &&
                   <span className='indicator-label'>
                     {
-                      // intl.formatMessage({ id: 'SEARCH.DELETE' })
                       "Upload"
                     }
                   </span>}
@@ -258,7 +256,6 @@ const TabContent = (props: any) => {
                 {!uploading &&
                   <span className='indicator-label'>
                     {
-                      // intl.formatMessage({ id: 'SEARCH.DELETE' })
                       "Upload"
                     }
                   </span>}
@@ -462,7 +459,7 @@ const TabContent = (props: any) => {
                 columnItems?.map((item: any, index: any) => {
                   return (
                     <PatientTableItem
-                      key={item['id']}
+                      key={index}
                       data={item}
                       indexing={index}
                       parentWidth={parentWidth}
@@ -471,6 +468,8 @@ const TabContent = (props: any) => {
                       setSelectedRow={setSelectedRow}
                       checkedRows={checkedData}
                       handleSelect={toggleSetting}
+                      selectedStudyRow={selectedStudyRow}
+                      setSelectedStudyRow={setSelectedStudyRow}
                     />
                   );
                 }) : (

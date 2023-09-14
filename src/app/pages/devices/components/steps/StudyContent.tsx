@@ -11,7 +11,7 @@ import Pagenation2 from '../../../../components/pagination2/Pagenation';
 
 
 const StudyContent = (props: any) => {
-  const { totalData, setTotalData, headers, parentWidth } = props;
+  const {id, totalData, setTotalData, headers, parentWidth, selectedRow, setSelectedRow } = props;
   const [currentPage, setCurrentPage] = useState(1);
   const [totalColumnItems, setTotalColumnItems] = useState<any[]>(totalData);
   const [columnItems, setColumnItems] = useState<any[]>([]);
@@ -19,7 +19,6 @@ const StudyContent = (props: any) => {
   const [sortAsc, setSortASC] = useState<any>();
   const [currentsort, setCurrentSort] = useState<string>("id");
   const [sortFlag, setSortFlag] = useState<boolean>(true);
-  const [selectedRow, setSelectedRow] = useState<any>(null);
 
   const [columnWidthsObj, setColumnWidthsObj] = useState<any>({});
   let minColumnWidthsObj: any = {};
@@ -241,9 +240,10 @@ const StudyContent = (props: any) => {
                 columnItems?.map((item: any, index: any) => {
                   return (
                     <StudyTableItem
-                      key={item['id']}
+                      key={index}
                       data={item}
                       indexing={index}
+                      parentId={id}
                       setSelectedRow={setSelectedRow}
                       selectedRow={selectedRow}
                       headers={columnNames}

@@ -8,3 +8,7 @@ export function getStudytData(patientId: string) {
   return axios.get(`/patients/${patientId}/studies?full`)
 }
 
+export function getSeriestData(studyid: string) {
+  return axios.get(`/studies${studyid}/series?full`)
+}
+

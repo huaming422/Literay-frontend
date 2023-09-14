@@ -1,66 +1,44 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import * as devices from '../redux/Devicesredux'
 import DateValue from '../../../components/DateValue';
-import DivideValue from '../../../components/DivideValue';
-import DateTimeValue from '../../../components/DateTimeValue';
-import TabCheckboxValue from '../../../components/TabCheckboxValue';
-import TabHtmlview from '../../../components/TabHtmlview';
 import 'react-toastify/dist/ReactToastify.css';
-import { UserModel } from '../../auth/models/UserModel';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../../setup';
-import { DSeriesColumnValues } from '../data';
+import { useDispatch } from 'react-redux';
 import TextValue from '../../../components/TextValue';
+import { getSeriestData } from '../redux/DevicesCRUD';
 
 
 const StudyTableItem = (props: any) => {
-    const { indexing, headers, data, selectedRow, setSelectedRow } = props;
-    const [odd, setOdd] = useState<boolean>(false);
+    const { parentId, indexing, headers, data, selectedRow, setSelectedRow } = props;
     const [background, setBackground] = useState<string>("");
-
-    useEffect(() => {
-        if (indexing % 2 === 0) {
-            setOdd(true)
-        } else {
-            setOdd(false)
-        }
-    }, [indexing])
-
-    const user: UserModel = useSelector<RootState>(({ auth }) => auth.user, shallowEqual) as UserModel
     const dispatch = useDispatch();
-
     const getDatas = () => {
-        setSelectedRow(indexing)
-        dispatch(devices.actions.getSeriesData([...DSeriesColumnValues]))
-        // getDeviceConfigSettingsData(body)
-        //   .then((res: any) => {
-        //     let { data } = res;
-        //     dispatch(item.actions.getDeviceConfigSettingTableData(data))
-        //   })
-        //   .catch((error: any) => {
-        //     debugger
-        //     setHasIssue(true);
-        //   })
+        setSelectedRow(`${parentId}_${indexing}`)
+        getSeriestData(data.ID)
+          .then((res: any) => {
+            let { data } = res;
+            dispatch(devices.actions.getSeriesData(data))
+          })
+          .catch((error: any) => {
+            console.log(error)
+          })
     }
 
     React.useEffect(() => {
-        if (indexing === selectedRow) {
+        if (`${parentId}_${indexing}` === selectedRow) {
             setBackground("bg-gray-300")
         } else {
             if (indexing % 2 === 0) {
                 setBackground("bg-gray-100")
-                setOdd(true)
             } else {
                 setBackground("")
-                setOdd(false)
             }
         }
-    }, [indexing, selectedRow])
+    }, [indexing, selectedRow, parentId])
 
     return (
-        <tr className={background} onClick={getDatas}>
+        <tr className={background} onClick={getDatas} style={{cursor: 'pointer'}}>
             {
                 headers.map((item: any, index: number) => {
                     if (item.field === 'name') {

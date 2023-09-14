@@ -23,12 +23,12 @@ const DeviceConfigPage = (props: any) => {
       setTotalData(columnValues);
     }
   }, [columnValues])
+
   useEffect(() => {
     if (seriesColumnValues) {
       setSeriesTotalData([...seriesColumnValues]);
     }
   }, [seriesColumnValues])
-
 
   const getDatas = () => {
     getPatientData()
@@ -37,6 +37,7 @@ const DeviceConfigPage = (props: any) => {
         dispatch(devices.actions.getPatientData(data))
       })
       .catch((error: any) => {
+        console.log(error)
       })
   }
 
@@ -69,7 +70,6 @@ const DeviceConfigPage = (props: any) => {
                   hasChanged={hasChanged}
                 />
               }
-
             </div>
           </div>
         </div>
