@@ -8,6 +8,7 @@ export function PrivateRoutes() {
   const DeviceConfigPage = lazy(() => import('../pages/modalityConfig/DeviceConfigWrapper'))
   const LocalAEConfigPage = lazy(() => import('../pages/localAE/LocalAEWrapper'))
   const DevicesPage = lazy(() => import('../pages/devices/DevicesWrapper'))
+  const SettingsPage = lazy(() => import('../pages/settings/SettingsWrapper'))
 
   return (
     <Suspense fallback={<FallbackView />}>
@@ -17,6 +18,7 @@ export function PrivateRoutes() {
           <Route exact path='/modality' component={DeviceConfigPage} />
           <Route exact path='/local-ae' component={LocalAEConfigPage} />
           <Route exact path='/devices/:id' component={DevicesPage} />
+          <Route exact path='/settings' component={SettingsPage} />
 
           <Redirect from='/auth' to={`/modality`} />
           <Redirect exact from='/' to={`/modality`} />

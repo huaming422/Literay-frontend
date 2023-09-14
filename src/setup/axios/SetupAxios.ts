@@ -6,8 +6,8 @@ export default function setupAxios(axios: any, store: any) {
         auth: {accessToken},
       } = store.getState()
 
+      config.headers.Authorization = `Basic YWRtaW46YWRtaW4=`
       if (accessToken) {
-        config.headers.Authorization = `Bearer ${accessToken}`
       }
 
       return config

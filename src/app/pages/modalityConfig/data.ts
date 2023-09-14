@@ -9,7 +9,7 @@ export const DModalityHead = [
     field: 'ae_title',
     label: 'AE Title',
     type: "text",
-    width: 150
+    width: 300
   },
   {
     field: 'ip_address',
@@ -33,7 +33,7 @@ export const DModalityHead = [
     field: 'description',
     label: 'Description',
     type: 'text',
-    width: 200
+    width: 800
   },
 ];
 

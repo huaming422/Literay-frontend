@@ -46,7 +46,7 @@ const DeviceConfigPage = () => {
     <div className='card'>
       <div className='card-body'>
         <div className='stepper stepper-links d-flex flex-column'>
-          <div className={`mx-auto mw-1500px  w-100`} >
+          <div className={`mx-auto w-100`}>
             <div className='current' >
               <TabContent
                 totalData={totalData}

@@ -30,7 +30,7 @@ const EditDeviceConfigModal = (props: any) => {
         } else {
             errors.ae_title = false;
         }
-        if (data.ip_address == "") {
+        if (data.ip_address ==+ "") {
             errors.ip_address = true;
         } else {
             errors.ip_address = false;
@@ -40,7 +40,7 @@ const EditDeviceConfigModal = (props: any) => {
         } else {
             errors.port = false;
         }
-        if (data.device_name == "") {
+        if (data.device_name ==+ "") {
             errors.device_name = true;
         } else {
             errors.device_name = false;

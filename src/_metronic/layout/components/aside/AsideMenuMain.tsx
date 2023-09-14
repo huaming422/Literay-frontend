@@ -75,10 +75,16 @@ export function AsideMenuMain() {
         title="Modality"
         fontIcon='bi-app-indicator'
       />
-      <AsideMenuItem
+      {/* <AsideMenuItem
         to='/local-ae'
         icon='/media/icons/duotune/general/gen019.svg'
         title='Local AE'
+        fontIcon='bi-layers'
+      /> */}
+      <AsideMenuItem
+        to='/settings'
+        icon='/media/icons/duotune/general/gen019.svg'
+        title='Settings'
         fontIcon='bi-layers'
       />
     </>

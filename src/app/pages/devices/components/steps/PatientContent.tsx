@@ -22,7 +22,7 @@ const TabContent = (props: any) => {
   const [totalColumnItems, setTotalColumnItems] = useState<any[]>(totalData);
   const [columnItems, setColumnItems] = useState<any[]>([]);
   const [columnNames, setColumnNames] = useState<any[]>([]);
-  const [checkedData, setCheckedData] = useState<number[]>([]);
+  const [checkedData, setCheckedData] = useState<string[]>([]);
   const [selectedRow, setSelectedRow] = useState<any>(null);
   const [sortAsc, setSortASC] = useState<any>();
   const [currentsort, setCurrentSort] = useState<string>("id");
@@ -41,7 +41,7 @@ const TabContent = (props: any) => {
   const intl = useIntl()
   const dispatch = useDispatch();
 
-  const toggleSetting = (rowId: number, checked: boolean) => {
+  const toggleSetting = (rowId: string, checked: boolean) => {
     if (checked) {
       setCheckedData([...checkedData, rowId]);
     } else {
@@ -75,6 +75,20 @@ const TabContent = (props: any) => {
       setCheckedData(newSelectedRows);
     }
   };
+
+  const removeChecks = () => {
+    setCheckedAll(false)
+    // Deselect all rows on the current page
+    const currentPageIds = currentTableData.map((row) => row.id);
+    const newSelectedRows = checkedData.filter(
+      (rowId) => !currentPageIds.includes(rowId)
+    );
+    setCheckedData(newSelectedRows);
+
+    dispatch(item.actions.getStudyData([]))
+    dispatch(item.actions.getSeriesData([]))
+    dispatch(item.actions.getImagesData([]))
+  }
 
   useEffect(() => {
     let sort: any = [];
@@ -126,6 +140,7 @@ const TabContent = (props: any) => {
   }, [currentPage, totalColumnItems, PageSize]);
 
   const handlePageChange = (props: any) => {
+    removeChecks();
     let page = parseInt(props);
     let itemscount = (page - 1) * parseInt(PageSize);
     if (itemscount < totalColumnItems.length) {
