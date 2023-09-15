@@ -1,9 +1,37 @@
 /* eslint-disable array-callback-return */
-import React from 'react'
+import React, { useState } from 'react'
 import TextInput from './TextInput';
+import { DocUploadPage } from '../../../../components/doc-upload/DocUploadPage';
 
 const TabContent = (props: any) => {
   const { statistics, systemInfo } = props;
+  const [docsTotalData, setDocsTotalData] = useState<any[]>([]);
+  const [docsInsertedArray, setDocsInsertedArray] = useState<any[]>([])
+  const [docsDeletedArray, setDocsDeletedArray] = useState<any[]>([])
+  const [hasIssue, setHasIssue] = useState<boolean>(false);
+  const [hasChanged, setHasChanged] = useState<boolean>(false);
+  const [uploading, setUploading] = useState<boolean>(false);
+
+  const handleDocsAdd = (id: any) => {
+    const exist = docsInsertedArray.includes(id);
+    if (!exist) {
+      let docsArray = docsInsertedArray;
+      docsArray.push(id);
+      setDocsInsertedArray(docsArray);
+    }
+  }
+  const handleDocsDelete = (image_url: string) => {
+    const exist = docsDeletedArray.includes(image_url);
+    if (!exist) {
+      let docsArray = docsDeletedArray;
+      docsArray.push(image_url);
+      setDocsDeletedArray(docsArray);
+    }
+  }
+
+  const handleUpload = () => {
+    setUploading(true)
+  }
 
   return (
     <div className='w-100' >
@@ -16,6 +44,22 @@ const TabContent = (props: any) => {
               }
             </h2>
           </div>
+          <button disabled={!hasChanged} onClick={handleUpload} className='btn btn-sm btn-primary mr-3'>
+            {!uploading &&
+              <span className='indicator-label'>
+                {
+                  "Upload"
+                }
+              </span>}
+            {uploading && (
+              <span className='indicator-progress' style={{ display: 'block' }}>
+                {
+                  "Please wait..."
+                }
+                <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
+              </span>
+            )}
+          </button>
         </div>
       </div>
 
@@ -116,6 +160,14 @@ const TabContent = (props: any) => {
           </div>
         </div>
       </div>
+      <DocUploadPage
+        docItems={docsTotalData}
+        setDocItems={setDocsTotalData}
+        handleAdd={handleDocsAdd}
+        handleDelete={handleDocsDelete}
+        setHasChanged={setHasChanged}
+        hasDocsIssue={hasIssue}
+      />
     </div>
   )
 }
