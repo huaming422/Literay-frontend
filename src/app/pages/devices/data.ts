@@ -1,7 +1,7 @@
 export const DPatientHead = [
   {
     field: 'name',
-    tag: 'PatientName',
+    tag: '0010,0010',
     label: 'Name',
     type: "text",
     width: 150
@@ -9,30 +9,30 @@ export const DPatientHead = [
   {
     field: 'patient_id',
     label: 'Patient ID',
-    tag: 'PatientID',
+    tag: '0010,0020',
     type: "text",
     width: 250
   },
   {
     field: 'patient_birthdate',
     label: 'Patient Birth Date',
-    tag: 'PatientBirthDate',
+    tag: '0010,0030',
     type: 'date',
     width: 200
   },
   {
     field: 'patient_sex',
     label: 'Patient Sex',
-    tag: 'PatientSex',
+    tag: '0010,0040',
     type: 'text',
     width: 120
   },
   {
     field: 'other_patient_ids',
     label: 'Other Patient IDs',
-    tag: 'OtherPatientIDs',
+    tag: '0010,1000',
     type: 'text',
-    width: 315
+    width: 220
   },
 ];
 

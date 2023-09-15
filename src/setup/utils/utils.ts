@@ -74,8 +74,13 @@ export function alphabetically(field: string, ascending: any) {
     }
 
     if (isNaN(avalue) || isNaN(bvalue)) {
-      avalue = a[field].toLowerCase();
-      bvalue = b[field].toLowerCase();
+      try {
+        avalue = a[field].toLowerCase();
+        bvalue = b[field].toLowerCase();
+        
+      } catch (error) {
+        
+      }
     }
 
     // otherwise, if we're ascending, lowest sorts first
@@ -164,8 +169,13 @@ export function alphabeticallyPatient(tag: string, ascending: any) {
     }
 
     if (isNaN(avalue) || isNaN(bvalue)) {
-      avalue = a.MainDicomTags[tag].toLowerCase();
-      bvalue = b.MainDicomTags[tag].toLowerCase();
+      try {
+        avalue = a.MainDicomTags[tag].toLowerCase();
+        bvalue = b.MainDicomTags[tag].toLowerCase();
+        
+      } catch (error) {
+        
+      }
     }
 
     // otherwise, if we're ascending, lowest sorts first

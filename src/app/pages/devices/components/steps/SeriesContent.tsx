@@ -8,7 +8,9 @@ import { Resizable } from 're-resizable';
 import { alphabeticallyOther } from '../../../../../setup/utils/utils';
 import Pagenation2 from '../../../../components/pagination2/Pagenation';
 import SeriesTableItem from '../SeriesTableItem';
-
+import { deleteSeries, uploadPatients } from '../../redux/DevicesCRUD';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SeriesContent = (props: any) => {
   const { totalData, setTotalData, headers } = props;
@@ -143,6 +145,99 @@ const SeriesContent = (props: any) => {
     // eslint-disable-next-line
   }, [ref.current]);
 
+  const handlePreviewItem = (id: string) => {
+    window.open(`${process.env.REACT_APP_APP_URL}/stone-webviewer/index.html?series=${id}`, "_blank")
+  }
+
+  const handleDeleteItem = (name: string, id: string) => {
+    // @ts-ignore
+    Swal.fire({
+      text: `Do you really want to delete series ${name}?`,
+      icon: "warning",
+      showCancelButton: true,
+      buttonsStyling: false,
+      confirmButtonText: "Delete",
+      cancelButtonText: "Cancel",
+      customClass: {
+        confirmButton: "btn btn-primary",
+        cancelButton: "btn btn-active-light"
+      }
+    }).then(async function (result: any) {
+      if (result.value) {
+        deleteSeries(id)
+          .then((res) => {
+            toast.success(`Deleted Successfully`, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+            let tempData = totalData.filter((item: any) => item.ID !== id);
+            setTotalData(() => [...tempData])
+          })
+          .catch((err) => {
+            toast.error(`Deleting Failed`, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          })
+      } else if (result.dismiss === 'cancel') {
+
+      }
+    });
+  }
+
+  const handleUploadItem = (id: string) => {
+    const body = {
+      Resources: [id],
+      Synchronous: false
+    }
+    uploadPatients(body)
+      .then((res: any) => {
+        toast.success(`Uploaded Successfully`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      })
+      .catch((error: any) => {
+        console.log(error)
+        toast.error(`Uploading Failed`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      })
+
+  }
+
+  const handleDownload = (id: string) => {
+    var a = document.createElement("a");
+    a.href = `${process.env.REACT_APP_APP_URL}/series/${id}/archive`
+    a.download = `${id}.zip`;
+    a.click();
+  }
+
   return (
     <div className='w-100' >
       <div className='pb-2 pt-10'>
@@ -254,6 +349,10 @@ const SeriesContent = (props: any) => {
                       setSelectedRow={setSelectedRow}
                       parentWidth={parentWidth}
                       headers={columnNames}
+                      handleUpload={handleUploadItem}
+                      handleDelete={handleDeleteItem}
+                      handlePreview={handlePreviewItem}
+                      handleDownload={handleDownload}
                     />
                   );
                 }) : (

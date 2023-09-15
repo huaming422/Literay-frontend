@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import * as Yup from 'yup'
 import clsx from 'clsx'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as auth from '../redux/AuthRedux'
 import { login } from '../redux/AuthCRUD'
@@ -135,9 +135,9 @@ export function Login() {
         <div />
 
         {/* begin::Link */}
-        <Link to='/auth/forgot-password' className='link-primary'>
+        {/* <Link to='/auth/forgot-password' className='link-primary'>
           Forgot Password ?
-        </Link>
+        </Link> */}
         {/* end::Link */}
       </div>
       {/* end::Wrapper */}
@@ -159,12 +159,12 @@ export function Login() {
         </button>
       </div>
       {/* end::Action */}
-      <div className='text-gray-500 text-center fw-semibold fs-6'>
+      {/* <div className='text-gray-500 text-center fw-semibold fs-6'>
         Not a Member yet?{' '}
         <Link to='/auth/registration' className='link-primary'>
           Sign up
         </Link>
-      </div>
+      </div> */}
     </form>
   )
 }

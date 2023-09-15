@@ -7,12 +7,14 @@ import { DStudyHead } from '../data';
 import { getStudytData } from '../redux/DevicesCRUD';
 import TextValueAction from '../../../components/TextValueAction';
 import DateValueAction from '../../../components/DateValueAction';
+import { KTSVG } from '../../../../_metronic/helpers';
 
 const PatientTableItem = (props: any) => {
-    const { indexing, headers, data, checkedRows, handleSelect, parentWidth, selectedRow, setSelectedRow, selectedStudyRow, setSelectedStudyRow } = props;
+    const { indexing, headers, data, checkedRows, handleSelect, parentWidth, selectedRow, setSelectedRow, selectedStudyRow, setSelectedStudyRow, handleUpload, handleDownload, handleDelete } = props;
     const [odd, setOdd] = useState<boolean>(false);
     const [background, setBackground] = useState<string>("");
     const [totalData, setTotalData] = useState<any[]>([]);
+
     const getDatas = () => {
         setSelectedRow(indexing)
         getStudytData(data.ID)
@@ -54,6 +56,8 @@ const PatientTableItem = (props: any) => {
         // eslint-disable-next-line
     }, [data, odd])
 
+
+
     return (
         <>
             <tr className={background} onClick={getDatas} style={{ cursor: 'pointer' }}>
@@ -75,7 +79,7 @@ const PatientTableItem = (props: any) => {
                                 <DateValueAction
                                     key={index}
                                     indexing={indexing}
-                                    date={data.MainDicomTags[item.tag]}
+                                    date={data.MainDicomTags[item.tag]?.Value}
                                     onClick={() => { }}
                                 />
                             )
@@ -85,20 +89,55 @@ const PatientTableItem = (props: any) => {
                                 <TextValueAction
                                     key={index}
                                     indexing={indexing}
-                                    value={data.MainDicomTags[item.tag]}
+                                    value={data.MainDicomTags[item.tag]?.Value}
                                     onClick={() => { }}
                                 />
                             )
                         }
                     })
                 }
-                <td style={{ width: '100%', height: 40, padding: '0px 5px 0px 5px ' }}>
+                <td style={{ width: '100%', minWidth: '0px', height: 40, padding: '0px 5px 0px 5px ' }}>
+                    <div className='d-flex justify-content-center'>
+                        <button
+                            className={`btn btn-icon ${!odd ? "btn-bg-light" : "btn-bg-white"} btn-active-color-success me-2`}
+                            style={{ width: "30px", height: "30px" }}
+                            data-bs-toggle="modal" data-bs-target="#delete-one-confirm-modal"
+                            onClick={() => handleUpload(data.ID)}
+                        >
+                            <KTSVG
+                                path='/media/icons/duotune/arrows/arr078.svg'
+                                className='svg-icon-2 svg-icon-gray-800'
+                            />
+                        </button>
+                        <button
+                            className={`btn btn-icon ${!odd ? "btn-bg-light" : "btn-bg-white"} btn-active-color-info me-2`}
+                            style={{ width: "30px", height: "30px" }}
+                            data-bs-toggle="modal" data-bs-target="#delete-one-confirm-modal"
+                            onClick={() => handleDownload(data.ID)}
+                        >
+                            <KTSVG
+                                path='/media/icons/duotune/files/fil021.svg'
+                                className='svg-icon-2 svg-icon-gray-800'
+                            />
+                        </button>
+                        <button
+                            className={`btn btn-icon ${!odd ? "btn-bg-light" : "btn-bg-white"} btn-active-color-danger `}
+                            style={{ width: "30px", height: "30px" }}
+                            data-bs-toggle="modal" data-bs-target="#delete-one-confirm-modal"
+                            onClick={() => handleDelete(data.MainDicomTags['0010,0010']?.Value, data.ID)}
+                        >
+                            <KTSVG
+                                path='/media/icons/duotune/general/gen027.svg'
+                                className='svg-icon-2 svg-icon-gray-800'
+                            />
+                        </button>
+                    </div>
                 </td>
             </tr >
             <tr>
                 <td colSpan={8} style={{ padding: 0 }}>
                     <div id={`kt_job_4_${indexing}`} className="collapse fs-6 ms-1">
-                        <div className="ps-10 pb-5" style={{background: 'azure'}}>
+                        <div className="ps-10 pb-5" style={{ background: 'azure' }}>
                             <StudyContent
                                 id={data.ID}
                                 totalData={totalData}

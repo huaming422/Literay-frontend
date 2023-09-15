@@ -5,14 +5,13 @@ import { MenuComponent } from '../../../../../_metronic/assets/ts/components';
 import { useIntl } from 'react-intl';
 import { KTSVG } from '../../../../../_metronic/helpers'
 import { Resizable } from 're-resizable';
-import * as item from '../../redux/Devicesredux'
 import * as devices from '../../redux/Devicesredux'
 import { useDispatch } from 'react-redux';
 import { alphabeticallyPatient } from '../../../../../setup/utils/utils';
 import PatientTableItem from '../PatientTableItem';
 import Pagenation2 from '../../../../components/pagination2/Pagenation';
 import DateField from '../../../../components/DateField';
-import { getFilteringData, uploadPatients } from '../../redux/DevicesCRUD';
+import { deletePatient, getFilteringData, uploadPatients } from '../../redux/DevicesCRUD';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -292,6 +291,99 @@ const TabContent = (props: any) => {
     })
 
     getDatas();
+  }
+
+  const handlePreviewItem = (id: string) => {
+    window.open(`${process.env.REACT_APP_APP_URL}/stone-webviewer/index.html?patient=${id}`, "_blank")
+  }
+
+  const handleDeleteItem = (name: string, id: string) => {
+    // @ts-ignore
+    Swal.fire({
+      text: `Do you really want to delete patient ${name}?`,
+      icon: "warning",
+      showCancelButton: true,
+      buttonsStyling: false,
+      confirmButtonText: intl.formatMessage({ id: 'SEARCH.DELETE' }),
+      cancelButtonText: intl.formatMessage({ id: 'SEARCH.CANCEL' }),
+      customClass: {
+        confirmButton: "btn btn-primary",
+        cancelButton: "btn btn-active-light"
+      }
+    }).then(async function (result: any) {
+      if (result.value) {
+        deletePatient(id)
+          .then((res) => {
+            toast.success(`Deleted Successfully`, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+            let tempData = totalData.filter((item: any) => item.ID !== id);
+            setTotalData(() => [...tempData])
+          })
+          .catch((err) => {
+            toast.error(`Deleting Failed`, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          })
+      } else if (result.dismiss === 'cancel') {
+
+      }
+    });
+  }
+
+  const handleUploadItem = (id: string) => {
+    const body = {
+      Resources: [id],
+      Synchronous: false
+    }
+    uploadPatients(body)
+      .then((res: any) => {
+        toast.success(`Uploaded Successfully`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      })
+      .catch((error: any) => {
+        console.log(error)
+        toast.error(`Uploading Failed`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      })
+
+  }
+
+  const handleDownload = (id: string) => {
+    var a = document.createElement("a");
+    a.href = `${process.env.REACT_APP_APP_URL}/patients/${id}/archive`
+    a.download = `${id}.zip`;
+    a.click();
   }
 
   return (
@@ -579,6 +671,10 @@ const TabContent = (props: any) => {
                       handleSelect={toggleSetting}
                       selectedStudyRow={selectedStudyRow}
                       setSelectedStudyRow={setSelectedStudyRow}
+                      handleUpload={handleUploadItem}
+                      handleDelete={handleDeleteItem}
+                      handlePreview={handlePreviewItem}
+                      handleDownload={handleDownload}
                     />
                   );
                 }) : (

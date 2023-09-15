@@ -8,7 +8,9 @@ import { Resizable } from 're-resizable';
 import { alphabeticallyOther } from '../../../../../setup/utils/utils';
 import StudyTableItem from '../StudyTableItem';
 import Pagenation2 from '../../../../components/pagination2/Pagenation';
-
+import { deleteStudy, uploadPatients } from '../../redux/DevicesCRUD';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const StudyContent = (props: any) => {
   const {id, totalData, setTotalData, headers, parentWidth, selectedRow, setSelectedRow } = props;
@@ -118,12 +120,12 @@ const StudyContent = (props: any) => {
   }
 
   const handleSort = (item: any, flag: boolean) => {
-    setCurrentSort(item.field);
+    setCurrentSort(item?.field);
     setSortFlag(flag);
-    const items = [...totalData].sort(alphabeticallyOther(item.tag, flag));
+    const items = [...totalData].sort(alphabeticallyOther(item?.tag, flag));
 
     let sort = sortAsc;
-    sort[item.field] = !flag;
+    sort[item?.field] = !flag;
     setSortASC(sort);
     setTotalData([...items]);
   }
@@ -135,8 +137,101 @@ const StudyContent = (props: any) => {
     // eslint-disable-next-line
   }, [sortAsc])
 
+  const handlePreviewItem = (id: string) => {
+    window.open(`${process.env.REACT_APP_APP_URL}/stone-webviewer/index.html?study=${id}`, "_blank")
+  }
+
+  const handleDeleteItem = (name: string, id: string) => {
+    // @ts-ignore
+    Swal.fire({
+      text: `Do you really want to delete study ${name}?`,
+      icon: "warning",
+      showCancelButton: true,
+      buttonsStyling: false,
+      confirmButtonText: "Delete",
+      cancelButtonText: "Cancel",
+      customClass: {
+        confirmButton: "btn btn-primary",
+        cancelButton: "btn btn-active-light"
+      }
+    }).then(async function (result: any) {
+      if (result.value) {
+        deleteStudy(id)
+          .then((res) => {
+            toast.success(`Deleted Successfully`, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+            let tempData = totalData.filter((item: any) => item.ID !== id);
+            setTotalData(() => [...tempData])
+          })
+          .catch((err) => {
+            toast.error(`Deleting Failed`, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          })
+      } else if (result.dismiss === 'cancel') {
+
+      }
+    });
+  }
+
+  const handleUploadItem = (id: string) => {
+    const body = {
+      Resources: [id],
+      Synchronous: false
+    }
+    uploadPatients(body)
+      .then((res: any) => {
+        toast.success(`Uploaded Successfully`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      })
+      .catch((error: any) => {
+        console.log(error)
+        toast.error(`Uploading Failed`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      })
+
+  }
+
+  const handleDownload = (id: string) => {
+    var a = document.createElement("a");
+    a.href = `${process.env.REACT_APP_APP_URL}/studies/${id}/archive`
+    a.download = `${id}.zip`;
+    a.click();
+  }
+
   return (
-    <div style={{width: `${parentWidth-23}px`, paddingRight: 20}} >
+    <div style={{width: `${parentWidth-23}px`}} >
       <div className='pb-0 pt-3'>
         <div className='d-flex justify-content-between'>
           <div className='d-flex'>
@@ -247,6 +342,10 @@ const StudyContent = (props: any) => {
                       setSelectedRow={setSelectedRow}
                       selectedRow={selectedRow}
                       headers={columnNames}
+                      handleUpload={handleUploadItem}
+                      handleDelete={handleDeleteItem}
+                      handlePreview={handlePreviewItem}
+                      handleDownload={handleDownload}
                     />
                   );
                 }) : (
