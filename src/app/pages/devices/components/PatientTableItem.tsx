@@ -1,13 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import DateValue from '../../../components/DateValue';
 import 'react-toastify/dist/ReactToastify.css';
-import { KTSVG } from '../../../../_metronic/helpers';
 import { StudyContent } from './steps/StudyContent';
 import { DStudyHead } from '../data';
 import { getStudytData } from '../redux/DevicesCRUD';
-import TextValue from '../../../components/TextValue';
 import TextValueAction from '../../../components/TextValueAction';
 import DateValueAction from '../../../components/DateValueAction';
 

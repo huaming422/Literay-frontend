@@ -7,7 +7,7 @@ import { KTSVG } from '../../../../../_metronic/helpers'
 import { Resizable } from 're-resizable';
 import * as item from '../../redux/Devicesredux'
 import { useDispatch } from 'react-redux';
-import { alphabetically, alphabeticallyPatient } from '../../../../../setup/utils/utils';
+import { alphabeticallyPatient } from '../../../../../setup/utils/utils';
 import PatientTableItem from '../PatientTableItem';
 import Pagenation2 from '../../../../components/pagination2/Pagenation';
 

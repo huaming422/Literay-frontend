@@ -5,7 +5,7 @@ import { MenuComponent } from '../../../../../_metronic/assets/ts/components';
 import { KTSVG } from '../../../../../_metronic/helpers'
 import { Resizable } from 're-resizable';
 // import * as item from '../../redux/Devicesredux'
-import { alphabetically, alphabeticallyOther } from '../../../../../setup/utils/utils';
+import { alphabeticallyOther } from '../../../../../setup/utils/utils';
 import StudyTableItem from '../StudyTableItem';
 import Pagenation2 from '../../../../components/pagination2/Pagenation';
 
@@ -17,7 +17,7 @@ const StudyContent = (props: any) => {
   const [columnItems, setColumnItems] = useState<any[]>([]);
   const [columnNames, setColumnNames] = useState<any[]>([]);
   const [sortAsc, setSortASC] = useState<any>();
-  const [currentsort, setCurrentSort] = useState<string>("id");
+  const [currentsort, setCurrentSort] = useState<string>("name");
   const [sortFlag, setSortFlag] = useState<boolean>(true);
 
   const [columnWidthsObj, setColumnWidthsObj] = useState<any>({});

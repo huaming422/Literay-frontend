@@ -2,37 +2,20 @@
 /* eslint-disable react/jsx-no-target-blank */
 import React, { useEffect, useState } from 'react'
 import { AsideMenuItem } from './AsideMenuItem'
-// import { useIntl } from 'react-intl'
 import { AsideMenuItemWithSub } from './AsideMenuItemWithSub';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../../setup';
-import * as devices from '../../../../app/pages/modalityConfig/redux/DeviceConfigredux'
-import { DModalityColumnValues } from '../../../../app/pages/modalityConfig/data';
+import { getModalityNames } from '../../../../app/pages/modalityConfig/redux/DeviceConfigCRUD';
 
 export function AsideMenuMain() {
-  const dispatch = useDispatch();
   const [totalData, setTotalData] = useState<any[]>([]);
 
-  const columnValues: any = useSelector<RootState>(({ modalityConfig }) => modalityConfig.deviceConfigSettingColumnValues, shallowEqual) as any;
-
-  useEffect(() => {
-    if (columnValues) {
-      setTotalData(columnValues);
-    }
-  }, [columnValues])
-
-
   const getDatas = () => {
-    dispatch(devices.actions.getDeviceConfigSettingTableData(DModalityColumnValues))
-    // getDeviceConfigSettingsData(body)
-    //   .then((res: any) => {
-    //     let { data } = res;
-    //     dispatch(item.actions.getDeviceConfigSettingTableData(data))
-    //   })
-    //   .catch((error: any) => {
-    //     debugger
-    //     setHasIssue(true);
-    //   })
+    getModalityNames()
+      .then((res: any) => {
+        let { data } = res;
+        setTotalData(data);
+      })
+      .catch((error: any) => {
+      })
   }
 
 
@@ -52,7 +35,7 @@ export function AsideMenuMain() {
         {
           totalData?.map((item: any, index: any) => {
             return (
-              <AsideMenuItem key={index} to={`/devices/${item.id}`} title={item.ae_title} hasBullet={true} />
+              <AsideMenuItem key={index} to={`/devices/${item}`} title={item} hasBullet={true} />
             )
           })
         }

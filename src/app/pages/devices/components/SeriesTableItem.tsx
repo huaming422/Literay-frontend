@@ -38,6 +38,7 @@ const SeriesTableItem = (props: any) => {
                 setOdd(false)
             }
         }
+        // eslint-disable-next-line
     }, [indexing, selectedRow])
 
     useEffect(() => {
@@ -51,6 +52,7 @@ const SeriesTableItem = (props: any) => {
 
     useEffect(() => {
         getDatas();
+        // eslint-disable-next-line
     }, [data.ParentStudy])
 
     return (
@@ -106,7 +108,7 @@ const SeriesTableItem = (props: any) => {
             <tr>
                 <td colSpan={18} style={{ padding: 0 }}>
                     <div id={`kt_series_${data.ParentStudy}_${indexing}`} className="collapse fs-6 ms-1">
-                        <div className="ps-10 pb-5 "  style={{background: '#f1f1f1'}}>
+                        <div className="ps-10 pb-5 " style={{ background: '#f1f1f1' }}>
                             <ImagesContent
                                 id={data.id}
                                 totalData={totalData}
