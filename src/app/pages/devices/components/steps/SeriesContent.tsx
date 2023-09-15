@@ -17,7 +17,7 @@ const SeriesContent = (props: any) => {
   const [columnItems, setColumnItems] = useState<any[]>([]);
   const [columnNames, setColumnNames] = useState<any[]>([]);
   const [sortAsc, setSortASC] = useState<any>();
-  const [currentsort, setCurrentSort] = useState<string>("name");
+  const [currentsort, setCurrentSort] = useState<string>(headers[0]);
   const [sortFlag, setSortFlag] = useState<boolean>(true);
   const [selectedRow, setSelectedRow] = useState<any>(null);
   const [columnWidthsObj, setColumnWidthsObj] = useState<any>({});

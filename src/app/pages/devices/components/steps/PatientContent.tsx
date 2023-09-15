@@ -12,15 +12,16 @@ import { alphabeticallyPatient } from '../../../../../setup/utils/utils';
 import PatientTableItem from '../PatientTableItem';
 import Pagenation2 from '../../../../components/pagination2/Pagenation';
 import DateField from '../../../../components/DateField';
-import { getFilteringData } from '../../redux/DevicesCRUD';
+import { getFilteringData, uploadPatients } from '../../redux/DevicesCRUD';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const TabContent = (props: any) => {
   const { totalData, setTotalData, headers, getDatas } = props;
 
   // eslint-disable-next-line
   const [hasIssue, setHasIssue] = useState<boolean>(false);
-  // eslint-disable-next-line
-  const [uploading, setDeleting] = useState<boolean>(false);
+  const [uploading, setUploading] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalColumnItems, setTotalColumnItems] = useState<any[]>(totalData);
   const [columnItems, setColumnItems] = useState<any[]>([]);
@@ -30,7 +31,7 @@ const TabContent = (props: any) => {
   const [selectedStudyRow, setSelectedStudyRow] = useState<any>(null);
 
   const [sortAsc, setSortASC] = useState<any>();
-  const [currentsort, setCurrentSort] = useState<string>("name");
+  const [currentsort, setCurrentSort] = useState<string>(headers[0]);
   const [sortFlag, setSortFlag] = useState<boolean>(true);
   const [checkAll, setCheckedAll] = useState<boolean>(false);
 
@@ -90,15 +91,11 @@ const TabContent = (props: any) => {
 
   const removeChecks = () => {
     setCheckedAll(false)
-    const currentPageIds = currentTableData.map((row) => row.id);
+    const currentPageIds = currentTableData.map((row) => row.ID);
     const newSelectedRows = checkedData.filter(
       (rowId) => !currentPageIds.includes(rowId)
     );
     setCheckedData(newSelectedRows);
-
-    dispatch(item.actions.getStudyData([]))
-    dispatch(item.actions.getSeriesData([]))
-    dispatch(item.actions.getImagesData([]))
   }
 
   useEffect(() => {
@@ -136,6 +133,41 @@ const TabContent = (props: any) => {
   }, [headers])
 
   const handleUpload = () => {
+    const body = {
+      Resources: [...checkedData],
+      Synchronous: false
+    }
+    setUploading(true);
+    uploadPatients(body)
+      .then((res: any) => {
+        setUploading(false)
+        toast.success(`Uploaded Successfully`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        removeChecks();
+      })
+      .catch((error: any) => {
+        console.log(error)
+        setUploading(false)
+        toast.error(`Uploading Failed`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        removeChecks();
+      })
 
   }
 
@@ -200,7 +232,7 @@ const TabContent = (props: any) => {
   }
 
   const handleSort = (item: any, flag: boolean) => {
-    setCurrentSort(item.field);
+    setCurrentSort(item?.field);
     setSortFlag(flag);
     const items = [...totalData].sort(alphabeticallyPatient(item.tag, flag));
 
@@ -335,7 +367,7 @@ const TabContent = (props: any) => {
               <div className='d-flex align-items-center position-relative me-1'>
                 <input
                   type='text'
-                  className='form-control form-control-white form-control-sm ps-9'
+                  className='form-control form-control-white form-control-sm'
                   placeholder='Patient Id'
                   value={filters.patientId}
                   onChange={(e) => setFilters((filters: any) => ({ ...filters, patientId: e.target.value }))}
@@ -344,7 +376,7 @@ const TabContent = (props: any) => {
               <div className='d-flex align-items-center position-relative me-1'>
                 <input
                   type='text'
-                  className='form-control form-control-white form-control-sm ps-9'
+                  className='form-control form-control-white form-control-sm'
                   placeholder='Study Description'
                   value={filters.studyDescription}
                   onChange={(e) => setFilters((filters: any) => ({ ...filters, studyDescription: e.target.value }))}

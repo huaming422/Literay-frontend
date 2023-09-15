@@ -20,4 +20,6 @@ export function getFilteringData(props: any) {
   return axios.post(`/tools/find`, {...props})
 }
 
-
+export function uploadPatients(props: any) {
+  return axios.post(`/modalities/LiteryMainPACS/store`, {...props})
+}

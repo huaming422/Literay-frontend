@@ -17,7 +17,7 @@ const StudyContent = (props: any) => {
   const [columnItems, setColumnItems] = useState<any[]>([]);
   const [columnNames, setColumnNames] = useState<any[]>([]);
   const [sortAsc, setSortASC] = useState<any>();
-  const [currentsort, setCurrentSort] = useState<string>("name");
+  const [currentsort, setCurrentSort] = useState<any>(headers[0]);
   const [sortFlag, setSortFlag] = useState<boolean>(true);
 
   const [columnWidthsObj, setColumnWidthsObj] = useState<any>({});
