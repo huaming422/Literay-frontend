@@ -6,12 +6,14 @@ import * as modalityConfig from '../../app/pages/modalityConfig'
 import * as localAE from '../../app/pages/localAE'
 import * as devices from '../../app/pages/devices'
 import * as settings from '../../app/pages/settings'
+import * as patients from '../../app/pages/patients'
 
 export const rootReducer = combineReducers({
   auth: auth.reducer,
   modalityConfig: modalityConfig.reducer,
   localAE: localAE.reducer,
   devices: devices.reducer,
+  patients: patients.reducer,
   settings: settings.reducer,
 })
 

@@ -26,6 +26,12 @@ export function AsideMenuMain() {
 
   return (
     <>
+      <AsideMenuItem
+        to='/patients'
+        icon='/media/icons/duotune/art/art006.svg'
+        title="Patients"
+        fontIcon='bi-app-indicator'
+      />
       <AsideMenuItemWithSub
         to='/devices'
         title='Devices'

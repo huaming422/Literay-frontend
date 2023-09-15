@@ -27,7 +27,7 @@ const AsideDefault: FC = () => {
       <div className='aside-logo flex-column-auto' id='kt_aside_logo'>
         {/* begin::Logo */}
         {aside.theme === 'dark' && (
-          <Link to='/modality'>
+          <Link to='/patients'>
             <div className='d-flex flex-direction-row align-items-end'>
               <img
                 alt='Logo'
@@ -39,7 +39,7 @@ const AsideDefault: FC = () => {
           </Link>
         )}
         {aside.theme === 'light' && (
-          <Link to='/modality'>
+          <Link to='/patients'>
             <div className='d-flex flex-direction-row align-items-end'>
               <img
                 alt='Logo'
