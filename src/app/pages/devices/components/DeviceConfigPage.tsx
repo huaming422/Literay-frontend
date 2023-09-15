@@ -55,6 +55,7 @@ const DeviceConfigPage = (props: any) => {
                 totalData={totalData}
                 setTotalData={setTotalData}
                 headers={DPatientHead}
+                getDatas={getDatas}
               />
               {
                 seriesColumnValues?.length > 0 &&

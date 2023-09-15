@@ -6,13 +6,16 @@ import { useIntl } from 'react-intl';
 import { KTSVG } from '../../../../../_metronic/helpers'
 import { Resizable } from 're-resizable';
 import * as item from '../../redux/Devicesredux'
+import * as devices from '../../redux/Devicesredux'
 import { useDispatch } from 'react-redux';
 import { alphabeticallyPatient } from '../../../../../setup/utils/utils';
 import PatientTableItem from '../PatientTableItem';
 import Pagenation2 from '../../../../components/pagination2/Pagenation';
+import DateField from '../../../../components/DateField';
+import { getFilteringData } from '../../redux/DevicesCRUD';
 
 const TabContent = (props: any) => {
-  const { totalData, setTotalData, headers } = props;
+  const { totalData, setTotalData, headers, getDatas } = props;
 
   // eslint-disable-next-line
   const [hasIssue, setHasIssue] = useState<boolean>(false);
@@ -31,10 +34,15 @@ const TabContent = (props: any) => {
   const [sortFlag, setSortFlag] = useState<boolean>(true);
   const [checkAll, setCheckedAll] = useState<boolean>(false);
 
+  const [activeAdd, setActiveAdd] = useState<boolean>(false);
+
   const [filters, setFilters] = useState<any>({
-    search: "",
+    patientName: "",
     patientId: "",
-    status: ""
+    studyDescription: "",
+    studyDate: "",
+    modalitiesInStudy: "",
+    accessionNumber: ""
   })
 
   const [columnWidthsObj, setColumnWidthsObj] = useState<any>({});
@@ -217,6 +225,43 @@ const TabContent = (props: any) => {
     // eslint-disable-next-line
   }, [ref.current]);
 
+  const handleSearch = () => {
+    const body = {
+      Level: "Patient",
+      Limit: 100,
+      Query: {
+        AccessionNumber: filters.accessionNumber,
+        ModalitiesInStudy: filters.modalitiesInStudy,
+        PatientID: filters.patientId,
+        PatientName: filters.patientName,
+        StudyDescription: filters.studyDescription,
+        StudyDate: filters.studyDate.replace("-", "")
+      },
+      Expand: true
+    }
+    getFilteringData(body)
+      .then((res: any) => {
+        let { data } = res;
+        dispatch(devices.actions.getPatientData(data))
+      })
+      .catch((error: any) => {
+        console.log(error)
+      })
+  }
+
+  const handleClearFilter = () => {
+    setFilters({
+      patientName: "",
+      patientId: "",
+      studyDescription: "",
+      studyDate: "",
+      modalitiesInStudy: "",
+      accessionNumber: ""
+    })
+
+    getDatas();
+  }
+
   return (
     <div className='w-100' ref={ref} >
       <div className='pb-6'>
@@ -282,7 +327,16 @@ const TabContent = (props: any) => {
                 <input
                   type='text'
                   className='form-control form-control-white form-control-sm'
-                  placeholder='Date Range'
+                  placeholder='Patient Name'
+                  value={filters.patientName}
+                  onChange={(e) => setFilters((filters: any) => ({ ...filters, patientName: e.target.value }))}
+                />
+              </div>
+              <div className='d-flex align-items-center position-relative me-1'>
+                <input
+                  type='text'
+                  className='form-control form-control-white form-control-sm ps-9'
+                  placeholder='Patient Id'
                   value={filters.patientId}
                   onChange={(e) => setFilters((filters: any) => ({ ...filters, patientId: e.target.value }))}
                 />
@@ -291,34 +345,39 @@ const TabContent = (props: any) => {
                 <input
                   type='text'
                   className='form-control form-control-white form-control-sm ps-9'
-                  placeholder='Modality'
-                  value={filters.search}
-                  onChange={(e) => setFilters((filters: any) => ({ ...filters, search: e.target.value }))}
+                  placeholder='Study Description'
+                  value={filters.studyDescription}
+                  onChange={(e) => setFilters((filters: any) => ({ ...filters, studyDescription: e.target.value }))}
                 />
               </div>
+              <DateField
+                name={"studyDate"}
+                date={filters.studyDate}
+                setFilters={setFilters}
+              />
               <div className='d-flex align-items-center position-relative me-1'>
                 <input
                   type='text'
-                  className='form-control form-control-white form-control-sm ps-9'
-                  placeholder='Patient Name'
-                  value={filters.search}
-                  onChange={(e) => setFilters((filters: any) => ({ ...filters, search: e.target.value }))}
+                  className='form-control form-control-white form-control-sm'
+                  placeholder='Modalities In Study'
+                  value={filters.modalitiesInStudy}
+                  onChange={(e) => setFilters((filters: any) => ({ ...filters, modalitiesInStudy: e.target.value }))}
                 />
               </div>
               <div className='d-flex align-items-center position-relative me-1'>
                 <input
                   type='text'
                   className='form-control form-control-white form-control-sm'
-                  placeholder='Patient ID'
-                  value={filters.patientId}
-                  onChange={(e) => setFilters((filters: any) => ({ ...filters, patientId: e.target.value }))}
+                  placeholder='Accession Number'
+                  value={filters.accessionNumber}
+                  onChange={(e) => setFilters((filters: any) => ({ ...filters, accessionNumber: e.target.value }))}
                 />
               </div>
             </div>
             <div className='d-flex'>
               <button
                 className={`btn btn-sm btn-flex btn-info fw-bolder me-1`}
-                onClick={() => { }}
+                onClick={handleSearch}
               >
                 <KTSVG
                   path='/media/icons/duotune/general/gen021.svg'
@@ -328,14 +387,32 @@ const TabContent = (props: any) => {
                   "Search"
                 }
               </button>
-              <button
-                className={`btn btn-outline btn-outline-info btn-sm btn-flex fw-bolder`}
-                onClick={() => { }}
-              >
-                {
-                  "Clear Filter"
-                }
-              </button>
+              {
+                activeAdd ?
+                  <button
+                    className={`btn btn-outline btn-outline-info btn-sm btn-flex fw-bolder`}
+                    onMouseLeave={() => setActiveAdd(false)}
+                    onMouseOver={() => setActiveAdd(true)}
+                    onClick={handleClearFilter}
+                  >
+                    {
+                      "Clear Filter"
+                    }
+                  </button>
+                  :
+                  <button
+                    className={`btn btn-outline btn-outline-info btn-sm btn-flex fw-bolder`}
+                    style={{ color: '#7239EA', backgroundColor: '#F8F5FF' }}
+                    onMouseLeave={() => setActiveAdd(false)}
+                    onMouseOver={() => setActiveAdd(true)}
+                    onClick={handleClearFilter}
+                  >
+                    {
+                      "Clear Filter"
+                    }
+                  </button>
+
+              }
             </div>
           </div>
         </div>

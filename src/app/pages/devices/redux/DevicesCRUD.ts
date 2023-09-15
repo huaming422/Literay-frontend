@@ -16,3 +16,8 @@ export function getImagesData(seriesid: string) {
   return axios.get(`/series/${seriesid}/instances?full`)
 }
 
+export function getFilteringData(props: any) {
+  return axios.post(`/tools/find`, {...props})
+}
+
+
