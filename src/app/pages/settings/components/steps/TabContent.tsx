@@ -8,6 +8,7 @@ const TabContent = (props: any) => {
   const [docsTotalData, setDocsTotalData] = useState<any[]>([]);
   const [docsInsertedArray, setDocsInsertedArray] = useState<any[]>([])
   const [docsDeletedArray, setDocsDeletedArray] = useState<any[]>([])
+  // eslint-disable-next-line
   const [hasIssue, setHasIssue] = useState<boolean>(false);
   const [hasChanged, setHasChanged] = useState<boolean>(false);
   const [uploading, setUploading] = useState<boolean>(false);
@@ -67,13 +68,13 @@ const TabContent = (props: any) => {
         <div className='row g-6 g-xl-9'>
           <div className="col-md-6">
             <TextInput
-              value={statistics.CountStudies}
+              value={statistics.CountStudies || ""}
               name="studies"
               header={"Studies"}
               handleChange={() => { }}
             />
             <TextInput
-              value={statistics.CountSeries}
+              value={statistics.CountSeries || ""}
               name="series"
               header={"Series"}
               handleChange={() => { }}
@@ -82,13 +83,13 @@ const TabContent = (props: any) => {
           </div>
           <div className="col-md-6">
             <TextInput
-              value={statistics.CountInstances}
+              value={statistics.CountInstances || ""}
               name="instances"
               header={"Instances"}
               handleChange={() => { }}
             />
             <TextInput
-              value={`${statistics.TotalUncompressedSizeMB}MB`}
+              value={`${statistics.TotalUncompressedSizeMB || ""}MB`}
               name="storagesize"
               header={"Storage Size"}
               handleChange={() => { }}
@@ -114,25 +115,25 @@ const TabContent = (props: any) => {
         <div className='row g-6 g-xl-9'>
           <div className="col-md-6">
             <TextInput
-              value={systemInfo.Version}
+              value={systemInfo.Version || ""}
               name="version"
               header={"Version"}
               handleChange={() => { }}
             />
             <TextInput
-              value={systemInfo.Name}
+              value={systemInfo.Name || ""}
               name="name"
               header={"Name"}
               handleChange={() => { }}
             />
             <TextInput
-              value={systemInfo.DicomAet}
+              value={systemInfo.DicomAet || ""}
               name="aet"
               header={"DICOM AET"}
               handleChange={() => { }}
             />
             <TextInput
-              value={systemInfo.DicomPort}
+              value={systemInfo.DicomPort || ""}
               name="port"
               header={"DICOM Port"}
               handleChange={() => { }}
@@ -140,19 +141,19 @@ const TabContent = (props: any) => {
           </div>
           <div className="col-md-6">
             <TextInput
-              value={systemInfo.IngestTranscoding}
+              value={systemInfo.IngestTranscoding || ""}
               name="ingest_transcoding"
               header={"Ingest Transcoding"}
               handleChange={() => { }}
             />
             <TextInput
-              value={systemInfo.OverwriteInstances}
+              value={systemInfo.OverwriteInstances || ""}
               name="instances"
               header={"Overwrite instances"}
               handleChange={() => { }}
             />
             <TextInput
-              value={systemInfo.StorageCompression}
+              value={systemInfo.StorageCompression || ""}
               name="storage_compression"
               header={"Storage Compression"}
               handleChange={() => { }}
